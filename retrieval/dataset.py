@@ -2,11 +2,13 @@
 # -> 
 #################################################################################
 
+import sys
 import cv2
 import os
 import numpy as np
 import math
 import caffe
+import skimage as ski
 
 LABELS_DICT = {}
 
@@ -28,12 +30,13 @@ class Dataset:
     windowPointer = 0
     files = []
 
-    def __init__(self, path, onlyLogos = True):
+    def __init__(self, path, imageSize, onlyLogos = True):
         self.data = []
-        self.loadImages(path, onlyLogos)
+        self.loadImages(path, onlyLogos, imageSize)
 
     def readWindows(self, filePath, windowSize):
         image = Image(filePath)
+        #img = ski.io.imread(filename)
         img = cv2.imread(filePath)
         #img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         height, width = img.shape[:2]
@@ -55,13 +58,18 @@ class Dataset:
                         image.windows.append(window)
         self.data.append(image)
 
-    def readCompleteImage(self, filePath):
+    def readCompleteImage(self, filePath, imageSize):
         image = Image(filePath)
-        image.windows.append(cv2.imread(filePath))
+        img = cv2.imread(filePath)
+        img = cv2.resize(img,(imageSize, imageSize), interpolation = cv2.INTER_CUBIC)
+        img = np.array([img]).astype(np.float32)
+        img = np.transpose(np.asarray(img), (0,3,1,2))
+        img = np.ascontiguousarray(img, dtype=np.float32)
+        image.windows.append(img)
         self.data.append(image)
 
     # reads images to the memory
-    def loadImages(self, path, onlyLogos):
+    def loadImages(self, path, onlyLogos, imageSize):
         i = 0
         for subdir, dirs, files in os.walk(path):
             for f in files:
@@ -71,9 +79,9 @@ class Dataset:
                     print i
                 if onlyLogos and subdir.split('/')[-1] == 'no-logo':
                     continue
-                self.readCompleteImage(filename)
+                self.readCompleteImage(filename, imageSize)
         self.imagePointer = 0
-        print i 
+        print i
 
     def addImages(self, path):
         self.loadImages(path)
@@ -86,7 +94,7 @@ class Dataset:
         self.imagePointer = self.imagePointer + 1
 
     def hasMoreImage(self):
-        return True if not (self.data[self.imagePointer]) else False
+        return True if not (self.data[self.imagePointer] == None) else False
 
     def reset(self):
         self.imagePointer = 0
@@ -98,7 +106,7 @@ class Dataset:
             return None
         if self.windowPointer >= len(image.windows):
             return None
-        window = image.windows[self.windowPointer].data
+        window = image.windows[self.windowPointer]
         self.windowPointer = self.windowPointer + 1
         return window
 

@@ -15,17 +15,20 @@ import operator
 
 # parameters
 
-MAINPATH = '/home/atuezkoe/CaffeData/data/'
+#MAINPATH = '/home/atuezkoe/CaffeData/data/'
+MAINPATH = '/home/andras/data/'
 
-TRAINPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/train/'
-VALPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/val/'
-TESTPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/test/'
+
+TRAINPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/train/'
+VALPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/val/'
+TESTPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/test/'
 
 RESULTPATH = './result/'
 RESULTPOSTFIX = '.result2.txt'
 
+IMAGESIZE = 224
 modelDef = '../models/VGG_ILSVRC_16_layers_deploy.prototxt'
-modelParams = MAINPATH + 'models/caffe_alexnet_train_iter_10000.caffemodel'
+modelParams = MAINPATH + 'models/VGG_ILSVRC_16_layers.caffemodel'
 gpu = True
 
 # Make settings
@@ -39,10 +42,10 @@ else:
 
 ### step 1: load data
 print('{:s} - Load test data'.format(str(datetime.datetime.now()).split('.')[0]))
-testDataset = Dataset(TRAINPATH, False)
-#testDataset.addImages(VALPATH)
+testDataset = Dataset(TRAINPATH, IMAGESIZE, onlyLogos = False)
+#testDataset.addImages(VALPATH, IMAGESIZE, onlyLogos = False)
 
-queryDataset = Dataset(TESTPATH, True)
+queryDataset = Dataset(TESTPATH, IMAGESIZE, onlyLogos = True)
 
 
 ### step 2: prepare net
@@ -56,22 +59,26 @@ print('{:s} - Testing'.format(str(datetime.datetime.now()).split('.')[0]))
 labels = []
 distances = []
 result = dict()
-while queryDataset.hasMoreImages():
+while queryDataset.hasMoreImage():
     queryWindow = queryDataset.getNextWindow()
-    net.set_input_arrays(queryWindow.data)
+    label = np.array([[[[1]]]]).astype(np.float32)
+    print np.shape(queryWindow)
+    print np.shape(label)
+    net.set_input_arrays(queryWindow, label)
     net.forward()
 
     queryFeature = net.blobs['pool5'].data
 
     testDataset.reset()
     minDistance = float("inf")
-    while testDataset.hasMoreImages():
+    while testDataset.hasMoreImage():
         testWindow = testDataset.getNextWindow()
-        net.set_input_arrays(testWindow.data)
+        net.set_input_arrays(testWindow, label)
         net.forward()
         testFeature = net.blobs['pool5'].data
         distance = np.sum((queryFeature - testFeature)**2, axis=1)     # euclidean distance between sample pairs
-        result[testDataset.getActFilename()] = distance
+        result[testDataset.getActFileName()] = distance
+        print distance
         if distance < minDistance:
             minDistance = distance
 
@@ -86,7 +93,7 @@ while queryDataset.hasMoreImages():
 
     if not os.path.exists(RESULTPATH):
         os.makedirs(RESULTPATH)
-    with open(os.path.join(RESULTPATH, queryDatabase.getActFilename() + RESULTPOSTFIX), 'w') as res:
+    with open(os.path.join(RESULTPATH, queryDatabase.getActFileName() + RESULTPOSTFIX), 'w') as res:
         for i in range(len(sortedResult)):
             res.write(sortedResult[i][0] + " " + sortedResult[i][1])
 
