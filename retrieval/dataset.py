@@ -12,7 +12,6 @@ LABELS_DICT = {}
 
 class Window:
     data = None
-    confidency = 0
     def __init__(self):
         self.data = []
 
@@ -28,11 +27,10 @@ class Dataset:
     imagePointer = 0
     windowPointer = 0
     files = []
-    image = None
 
-    def __init__(self, path):
+    def __init__(self, path, onlyLogos = True):
         self.data = []
-        self.loadImages(path)
+        self.loadImages(path, onlyLogos)
 
     def readWindows(self, filePath, windowSize):
         image = Image(filePath)
@@ -63,13 +61,16 @@ class Dataset:
         self.data.append(image)
 
     # reads images to the memory
-    def loadImages(self, path):
+    def loadImages(self, path, onlyLogos):
         i = 0
         for subdir, dirs, files in os.walk(path):
             for f in files:
                 filename = os.path.join(subdir, f)
                 i = i + 1
-                print filename
+                if i % 100 == 0:
+                    print i
+                if onlyLogos and subdir.split('/')[-1] == 'no-logo':
+                    continue
                 self.readCompleteImage(filename)
         self.imagePointer = 0
         print i 
@@ -82,20 +83,28 @@ class Dataset:
         # if no more images in the memory to be read
         if self.imagePointer >= len(self.data):
             return None
-        self.image = self.data[self.imagePointer : self.imagePointer+1][0]
-        print self.data[self.imagePointer : self.imagePointer+1][0]
-#        print self.data[self.imagePointer]
         self.imagePointer = self.imagePointer + 1
 
     def hasMoreImage(self):
         return True if not (self.data[self.imagePointer]) else False
 
+    def reset(self):
+        self.imagePointer = 0
+        self.windowPointer = 0
+
     def getNextWindow(self):
-        if self.image is None:
+        image = self.data[self.imagePointer]
+        if image is None:
             return None
-        if self.windowPointer >= len(self.image.windows):
+        if self.windowPointer >= len(image.windows):
             return None
-        window = self.image.windows[self.windowPointer : self.windowPointer+1][0]
+        window = image.windows[self.windowPointer].data
         self.windowPointer = self.windowPointer + 1
         return window
+
+    def getActFilePath(self):
+        return self.data[self.imagePointer].filePath
+    def getActFileName(self):
+        filePath = self.getActFilePath()
+        return filePath.split('/')[-1]
 

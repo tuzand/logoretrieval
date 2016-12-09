@@ -10,6 +10,7 @@ import datetime
 import caffe
 from dataset import Dataset
 import sys
+import operator
                    
 
 # parameters
@@ -20,10 +21,11 @@ TRAINPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/train/'
 VALPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/val/'
 TESTPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/test/'
 
-LABELS_FILE = '../../preprocessedData/labels/labels.txt'
+RESULTPATH = './result/'
+RESULTPOSTFIX = '.result2.txt'
 
-modelDef = MAINPATH + 'models/VGG/VGG_ILSVRC_16_layers_deploy.prototxt'
-modelParams = MAINPATH + 'models/VGG/caffe_alexnet_train_iter_10000.caffemodel'
+modelDef = '../models/VGG_ILSVRC_16_layers_deploy.prototxt'
+modelParams = MAINPATH + 'models/caffe_alexnet_train_iter_10000.caffemodel'
 gpu = True
 
 # Make settings
@@ -37,11 +39,10 @@ else:
 
 ### step 1: load data
 print('{:s} - Load test data'.format(str(datetime.datetime.now()).split('.')[0]))
-testDataset = Dataset(TRAINPATH)
-testDataset.addImages(VALPATH)
+testDataset = Dataset(TRAINPATH, False)
+#testDataset.addImages(VALPATH)
 
-queryDataset = Dataset(TESTPATH)
-sys.exit(0)
+queryDataset = Dataset(TESTPATH, True)
 
 
 ### step 2: prepare net
@@ -54,6 +55,7 @@ print('{:s} - Testing'.format(str(datetime.datetime.now()).split('.')[0]))
 
 labels = []
 distances = []
+result = dict()
 while queryDataset.hasMoreImages():
     queryWindow = queryDataset.getNextWindow()
     net.set_input_arrays(queryWindow.data)
@@ -61,22 +63,36 @@ while queryDataset.hasMoreImages():
 
     queryFeature = net.blobs['pool5'].data
 
+    testDataset.reset()
+    minDistance = float("inf")
     while testDataset.hasMoreImages():
-        testWindow = testDataset.getNextWindow()        
+        testWindow = testDataset.getNextWindow()
         net.set_input_arrays(testWindow.data)
         net.forward()
         testFeature = net.blobs['pool5'].data
-        distances.append(np.sum((queryFeature - testFeature)**2, axis=1))     # euclidean distance between sample pairs
+        distance = np.sum((queryFeature - testFeature)**2, axis=1)     # euclidean distance between sample pairs
+        result[testDataset.getActFilename()] = distance
+        if distance < minDistance:
+            minDistance = distance
 
         testDataset.loadNextImage()
 
-    maxDistance = distances.max()
-    distances /= maxDistance
-    similarities = 1 / distances
+
+    for key in result:
+        result[key] /= minDistance
+        result[key] = 1 / result[key]
+
+    sortedResult = sorted(result.items(), key=operator.itemgetter(1))
+
+    if not os.path.exists(RESULTPATH):
+        os.makedirs(RESULTPATH)
+    with open(os.path.join(RESULTPATH, queryDatabase.getActFilename() + RESULTPOSTFIX), 'w') as res:
+        for i in range(len(sortedResult)):
+            res.write(sortedResult[i][0] + " " + sortedResult[i][1])
+
+
     
 
     queryDataset.loadNextImage()
-    labels = np.concatenate((labels, testNetLabels))
-    distances = np.concatenate((distances, curDist))    
 
 
