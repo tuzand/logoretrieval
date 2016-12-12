@@ -31,10 +31,12 @@ IMAGESIZE = 224
 modelDef = '../models/VGG_ILSVRC_16_layers_deploy.prototxt'
 modelParams = MAINPATH + 'models/VGG_ILSVRC_16_layers.caffemodel'
 gpu = True
+GPUID = 5
 
 # Make settings
 if gpu:
     caffe.set_mode_gpu()
+    caffe.set_device(GPUID);
     print('GPU mode')
 else:
     caffe.set_mode_cpu()
@@ -64,8 +66,10 @@ q = 0
 while queryDataset.hasMoreImage():
     queryWindow = queryDataset.getNextWindow()
     label = np.array([[[[1]]]]).astype(np.float32)
-    print np.shape(queryWindow)
-    print np.shape(label)
+    print('{:s} - Calculating similarities'.format(str(datetime.datetime.now()).split('.')[0]))
+    print q
+    q = q + 1
+
     net.set_input_arrays(queryWindow, label)
     net.forward()
     queryFeature = net.blobs['pool5'].data
@@ -83,10 +87,6 @@ while queryDataset.hasMoreImage():
         testFeature = net.blobs['pool5'].data
         result[testDataset.getActFilePath()] = testFeature.flatten()
         testDataset.loadNextImage()
-
-
-    print('{:s} - Calculating similarities'.format(str(datetime.datetime.now()).split('.')[0]))
-
 
     for key, value in result.items():
         testNorm = np.linalg.norm(value)
