@@ -11,6 +11,7 @@ import caffe
 from dataset import Dataset
 import sys
 import operator
+import os
                    
 
 # parameters
@@ -43,7 +44,7 @@ else:
 ### step 1: load data
 print('{:s} - Load test data'.format(str(datetime.datetime.now()).split('.')[0]))
 testDataset = Dataset(TRAINPATH, IMAGESIZE, onlyLogos = False)
-#testDataset.addImages(VALPATH, IMAGESIZE, onlyLogos = False)
+testDataset.addImages(VALPATH)
 
 queryDataset = Dataset(TESTPATH, IMAGESIZE, onlyLogos = True)
 
@@ -59,6 +60,7 @@ print('{:s} - Testing'.format(str(datetime.datetime.now()).split('.')[0]))
 labels = []
 distances = []
 result = dict()
+q = 0
 while queryDataset.hasMoreImage():
     queryWindow = queryDataset.getNextWindow()
     label = np.array([[[[1]]]]).astype(np.float32)
@@ -66,36 +68,40 @@ while queryDataset.hasMoreImage():
     print np.shape(label)
     net.set_input_arrays(queryWindow, label)
     net.forward()
-
     queryFeature = net.blobs['pool5'].data
+    queryFeature = queryFeature.flatten()
+    queryNorm = np.linalg.norm(queryFeature)
+    normQueryFeature = queryFeature / queryNorm
 
     testDataset.reset()
     minDistance = float("inf")
+
     while testDataset.hasMoreImage():
         testWindow = testDataset.getNextWindow()
         net.set_input_arrays(testWindow, label)
         net.forward()
         testFeature = net.blobs['pool5'].data
-        distance = np.sum((queryFeature - testFeature)**2, axis=1)     # euclidean distance between sample pairs
-        result[testDataset.getActFileName()] = distance
-        print distance
-        if distance < minDistance:
-            minDistance = distance
-
+        result[testDataset.getActFilePath()] = testFeature.flatten()
         testDataset.loadNextImage()
 
 
-    for key in result:
-        result[key] /= minDistance
-        result[key] = 1 / result[key]
+    print('{:s} - Calculating similarities'.format(str(datetime.datetime.now()).split('.')[0]))
 
-    sortedResult = sorted(result.items(), key=operator.itemgetter(1))
+
+    for key, value in result.items():
+        testNorm = np.linalg.norm(value)
+        normTestFeature = value / testNorm
+        similarity = np.dot(normQueryFeature, normTestFeature)
+        result[key] = similarity
+
+    sortedResult = sorted(result.items(), key=operator.itemgetter(1), reverse=True)
 
     if not os.path.exists(RESULTPATH):
         os.makedirs(RESULTPATH)
-    with open(os.path.join(RESULTPATH, queryDatabase.getActFileName() + RESULTPOSTFIX), 'w') as res:
+    with open(os.path.join(RESULTPATH, queryDataset.getActFileName() + RESULTPOSTFIX), 'w') as res:
         for i in range(len(sortedResult)):
-            res.write(sortedResult[i][0] + " " + sortedResult[i][1])
+            out = str(sortedResult[i][0]) + " " + str(sortedResult[i][1]) + "\n"
+            res.write(out)
 
 
     

@@ -32,6 +32,8 @@ class Dataset:
 
     def __init__(self, path, imageSize, onlyLogos = True):
         self.data = []
+        self.onlyLogos = onlyLogos
+        self.imageSize = imageSize
         self.loadImages(path, onlyLogos, imageSize)
 
     def readWindows(self, filePath, windowSize):
@@ -84,7 +86,7 @@ class Dataset:
         print i
 
     def addImages(self, path):
-        self.loadImages(path)
+        self.loadImages(path, self.onlyLogos, self.imageSize)
 
     def loadNextImage(self):
         self.windowPointer = 0
@@ -94,7 +96,7 @@ class Dataset:
         self.imagePointer = self.imagePointer + 1
 
     def hasMoreImage(self):
-        return True if not (self.data[self.imagePointer] == None) else False
+        return True if (self.imagePointer < len(self.data)) else False
 
     def reset(self):
         self.imagePointer = 0
