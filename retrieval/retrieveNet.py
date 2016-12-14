@@ -24,14 +24,22 @@ TRAINPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/train/'
 VALPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/val/'
 TESTPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/test/'
 
-RESULTPATH = './result/'
+RESULTPATH = '../results/places_googlenet/'
 RESULTPOSTFIX = '.result2.txt'
 
 IMAGESIZE = 224
-modelDef = '../models/VGG_ILSVRC_16_layers_deploy.prototxt'
-modelParams = MAINPATH + 'models/VGG_ILSVRC_16_layers.caffemodel'
+#modelDef = '../models/VGG_ILSVRC_16_layers.caffemodel'
+#modelParams = MAINPATH + 'models/VGG_ILSVRC_16_layers.caffemodel'
+#modelDef = '../models/ResNet-152-deploy.prototxt'
+#modelParams = MAINPATH + 'models/ResNet-152-model.caffemodel'
+#modelDef = '../models/imagenet_googlenet_train_val_googlenet.prototxt'
+#modelParams = MAINPATH + 'models/imagenet_googlenet.caffemodel'
+modelDef = '../models/places_googlenet_train_val_googlenet.prototxt'
+modelParams = MAINPATH + 'models/places_googlenet.caffemodel'
+
+
 gpu = True
-GPUID = 5
+GPUID = 4
 
 # Make settings
 if gpu:
@@ -58,11 +66,25 @@ net = caffe.Net(modelDef, modelParams, caffe.TEST)
 ### step 3: test net with dynamically created data
 print('{:s} - Testing'.format(str(datetime.datetime.now()).split('.')[0]))
 
-
-labels = []
-distances = []
+normedTestFeatures = dict()
 result = dict()
 q = 0
+
+label = np.array([[[[1]]]]).astype(np.float32)
+
+
+while testDataset.hasMoreImage():
+        testWindow = testDataset.getNextWindow()
+        net.set_input_arrays(testWindow, label)
+        net.forward()
+        #testFeature = net.blobs['pool5'].data
+        testFeature = net.blobs['cls3_pool'].data
+        testFeature = testFeature.flatten()
+        testNorm = np.linalg.norm(testFeature)
+        testFeature = testFeature / testNorm
+        normedTestFeatures[testDataset.getActFilePath()] = testFeature
+        testDataset.loadNextImage()
+
 while queryDataset.hasMoreImage():
     queryWindow = queryDataset.getNextWindow()
     label = np.array([[[[1]]]]).astype(np.float32)
@@ -72,40 +94,22 @@ while queryDataset.hasMoreImage():
 
     net.set_input_arrays(queryWindow, label)
     net.forward()
-    queryFeature = net.blobs['pool5'].data
+    #queryFeature = net.blobs['pool5'].data
+    queryFeature = net.blobs['cls3_pool'].data
     queryFeature = queryFeature.flatten()
     queryNorm = np.linalg.norm(queryFeature)
-    normQueryFeature = queryFeature / queryNorm
+    normedQueryFeature = queryFeature / queryNorm
 
-    testDataset.reset()
-    minDistance = float("inf")
-
-    while testDataset.hasMoreImage():
-        testWindow = testDataset.getNextWindow()
-        net.set_input_arrays(testWindow, label)
-        net.forward()
-        testFeature = net.blobs['pool5'].data
-        result[testDataset.getActFilePath()] = testFeature.flatten()
-        testDataset.loadNextImage()
-
-    for key, value in result.items():
-        testNorm = np.linalg.norm(value)
-        normTestFeature = value / testNorm
-        similarity = np.dot(normQueryFeature, normTestFeature)
-        result[key] = similarity
+    for filePath, normedTestFeature in normedTestFeatures.items():
+        result[filePath] = np.dot(normedQueryFeature, normedTestFeature)
 
     sortedResult = sorted(result.items(), key=operator.itemgetter(1), reverse=True)
 
     if not os.path.exists(RESULTPATH):
         os.makedirs(RESULTPATH)
     with open(os.path.join(RESULTPATH, queryDataset.getActFileName() + RESULTPOSTFIX), 'w') as res:
+        res.write(queryDataset.getActFilePath() + " " + str(1.0))
         for i in range(len(sortedResult)):
             out = str(sortedResult[i][0]) + " " + str(sortedResult[i][1]) + "\n"
             res.write(out)
-
-
-    
-
     queryDataset.loadNextImage()
-
-
