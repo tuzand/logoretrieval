@@ -24,19 +24,19 @@ TRAINPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/train/'
 VALPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/val/'
 TESTPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/test/'
 
-RESULTPATH = '../results/places_googlenet/'
+RESULTPATH = '../results/resnet2/'
 RESULTPOSTFIX = '.result2.txt'
 
 IMAGESIZE = 224
+FEATURELAYER = 'res5c'
 #modelDef = '../models/VGG_ILSVRC_16_layers.caffemodel'
 #modelParams = MAINPATH + 'models/VGG_ILSVRC_16_layers.caffemodel'
-#modelDef = '../models/ResNet-152-deploy.prototxt'
-#modelParams = MAINPATH + 'models/ResNet-152-model.caffemodel'
+modelDef = '../models/ResNet-152-deploy.prototxt'
+modelParams = MAINPATH + 'models/ResNet-152-model.caffemodel'
 #modelDef = '../models/imagenet_googlenet_train_val_googlenet.prototxt'
 #modelParams = MAINPATH + 'models/imagenet_googlenet.caffemodel'
-modelDef = '../models/places_googlenet_train_val_googlenet.prototxt'
-modelParams = MAINPATH + 'models/places_googlenet.caffemodel'
-
+#modelDef = '../models/places_googlenet_train_val_googlenet.prototxt'
+#modelParams = MAINPATH + 'models/places_googlenet.caffemodel'
 
 gpu = True
 GPUID = 4
@@ -77,8 +77,7 @@ while testDataset.hasMoreImage():
         testWindow = testDataset.getNextWindow()
         net.set_input_arrays(testWindow, label)
         net.forward()
-        #testFeature = net.blobs['pool5'].data
-        testFeature = net.blobs['cls3_pool'].data
+        testFeature = net.blobs[FEATURELAYER].data
         testFeature = testFeature.flatten()
         testNorm = np.linalg.norm(testFeature)
         testFeature = testFeature / testNorm
@@ -94,8 +93,7 @@ while queryDataset.hasMoreImage():
 
     net.set_input_arrays(queryWindow, label)
     net.forward()
-    #queryFeature = net.blobs['pool5'].data
-    queryFeature = net.blobs['cls3_pool'].data
+    queryFeature = net.blobs[FEATURELAYER].data
     queryFeature = queryFeature.flatten()
     queryNorm = np.linalg.norm(queryFeature)
     normedQueryFeature = queryFeature / queryNorm
