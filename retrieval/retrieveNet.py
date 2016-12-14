@@ -17,29 +17,30 @@ import os
 # parameters
 
 #MAINPATH = '/home/atuezkoe/CaffeData/data/'
-MAINPATH = '/home/andras/data/'
+MAINPATH = '/home/pp2015/pp2015_2/data/'
+#MAINPATH = '/home/andras/data/datasets/'
 
 
-TRAINPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/train/'
-VALPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/val/'
-TESTPATH = MAINPATH + 'datasets/FL32/FlickrLogos-v2/splitted/test/'
+TRAINPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/train/'
+VALPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/val/'
+TESTPATH = MAINPATH + 'FL32/FlickrLogos-v2/splitted/test/'
 
 RESULTPATH = '../results/resnet2/'
 RESULTPOSTFIX = '.result2.txt'
 
 IMAGESIZE = 224
-FEATURELAYER = 'res5c'
+FEATURELAYER = 'pool5'
 #modelDef = '../models/VGG_ILSVRC_16_layers.caffemodel'
 #modelParams = MAINPATH + 'models/VGG_ILSVRC_16_layers.caffemodel'
 modelDef = '../models/ResNet-152-deploy.prototxt'
-modelParams = MAINPATH + 'models/ResNet-152-model.caffemodel'
+modelParams = MAINPATH + '../models/resnet/ResNet-152-model.caffemodel'
 #modelDef = '../models/imagenet_googlenet_train_val_googlenet.prototxt'
 #modelParams = MAINPATH + 'models/imagenet_googlenet.caffemodel'
 #modelDef = '../models/places_googlenet_train_val_googlenet.prototxt'
 #modelParams = MAINPATH + 'models/places_googlenet.caffemodel'
 
 gpu = True
-GPUID = 4
+GPUID = 0
 
 # Make settings
 if gpu:
@@ -56,6 +57,7 @@ print('{:s} - Load test data'.format(str(datetime.datetime.now()).split('.')[0])
 testDataset = Dataset(TRAINPATH, IMAGESIZE, onlyLogos = False)
 testDataset.addImages(VALPATH)
 
+print('{:s} - Load query data'.format(str(datetime.datetime.now()).split('.')[0]))
 queryDataset = Dataset(TESTPATH, IMAGESIZE, onlyLogos = True)
 
 
@@ -78,6 +80,7 @@ while testDataset.hasMoreImage():
         net.set_input_arrays(testWindow, label)
         net.forward()
         testFeature = net.blobs[FEATURELAYER].data
+        print np.shape(testFeature)
         testFeature = testFeature.flatten()
         testNorm = np.linalg.norm(testFeature)
         testFeature = testFeature / testNorm
