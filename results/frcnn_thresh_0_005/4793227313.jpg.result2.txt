@@ -1,0 +1,1 @@
+/home/andras/data/datasets/FL32/FlickrLogos-v2/fl_devkit/data/Images/4793227313.jpg 1.0

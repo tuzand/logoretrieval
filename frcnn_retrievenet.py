@@ -20,37 +20,68 @@ import time, os, sys
 from utils.timer import Timer
 import cv2
 import numpy as np
+import operator
 
-logo_threshold = 0.7
+logo_threshold = 0.0
+thresh = 0.0
+RESULTPATH = './results/frcnn/'
+RESULTPOSTFIX = '.result2.txt'
 
-def test_net(net, imdb, max_per_image=100, thresh=0.05):
+FRCNN = 'py_faster_rcnn'
+
+DETECTIONPROTO = os.path.join(FRCNN, 'models/fl_detection/VGG_CNN_M_1024/faster_rcnn_end2end/test.prototxt')
+DETECTIONMODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/train/vgg_cnn_m_1024_faster_rcnn_fl_detection_iter_80000.caffemodel')
+
+
+def test_net(net, imdb, bboxes, max_per_image=100):
 	num_images = len(imdb.image_index)
 
 	# timers
 	_t = {'im_detect' : Timer(), 'misc' : Timer()}
-	image_scores = []
+	normed_features = dict()
+	outputbboxes = dict()
 	for i in xrange(num_images):
-		im = cv2.imread(imdb.image_path_at(i))
+		imagepath = imdb.image_path_at(i)
+		imagename = imagepath.split('/')[-1]
+		im = cv2.imread(imagepath)
 		_t['im_detect'].tic()
-		scores, boxes = im_detect(net, im, None)
+		if bboxes != None:
+			#print bboxes[imagename]
+			scores, boxes = im_detect(net, im, bboxes[imagename])
+			#print boxes
+			#print "\n\n\n"
+		else:
+			scores, boxes = im_detect(net, im, None)
+			#print boxes
+			#print type(boxes)
+			#print type(boxes[0])
 		_t['im_detect'].toc()
 
 		_t['misc'].tic()
 		max_score = 0
-		cls = None
-		logo_scores = None
+		bbox = None
+		feature = None
 		for j in xrange(1, imdb.num_classes):
 			inds = np.where(scores[:, j] > thresh)[0]
-			cls_scores = scores[inds, j]
 			if len(scores[inds, j]) > 0:
 				max_class_score = scores[inds, j].max()
 				if max_class_score > logo_threshold and \
-					max_class_score > max_score:
+						max_class_score > max_score:
 					max_score = max_class_score
-					cls = j
-					bbox_index = inds[scores[inds, j].argmax()]
-					logo_scores = scores[bbox_index, :]
-		image_scores.append(logo_scores)
+					bbox_index = scores[inds, j].argmax()
+					bbox = boxes[bbox_index, 4 * j : 4 * (j + 1)]
+					#print bbox
+					#print len(boxes[0])
+					feature = scores[bbox_index, :]
+					feature = feature.flatten()
+					norm = np.linalg.norm(feature)
+					feature = feature / norm
+		normed_features[imagename] = [imagepath, feature]
+		outputbboxes[imagename] = np.asarray([bbox])
+		#print outputbboxes[imagename]
+		#print type(outputbboxes[imagename])
+		#print type(outputbboxes[imagename][0])
+		
 		_t['misc'].toc()
 
 		print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
@@ -58,14 +89,14 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05):
 	                  _t['misc'].average_time)
 
 	
-	return image_scores
+	return normed_features, outputbboxes
 
-def get_features(net, args, dataset):
+def get_features(net, args, dataset, bboxes = None):
 	imdb = get_imdb(dataset)
 	imdb.competition_mode(args.comp_mode)
-	if not cfg.TEST.HAS_RPN:
-		imdb.set_proposal_method(cfg.TEST.PROPOSAL_METHOD)
-	return test_net(net, imdb, max_per_image=args.max_per_image)
+	#if not cfg.TEST.HAS_RPN:
+		#imdb.set_proposal_method(cfg.TEST.PROPOSAL_METHOD)
+	return test_net(net, imdb, bboxes, max_per_image=args.max_per_image)
 
 def parse_args():
     """
@@ -107,34 +138,75 @@ def parse_args():
     return args
 
 if __name__ == '__main__':
-    args = parse_args()
+	args = parse_args()
 
-    print('Called with args:')
-    print(args)
+	print('Called with args:')
+	print(args)
 
-    if args.cfg_file is not None:
-        cfg_from_file(args.cfg_file)
-    if args.set_cfgs is not None:
-        cfg_from_list(args.set_cfgs)
+	if args.cfg_file is not None:
+		cfg_from_file(args.cfg_file)
+	if args.set_cfgs is not None:
+		cfg_from_list(args.set_cfgs)
 
-    cfg.GPU_ID = args.gpu_id
+	cfg.GPU_ID = args.gpu_id
 
-    print('Using config:')
-    pprint.pprint(cfg)
+	print('Using config:')
+	pprint.pprint(cfg)
 
-    while not os.path.exists(args.caffemodel) and args.wait:
-        print('Waiting for {} to exist...'.format(args.caffemodel))
-        time.sleep(10)
+	while not os.path.exists(args.caffemodel) and args.wait:
+		print('Waiting for {} to exist...'.format(args.caffemodel))
+		time.sleep(10)
+	
 
-    caffe.set_mode_gpu()
-    caffe.set_device(args.gpu_id)
-    net = caffe.Net(args.prototxt, args.caffemodel, caffe.TEST)
-    net.name = os.path.splitext(os.path.basename(args.caffemodel))[0]
+#	caffe.set_mode_gpu()
+#        caffe.set_device(args.gpu_id)
+#        net = caffe.Net(DETECTIONPROTO, DETECTIONMODEL, caffe.TEST)
+#        net.name = os.path.splitext(os.path.basename(DETECTIONMODEL))[0]
+
+#        test_detection_features, bboxes = get_features(net, args, 'fl_detection_test_logo')
 
 
-    train_scores = get_features(net, args, 'fl_train')
-    print "Train scores: " + str(len(train_scores))
-    test_scores = get_features(net, args, args.imdb_name)
-    print "Test scores: " + str(len(test_scores))
 
-    
+
+
+	caffe.set_mode_gpu()
+	caffe.set_device(args.gpu_id)
+	net = caffe.Net(args.prototxt, args.caffemodel, caffe.TEST)
+	net.name = os.path.splitext(os.path.basename(args.caffemodel))[0]
+
+	#cfg.TEST.HAS_RPN = False
+	test_features, bboxes = get_features(net, args, 'fl_test_logo', None) # bboxes)
+        print "Test scores: " + str(len(test_features))
+
+	#train_features = test_features
+
+	#cfg.TEST.HAS_RPN = True
+	train_features, bboxes = get_features(net, args, 'fl_trainval')
+	print "Train scores: " + str(len(train_features))
+
+
+	for testfilename, test_value in test_features.items():
+		testfilepath = test_value[0]
+		test_feature = test_value[1]
+		sortedResult = []
+		if test_feature != None:
+			result = dict()
+			for trainfilename, train_value in train_features.items():
+				trainfilepath = train_value[0]
+				train_feature = train_value[1]
+				result[trainfilepath] = np.dot(test_feature, train_feature)
+
+			sortedResult = sorted(result.items(), \
+				key=operator.itemgetter(1), reverse=True)
+		else:
+			print testfilename
+
+		if not os.path.exists(RESULTPATH):
+			os.makedirs(RESULTPATH)
+		with open(os.path.join(RESULTPATH, testfilename \
+						+ RESULTPOSTFIX), 'w') as res:
+			res.write(testfilepath + " " + str(1.0) + "\n")
+			for i in range(len(sortedResult)):
+				out = str(sortedResult[i][0]) + " "  \
+						+ str(sortedResult[i][1]) + "\n"
+				res.write(out)
