@@ -34,7 +34,7 @@ def extractImages(fileListPath, phase, detection):
                 os.makedirs(imageOutPath)
             copy2(os.path.join(datasetPath, f), os.path.join(imageOutPath, file))
 
-            imageList += file + '\n'
+            imageList += file.split('.')[0] + '\n'
 
             bbOutputPath = os.path.join(outputPath, bboxes)
             if not os.path.exists(bbOutputPath):
@@ -69,8 +69,12 @@ extractImages(datasetPath + '/testset-logosonly.relpaths.txt', 'test_logo.txt', 
 extractImages(datasetPath + '/testset.relpaths.txt', 'test.txt', detection = False)
 extractImages(datasetPath + '/trainset.relpaths.txt', 'train.txt', detection = False)
 extractImages(datasetPath + '/trainvalset.relpaths.txt', 'trainval.txt', detection = False)
+extractImages(datasetPath + '/valset-logosonly.relpaths.txt', 'val_logo.txt', detection = False)
+
 
 extractImages(datasetPath + '/testset-logosonly.relpaths.txt', 'test_logo.txt', detection = True)
 extractImages(datasetPath + '/testset.relpaths.txt', 'test.txt', detection = True)
 extractImages(datasetPath + '/trainset.relpaths.txt', 'train.txt', detection = True)
 extractImages(datasetPath + '/trainvalset.relpaths.txt', 'trainval.txt', detection = True)
+extractImages(datasetPath + '/valset-logosonly.relpaths.txt', 'val_logo.txt', detection = True)
+
