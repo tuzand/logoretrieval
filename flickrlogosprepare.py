@@ -1,6 +1,7 @@
 from shutil import copy2
 import os.path
 import re
+import shutil
 
 bboxes = 'Annotations'
 images = 'Images'
@@ -9,8 +10,8 @@ imageSets = 'ImageSets'
 detectionSuffix = '_det'
 
 datasetPath = "/home/andras/data/datasets/FL32/FlickrLogos-v2"
-outputPathSimple = os.path.join(datasetPath, 'fl', 'fl_devkit', 'data')
-outputPathDetection = os.path.join(datasetPath, 'fl', 'fl_devkit_detection', 'data')
+outputPathSimple = os.path.join(datasetPath, 'fl', 'fl', 'data')
+outputPathDetection = os.path.join(datasetPath, 'fl', 'fl_detection', 'data')
 
 
 def extractImages(fileListPath, phase, detection):
@@ -44,6 +45,10 @@ def extractImages(fileListPath, phase, detection):
                     data = bbFile.read()
                 objs = re.findall('\d+ \d+ \d+ \d+', data)
                 with open(os.path.join(bbOutputPath, file + '.bboxes.txt'), 'w') as bb:
+                    if detection:
+                        actBrand = 'logo\n'
+                    else:
+                        actBrand = brand.lower() + '\n'
                     for ix, obj in enumerate(objs):
                         coor = re.findall('\d+', obj)
                         x1 = coor[0]
@@ -52,29 +57,29 @@ def extractImages(fileListPath, phase, detection):
                         h = coor[3]
                         x2 = str(int(coor[0]) + int(w))
                         y2 = str(int(coor[1]) + int(h))
-                        bb.write(str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2) + "\n")
+                        bb.write(str(x1) + ' ' + str(y1) + ' ' + str(x2) + ' ' + str(y2) + ' ' + actBrand)
                         
-                    if detection:
-                        bb.write('logo\n')
-                    else:
-                        bb.write(brand + '\n')
         if not os.path.exists(os.path.join(outputPath, imageSets)):
             os.makedirs(os.path.join(outputPath, imageSets))
         with open(os.path.join(outputPath, imageSets, phase), 'w') as imset:
             imset.write(imageList)
 
 
+if os.path.exists(outputPathSimple):
+    shutil.rmtree(outputPathSimple)
+if os.path.exists(outputPathDetection):
+    shutil.rmtree(outputPathDetection)
 
-extractImages(datasetPath + '/testset-logosonly.relpaths.txt', 'test_logo.txt', detection = False)
-extractImages(datasetPath + '/testset.relpaths.txt', 'test.txt', detection = False)
-extractImages(datasetPath + '/trainset.relpaths.txt', 'train.txt', detection = False)
-extractImages(datasetPath + '/trainvalset.relpaths.txt', 'trainval.txt', detection = False)
-extractImages(datasetPath + '/valset-logosonly.relpaths.txt', 'val_logo.txt', detection = False)
+extractImages(datasetPath + '/testset-logosonly.relpaths.txt', 'fl_test_logo.txt', detection = False)
+extractImages(datasetPath + '/testset.relpaths.txt', 'fl_test.txt', detection = False)
+extractImages(datasetPath + '/trainset.relpaths.txt', 'fl_train.txt', detection = False)
+extractImages(datasetPath + '/trainvalset.relpaths.txt', 'fl_trainval.txt', detection = False)
+extractImages(datasetPath + '/valset-logosonly.relpaths.txt', 'fl_val_logo.txt', detection = False)
 
 
-extractImages(datasetPath + '/testset-logosonly.relpaths.txt', 'test_logo.txt', detection = True)
-extractImages(datasetPath + '/testset.relpaths.txt', 'test.txt', detection = True)
-extractImages(datasetPath + '/trainset.relpaths.txt', 'train.txt', detection = True)
-extractImages(datasetPath + '/trainvalset.relpaths.txt', 'trainval.txt', detection = True)
-extractImages(datasetPath + '/valset-logosonly.relpaths.txt', 'val_logo.txt', detection = True)
+extractImages(datasetPath + '/testset-logosonly.relpaths.txt', 'fl_detection_test_logo.txt', detection = True)
+extractImages(datasetPath + '/testset.relpaths.txt', 'fl_detection_test.txt', detection = True)
+extractImages(datasetPath + '/trainset.relpaths.txt', 'fl_detection_train.txt', detection = True)
+extractImages(datasetPath + '/trainvalset.relpaths.txt', 'fl_detection_trainval.txt', detection = True)
+extractImages(datasetPath + '/valset-logosonly.relpaths.txt', 'fl_detection_val_logo.txt', detection = True)
 

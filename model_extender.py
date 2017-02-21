@@ -11,8 +11,8 @@ caffe.set_device(2)
 #                       pretrained_model=pretrained_model)
 
 cfg_from_file('./py_faster_rcnn/experiments/cfgs/faster_rcnn_end2end.yml')
-net = caffe.Net('./py_faster_rcnn/models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/train.prototxt', 
-                './py_faster_rcnn/data/imagenet_models/VGG_CNN_M_1024.v2.caffemodel', 
+net = caffe.Net('./py_faster_rcnn/models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/train.prototxt', 
+                './py_faster_rcnn/data/imagenet/VGG_CNN_M_1024.v2.caffemodel', 
                 caffe.TRAIN)
 
 srclayers = ['fc6', 'fc7']
@@ -22,5 +22,5 @@ for i in range(len(srclayers)):
     net.params[dstlayers[i]][0] = net.params[srclayers[i]][0]
     net.params[dstlayers[i]][1] = net.params[srclayers[i]][1]
 
-net.save('./py_faster_rcnn/data/imagenet_models/ext_VGG_CNN_M_1024.v2.caffemodel')
+net.save('./py_faster_rcnn/data/imagenet_models/ext81_VGG_CNN_M_1024.v2.caffemodel')
 
