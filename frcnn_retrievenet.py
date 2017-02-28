@@ -26,22 +26,22 @@ import operator
 import matplotlib.pyplot as plt
 from custom_imdb import get_custom_imdb
 
-logo_threshold = 0.01
-similaritythreshold = 0.7
+logo_threshold = 0.1
+similaritythreshold = 0.1
 thresh = 0.0
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
 FRCNN = 'py_faster_rcnn'
 
-#PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv/test.prototxt')
+PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
-PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
+#PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/train/vgg_cnn_m_1024_faster_rcnn_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
-EXAMPLEPATH = '/home/andras/data/datasets/fussi/ex3'
-SEARCHPATH = '/home/andras/data/datasets/fussi/part'
+#MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
+EXAMPLEPATH = '/home/andras/data/datasets/fussi/example'
+SEARCHPATH = '/home/andras/data/datasets/fussi'
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     im = im[:, :, (2, 1, 0)]
@@ -68,7 +68,7 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
-    plt.savefig('/home/andras/github/logoretrieval/results/' + imagename)
+    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename)
     plt.close()
 
 
@@ -84,7 +84,7 @@ def test_net(net, imdb, onlymax, max_per_image=100):
 		imagename = imagepath.split('/')[-1]
 		im = cv2.imread(imagepath)
 		_t['im_detect'].tic()
-		scores, boxes, features, scores_det = im_detect(net, im, None)
+		scores, boxes, features, scores_det = im_detect(net, im, True, None)
 		_t['im_detect'].toc()
 
 		_t['misc'].tic()
@@ -98,7 +98,7 @@ def test_net(net, imdb, onlymax, max_per_image=100):
 			logo_inds.append(scores_det[:, 1].argmax())
 			print scores_det[:, 1].max()
 		else:
-			print scores
+			#print scores
 			for i in range(len(scores)):
 				m = scores[i, 1:].max()
 				if m > logo_threshold:
@@ -118,7 +118,7 @@ def test_net(net, imdb, onlymax, max_per_image=100):
 			roi_scores.append(max_score)
 			roi_classes.append('logo')
                         roi_features.append(feature)
-		write_bboxes(im, imagename, roi_bboxes, roi_scores, roi_classes)
+		#write_bboxes(im, imagename, roi_bboxes, roi_scores, roi_classes)
 		normed_features[imagename] = [imagepath, roi_features, roi_bboxes, roi_scores]
 
 		#for j in xrange(1, imdb.num_classes):
@@ -268,7 +268,7 @@ if __name__ == '__main__':
                         #if distance >= similaritythreshold:
 			if True:
                             roi_bboxes.append(train_bboxes[i])
-                            roi_scores.append(distance)
+                            roi_scores.append(1/distance)
                             roi_classes.append('srf')
                     im = cv2.imread(trainfilepath)
                     write_bboxes(im, trainfilename, roi_bboxes, roi_scores, roi_classes)

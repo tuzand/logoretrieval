@@ -10,6 +10,13 @@ bl_inputfile = 'qset3_internal_and_local.qry'
 bl_simpleoutputpath = '/home/andras/data/datasets/BL/BL/data'
 bl_detectionoutputpath = '/home/andras/data/datasets/BL/BL_detection/data'
 
+flbl_inputpath = '/home/andras/data/datasets/FLBL'
+flbl_imagespath = 'images'
+flbl_inputfile = 'groundtruth.txt'
+flbl_simpleoutputpath = '/home/andras/data/datasets/FLBL/FLBL/data'
+flbl_detectionoutputpath = '/home/andras/data/datasets/FLBL/FLBL_detection/data'
+
+
 fl27_inputpath = '/home/andras/data/datasets/FL27'
 fl27_inputfile = 'flickr_logos_27_dataset_training_set_annotation.txt'
 fl27_imagespath = 'flickr_logos_27_dataset_images'
@@ -92,10 +99,16 @@ def prepare(inputpath, imagespath, inputfile, outputpath, detection, dataset):
             if detection:
                 origfile = origfile.split('_')[0]
             file = im + '.jpg'
-            copy2(os.path.join(inputpath, imagespath, origfile + '.jpg'), os.path.join(imageOutPath, file))
+            if os.path.exists(os.path.join(inputpath, imagespath, origfile + '.jpg')):
+                copy2(os.path.join(inputpath, imagespath, origfile + '.jpg'), os.path.join(imageOutPath, file))
+            else:
+               print os.path.join(inputpath, imagespath, origfile + '.jpg') + ' not found'
 
-prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_simpleoutputpath, False, bl)
-prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_detectionoutputpath, True, bl)
+#prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_simpleoutputpath, False, bl)
+#prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_detectionoutputpath, True, bl)
 
-prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_simpleoutputpath, False, fl27)
-prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_detectionoutputpath, True, fl27)
+prepare(flbl_inputpath, flbl_imagespath, flbl_inputfile, flbl_simpleoutputpath, False, bl)
+prepare(flbl_inputpath, flbl_imagespath, flbl_inputfile, flbl_detectionoutputpath, True, bl)
+
+#prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_simpleoutputpath, False, fl27)
+#prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_detectionoutputpath, True, fl27)
