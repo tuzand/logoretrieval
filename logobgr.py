@@ -34,17 +34,17 @@ def coloredBgr(im, bgrbgrmean):
         rgb = colorsys.hsv_to_rgb(hsv[0], hsv[1], hsv[2])
         im[logobackground] = rgb
     im = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
-    im[logobackground,2] = min(255, bgrhsv[2] + 30)
+    im[logobackground,2] = min(255, bgrhsv[2] + 50)
     im = cv2.cvtColor(im, cv2.COLOR_HSV2BGR)
 
     #hsv[2] += (255 - hsv[2])*0.7
 
     return im
 
-bgrpath = '/Users/andrastuzko/Pictures/datasets/SportTestbilder'
-logopath = '/Users/andrastuzko/Pictures/datasets/new_queryset_allinone'
+bgrpath = '/home/andras/data/datasets/MIRFLICKR/images'
+logopath = '/home/andras/data/datasets/METU/metu/data/Images'
+output = '/home/andras/data/datasets/SYNMETU'
 
-output = '/Users/andrastuzko/Pictures/datasets/result'
 images = 'Images'
 imagesoutput = os.path.join(output, images)
 bboxes = 'Annotations'
@@ -64,7 +64,7 @@ if os.path.exists(imagesetsoutput):
     shutil.rmtree(imagesetsoutput)
 os.makedirs(imagesetsoutput)
 
-bgrs = [os.path.join(dp, f) for dp, dn, filenames in os.walk(bgrpath) for f in filenames if os.path.splitext(f)[1] == '.png']
+bgrs = [os.path.join(dp, f) for dp, dn, filenames in os.walk(bgrpath) for f in filenames if os.path.splitext(f)[1] == '.jpg']
 logos = [os.path.join(dp, f) for dp, dn, filenames in os.walk(logopath) for f in filenames if os.path.splitext(f)[1] == '.jpg']
 
 imageset = ''
@@ -72,13 +72,15 @@ imageset = ''
 for i, logofile in enumerate(logos):
 
     f = logofile.split('/')[-1].split('.')[0]
-    fwithext = f + '.png'
+    fwithext = f + '.jpg'
     if i < len(bgrs):
         bgrfile = bgrs[i]
     else:
         break
 
-    bgr = cv2.imread(bgrfile)
+    while bgr is None:
+        print bgrfile
+        bgr = cv2.imread(bgrfile)
     bgrheight, bgrwidth, bgrchannel = bgr.shape
 
 
@@ -95,9 +97,11 @@ for i, logofile in enumerate(logos):
     blx = float(random.uniform(0, 0.1))
     blyp = float(random.uniform(-0.1, 0.1))
 
-    scalehigh = float(bgrheight)/(logoheight*4)
-    scalelow = float(bgrheight)/(logoheight*15)
-    scale = float(random.uniform(scalelow, scalehigh))
+    scalehighH = float(bgrheight)/(logoheight*2)
+    scalehighW = float(bgrwidth)/(logowidth*2)
+    scalelowH = float(bgrheight)/(logoheight*4)
+    scalelowW = float(bgrwidth)/(logowidth*4)
+    scale = float(random.uniform(min(scalelowH, scalelowW), min(scalehighH, scalehighW)))
 
     logo = cv2.resize(logo, (0,0), fx=scale, fy=scale)
     logoheight, logowidth, logochannel = logo.shape
@@ -169,7 +173,9 @@ for i, logofile in enumerate(logos):
     with open(os.path.join(bboxesoutput, fwithext + '.bboxes.txt'), 'w') as bbox:
         bbox.write(str(shiftcols) + ' ' + str(shiftrows) + ' ' + str(shiftcols+cols) + ' ' + str(shiftrows+rows) + ' logo')
 
-    print f
+    if i % 1000 == 0:
+        percentage = float(i) / len(bgrs) * 100
+        print str(i) + '/' + str(len(bgrs)) + ' --> ' + str(int(percentage)) + '%'
 
 with open(os.path.join(imagesetsoutput, imagesetf), 'w') as ims:
     ims.write(imageset)
