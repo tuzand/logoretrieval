@@ -9,13 +9,23 @@ def createdirs(dir):
 
 path = "/Users/andrastuzko/Pictures/datasets/SportTestbilder/"
 
-vggfile = os.path.join(path, "eis_2nd.csv")
-annotationspath = os.path.join(path, "data", "Annotations")
-imagesetspath = os.path.join(path, "data", "ImageSets")
-outpaths = ["good", "good_occlusion", "bad", "bad_occlusion"]
+#dataset = "srf_ice"
+#outpaths = ["good", "good_occlusion", "bad", "bad_occlusion"]
+#vggfile = os.path.join(path, dataset + ".csv")
+
+dataset = "srf_ski"
+outpaths = ["good"]
+vggfile = os.path.join(path, dataset + ".csv")
+
+annotationspaths = list()
+imagesetspaths = list()
 for p in outpaths:
-    createdirs(os.path.join(path, "data", "Annotations", p))
-createdirs(imagesetspath)
+    annotationspaths.append(os.path.join(path, dataset, p, "data", "Annotations"))
+    imagesetspaths.append(os.path.join(path, dataset, p, "data", "ImageSets"))
+
+for i in range(len(outpaths)):
+    createdirs(annotationspaths[i])
+    createdirs(imagesetspaths[i])
 
 with open(vggfile, "r") as vgg:
     lines = vgg.readlines()
@@ -27,7 +37,9 @@ def getdistortion(part):
     elif prop == "bad":
         return 2
 
-annotationsdicts = [dict() for x in range(4)]
+annotationsdicts = [dict() for x in range(len(outpaths))]
+
+brands = list()
 
 for (idx, line) in list(enumerate(lines))[1:]:
     tokenized = line.split(';')
@@ -43,7 +55,11 @@ for (idx, line) in list(enumerate(lines))[1:]:
 
     cls = h_and_class[1].split("=")[0].split("\"")[1]
 
-    l = str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2) + " " + cls
+    #brands.append(cls)
+    brands.append('logo')
+
+    #l = str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2) + " " + cls
+    l = str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2) + " " + 'logo'
 
     state = -1
     if len(tokenized) > 5:
@@ -62,11 +78,16 @@ for idx, annotations in enumerate(annotationsdicts):
     imagesetname = outpaths[idx]
     imagelist = list()
     for key, values in annotations.items():
-        imagelist.append(os.path.join(imagesetname, key.split('.')[0]))
-        with open(os.path.join(annotationspath, imagesetname, key + ".bboxes.txt"), "w") as annot:
+        imagelist.append(key.split('.')[0])
+        with open(os.path.join(annotationspaths[idx], key + ".bboxes.txt"), "w") as annot:
             for value in values:
                 annot.write(value + "\n")
 
-    with open(os.path.join(imagesetspath, "srf_icehockey_" + imagesetname + ".txt"), "w") as f:
+    with open(os.path.join(imagesetspaths[idx], dataset + "_" + imagesetname + ".txt"), "w") as f:
         for imagepath in set(imagelist):
             f.write(imagepath + "\n")
+
+with open(os.path.join(path, dataset, 'brands.txt'), 'w') as bf:
+    brands = sorted(set(brands))
+    for brand in brands:
+        bf.write(brand + '\n')
