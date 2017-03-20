@@ -30,7 +30,7 @@ import cPickle
 import sys
 
 max_per_image = 0
-vis = True
+vis = False
 logo_threshold = 0.0
 similaritythreshold = 0.1
 thresh = 0.0
@@ -41,12 +41,14 @@ FRCNN = 'py_faster_rcnn'
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedexceptlast/test.prototxt')
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv/test.prototxt')
 PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
 MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
 EXAMPLEPATH = '/home/andras/logoexamples'
 #SEARCHPATH = '/home/andras/data/datasets/fussi'
@@ -84,7 +86,6 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
     """Visual debugging of detections."""
     import matplotlib.pyplot as plt
     im = im[:, :, (2, 1, 0)]
-    print 'here'
     for i in xrange(np.minimum(10, dets.shape[0])):
         bbox = dets[i, :4]
         score = dets[i, -1]
@@ -101,7 +102,6 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
             plt.axis('off')   
             plt.tight_layout()
             plt.draw()
-            print 'saved'
             plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename)
             plt.close()
 
@@ -124,7 +124,9 @@ def test_net(net, imdb, onlymax, max_per_image=100):
             write_bboxes(im, 'now.jpg', boxes[0:30], scores_det[0:30], roi_classes)
         else:
             scores, boxes, features, scores_det = im_detect(net, im, True, None)
-            if True:
+            scores = scores_det
+            boxes
+            if False:
                 s_det = scores_det[:, 1]
                 inds = np.array(s_det).argsort()[::-1][:10]
                 print inds
@@ -243,9 +245,8 @@ if __name__ == '__main__':
     net = caffe.Net(PROTO, MODEL, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(MODEL))[0]
 
-    all_test_features, imdb = get_features(net, args, EXAMPLEPATH, custom=True, onlymax=True)
-    all_train_features, imdb = get_features(net, args, 'srf_ski_good', custom=False, onlymax=False)
-    jj
+    imdb = get_imdb('srf_ski_logo_good')
+    imdb.competition_mode(args.comp_mode)
 
     num_images = len(imdb.image_index)
     # all detections are collected into:
@@ -255,55 +256,34 @@ if __name__ == '__main__':
                  for _ in xrange(imdb.num_classes)]
 
     output_dir = get_output_dir(imdb, net)
-    _t = {'misc' : Timer()}
+    _t = {'im_detect' : Timer(), 'misc' : Timer()}
+
 
     i = 0
-    for trainfilename, train_value in all_train_features.items():
+    for i in xrange(num_images):
+        imagepath = imdb.image_path_at(i)
+        imagename = imagepath.split('/')[-1]
+        im = cv2.imread(imagepath)
+        _t['im_detect'].tic()
+        scores, boxes, features, scores_det, boxes_det = im_detect(net, im, True, None)
+        scores = scores_det
+        print scores
+        #boxes = boxes_det
+        _t['im_detect'].toc()
+
         _t['misc'].tic()
-        roi_bboxes = list()
-        roi_scores = list()
-        roi_classes = list()
-        trainfilepath = train_value[0]
-        train_features = train_value[1]
-        train_bboxes = train_value[2]
-
-        scores = np.zeros((len(train_bboxes), imdb.num_classes))
-        boxes = np.zeros((len(train_bboxes), imdb.num_classes * 4))
-
-        for testfilename, test_value in all_test_features.items():
-            testfilepath = test_value[0]
-            test_feature = test_value[1][0]
-            test_bboxes = test_value[2]
-            for j in range(len(train_features)):
-                train_feature = train_features[j]
-                similarity = np.dot(test_feature, train_feature)
-                # get the index of the classname
-                classindex = imdb.classes.index(testfilename.split('.')[0])
-                scores[j, classindex] = similarity
-
-                max_score_index = train_feature.argmax()
-                boxes[j, classindex*4 : classindex*4+4] = \
-                    train_bboxes[j, max_score_index*4 : max_score_index*4+4]
-                #distance = np.sum((test_feature - train_feature)**2, axis=0)
-                #if similarity >= similaritythreshold:
-                #roi_bboxes.append(train_bboxes[i])
-                #roi_scores.append(similarity)
-                #roi_classes.append(testfilename.split('.')[0])
-            #im = cv2.imread(trainfilepath)
-            #write_bboxes(im, trainfilename, roi_bboxes, roi_scores, roi_classes)
-
 
         for j in xrange(1, imdb.num_classes):
-            inds = np.where(scores[:, j] > thresh)[0]
-            cls_scores = scores[inds, j]
+            inds = np.where(scores[:, j-1] > thresh)[0]
+            cls_scores = scores[inds, j-1]
             cls_boxes = boxes[inds, j*4:(j+1)*4]
             cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
                 .astype(np.float32, copy=False)
             keep = nms(cls_dets, cfg.TEST.NMS)
             cls_dets = cls_dets[keep, :]
-            im = cv2.imread(trainfilepath)
+            print len(cls_dets)
             if vis:
-                vis_detections(im, imdb.classes[j], cls_dets, trainfilename)
+                vis_detections(im, imdb.classes[j], cls_dets, 0.3, imagepath.split('/')[-1].split('.')[0])
             all_boxes[j][i] = cls_dets
 
         # Limit to max_per_image detections *over all classes*
@@ -317,8 +297,9 @@ if __name__ == '__main__':
                     all_boxes[j][i] = all_boxes[j][i][keep, :]
         _t['misc'].toc()
 
-        print 'im_detect: {:d}/{:d} {:.3f}s' \
-              .format(i + 1, num_images,
+
+        print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
+              .format(i + 1, num_images, _t['im_detect'].average_time,
                       _t['misc'].average_time)
         i += 1
 

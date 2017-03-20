@@ -67,22 +67,25 @@ os.makedirs(imagesetsoutput)
 bgrs = [os.path.join(dp, f) for dp, dn, filenames in os.walk(bgrpath) for f in filenames if os.path.splitext(f)[1] == '.jpg']
 logos = [os.path.join(dp, f) for dp, dn, filenames in os.walk(logopath) for f in filenames if os.path.splitext(f)[1] == '.jpg']
 
-imageset = ''
-
 def generate():
+    imageset = ''
     for i, logofile in enumerate(logos):
 
         f = logofile.split('/')[-1].split('.')[0]
         fwithext = f + '.jpg'
 
-
-        bgrfile = bgrs[i]
+        if i < len(bgrs):
+            bgrfile = bgrs[i]
+        else:
+            return imageset
         bgr = cv2.imread(bgrfile)
         if bgr is None:
             print bgrfile
             continue
         bgrheight, bgrwidth, bgrchannel = bgr.shape
-
+        ratio = float(bgrheight) / bgrwidth
+        if ratio < 0.25 or ratio > 4:
+            continue
 
         logo = cv2.imread(logofile)
         logoheight, logowidth, logochannel = logo.shape
@@ -177,7 +180,7 @@ def generate():
             percentage = float(i) / len(bgrs) * 100
             print str(i) + '/' + str(len(bgrs)) + ' --> ' + str(int(percentage)) + '%'
 
-generate()
+imageset = generate()
 
 with open(os.path.join(imagesetsoutput, imagesetf), 'w') as ims:
     ims.write(imageset)
