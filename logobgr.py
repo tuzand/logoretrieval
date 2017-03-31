@@ -41,9 +41,9 @@ def coloredBgr(im, bgrbgrmean):
 
     return im
 
-bgrpath = '/home/andras/data/datasets/MIRFLICKR/images'
-logopath = '/home/andras/data/datasets/METU/metu/data/Images'
-output = '/home/andras/data/datasets/SYNMETU'
+bgrpath = '/home/atuezkoe/datasets/TA/'
+logopath = '/home/atuezkoe/datasets/metu/930k_logo_v3/'
+output = '/home/atuezkoe/datasets/SYN_METU_TA'
 
 images = 'Images'
 imagesoutput = os.path.join(output, images)
@@ -52,7 +52,7 @@ bboxesoutput = os.path.join(output, bboxes)
 imagesets = 'ImageSets'
 imagesetsoutput = os.path.join(output, imagesets)
 
-imagesetf = 'synmetu_train_all.txt'
+imagesetf = 'synmetu_ta_train_all.txt'
 
 if os.path.exists(imagesoutput):
     shutil.rmtree(imagesoutput)
