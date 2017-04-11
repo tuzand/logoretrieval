@@ -31,7 +31,7 @@ import sys
 
 max_per_image = 0
 vis = False
-logo_threshold = 0.7
+logo_threshold = 0.1
 thresh = 0.0
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
@@ -83,7 +83,7 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
-    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename)
+    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
     plt.close()
 
 def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
@@ -109,6 +109,35 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
             plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename)
             plt.close()
 
+def py_cpu_nms(dets, thresh):
+    """Pure Python NMS baseline."""
+    x1 = dets[:, 0]
+    y1 = dets[:, 1]
+    x2 = dets[:, 2]
+    y2 = dets[:, 3]
+    scores = dets[:, 4]
+
+    areas = (x2 - x1 + 1) * (y2 - y1 + 1)
+    order = scores.argsort()[::-1]
+
+    keep = []
+    while order.size > 0:
+        i = order[0]
+        keep.append(i)
+        xx1 = np.maximum(x1[i], x1[order[1:]])
+        yy1 = np.maximum(y1[i], y1[order[1:]])
+        xx2 = np.minimum(x2[i], x2[order[1:]])
+        yy2 = np.minimum(y2[i], y2[order[1:]])
+
+        w = np.maximum(0.0, xx2 - xx1 + 1)
+        h = np.maximum(0.0, yy2 - yy1 + 1)
+        inter = w * h
+        ovr = inter / (areas[i] + areas[order[1:]] - inter)
+
+        inds = np.where(ovr <= thresh)[0]
+        order = order[inds + 1]
+
+    return keep
 
 def test_net(net, imdb, onlymax, max_per_image=100):
     num_images = len(imdb.image_index)
@@ -222,20 +251,61 @@ def parse_args():
                         help='max number of detections per image',
                         default=100, type=int)
 
-    if len(sys.argv) == 1:
-        parser.print_help()
-        sys.exit(1)
+    #if len(sys.argv) == 1:
+    #    parser.print_help()
+    #    sys.exit(1)
 
     args = parser.parse_args()
     return args
 
+def updateFeatures(net, boxes):
+    dummy = np.array([[[[1]]]]).astype(np.float32)
+    for filename, value in boxes.items():
+        roi_bboxes = list()
+        roi_scores = list()
+        roi_classes = list()
+        filepath = value[0]
+        features = value[1]
+        bboxes = value[2]
+        print filepath
+
+        img = cv2.imread(filepath)
+        for idx, box in enumerate(bboxes):
+            x1 = box[0]
+            y1 = box[1]
+            x2 = box[2]
+            y2 = box[3]
+            roi = img[y1:y2, x1:x2]
+            roi = cv2.resize(roi, (224, 224))
+            roi = roi.swapaxes(0,2).swapaxes(1,2)
+            roi = np.array([roi]).astype(np.float32)
+            net.set_input_arrays(roi, dummy)
+            net.forward()
+
+            feature = net.blobs['fc1000'].data
+            feature = feature.flatten()
+            norm = np.linalg.norm(feature)
+            features[idx] = feature / norm
+
+
 
 def search(net):
 
-    all_test_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
-    #all_train_features, imdb = get_features(net, args, 'srf_ski_good', custom=False, onlymax=False)
-    all_train_features, imdb = get_features(net, args, SEARCHPATH, custom=False, onlymax=False)
+    all_query_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
+    all_search_features, imdb = get_features(net, args, SEARCHPATH, custom=False, onlymax=False)
 
+    PROTO = '/home/andras/data/models/resnet/ResNet-50-deploy.prototxt'
+    MODEL = '/home/andras/data/models/resnet/ResNet-50-model.caffemodel'
+
+    net = caffe.Net(PROTO, MODEL, caffe.TEST)
+    net.name = os.path.splitext(os.path.basename(MODEL))[0]
+
+
+    print 'Update query features'
+    updateFeatures(net, all_query_features)
+    print 'Update search features'
+    updateFeatures(net, all_search_features)
+    
     num_images = len(imdb.image_index)
     # all detections are collected into:
     #    all_boxes[cls][image] = N x 5 array of detections in
@@ -247,45 +317,46 @@ def search(net):
     _t = {'misc' : Timer()}
 
     i = 0
-    for trainfilename, train_value in all_train_features.items():
+    for searchfilename, search_value in all_search_features.items():
         _t['misc'].tic()
         roi_bboxes = list()
         roi_scores = list()
         roi_classes = list()
-        trainfilepath = train_value[0]
-        train_features = train_value[1]
-        train_bboxes = train_value[2]
+        searchfilepath = search_value[0]
+        search_features = search_value[1]
+        search_bboxes = search_value[2]
         
-        scores = np.zeros((len(train_bboxes), imdb.num_classes))
-        boxes = np.zeros((len(train_bboxes), imdb.num_classes * 4))
+        scores = np.zeros((len(search_bboxes), imdb.num_classes))
+        boxes = np.zeros((len(search_bboxes), imdb.num_classes * 4))
         maxdistance = 0
-        for testfilename, test_value in all_test_features.items():
-            testfilepath = test_value[0]
-            test_feature = test_value[1][0]
-            test_bboxes = test_value[2]
+        for queryfilename, query_value in all_query_features.items():
+            queryfilepath = query_value[0]
+            query_feature = query_value[1][0]
+            query_bboxes = query_value[2]
             
-            for j in range(len(train_features)):
-                train_feature = train_features[j]
-                #similarity = np.dot(test_feature, train_feature)
+            for j in range(len(search_features)):
+                search_feature = search_features[j]
+                similarity = np.dot(query_feature, search_feature)
                 # get the index of the classname
-                classindex = imdb.classes.index(testfilename.split('.')[0])
-                distance = np.linalg.norm(test_feature - train_feature)
-                scores[j, classindex] = distance
-                if distance > maxdistance:
-                    maxdistance = distance
+                classindex = imdb.classes.index(queryfilename.split('.')[0])
+                #distance = np.linalg.norm(query_feature - search_feature)
+                scores[j, classindex] = similarity
+                #if distance > maxdistance:
+                #    maxdistance = distance
 
-                max_score_index = train_feature.argmax()
+                max_score_index = search_feature.argmax()
                 boxes[j, classindex*4 : classindex*4+4] = \
-                    train_bboxes[j]
-                #    train_bboxes[j, max_score_index*4 : max_score_index*4+4]
-                roi_bboxes.append(train_bboxes[j])
-                roi_scores.append(distance)
-                roi_classes.append(testfilename.split('.')[0])
-            #im = cv2.imread(trainfilepath)
-            #write_bboxes(im, trainfilename, roi_bboxes, roi_scores, roi_classes)
-        print maxdistance
-        scores = scores / maxdistance
-        scores = 1- scores
+                    search_bboxes[j]
+                #    search_bboxes[j, max_score_index*4 : max_score_index*4+4]
+                roi_bboxes.append(search_bboxes[j])
+                roi_scores.append(similarity)
+                roi_classes.append(queryfilename.split('.')[0])
+                #print queryfilename.split('.')[0] + ': ' + str(similarity)
+            #im = cv2.imread(searchfilepath)
+            #write_bboxes(im, searchfilename, roi_bboxes, roi_scores, roi_classes)
+        #print maxdistance
+        #scores = scores / maxdistance
+        #scores = 1- scores
 
 
         for j in xrange(1, imdb.num_classes):
@@ -297,8 +368,8 @@ def search(net):
             keep = nms(cls_dets, cfg.TEST.NMS)
             cls_dets = cls_dets[keep, :]
             if vis:
-                im = cv2.imread(trainfilepath)
-                vis_detections(im, imdb.classes[j], cls_dets, trainfilename)
+                im = cv2.imread(searchfilepath)
+                vis_detections(im, imdb.classes[j], cls_dets, searchfilename)
             all_boxes[j][i] = cls_dets
 
         # Limit to max_per_image detections *over all classes*

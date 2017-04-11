@@ -12,7 +12,7 @@ matplotlib.use('Agg')
 """Test a Fast R-CNN network on an image database."""
 
 import _init_paths
-from fast_rcnn.test import im_detect
+from fast_rcnn.test_det import im_detect
 from fast_rcnn.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from datasets.factory import get_imdb
 import caffe
@@ -31,24 +31,27 @@ import sys
 
 max_per_image = 0
 vis = False
-logo_threshold = 0.0
-similaritythreshold = 0.1
-thresh = 0.0
+visualize_logo_detection = False
+thresh = 0.2
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
 FRCNN = 'py_faster_rcnn'
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedexceptlast/test.prototxt')
+#PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/faster_rcnn_end2end/simple_detectionpath/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv/test.prototxt')
-PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv_srf_ice/test.prototxt')
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
+PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/synmetu_ta_detection/vgg_cnn_m_1024_faster_rcnn_synmetuta_detection_iter_50000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/srf_ice_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_srf_ski_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
 EXAMPLEPATH = '/home/andras/logoexamples'
 #SEARCHPATH = '/home/andras/data/datasets/fussi'
@@ -59,7 +62,6 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     ax.imshow(im, aspect='equal')
     for i in range(len(bboxArray)):
         bbox = bboxArray[i][4:8]
-        print i
         score = scoreArray[i]
         class_name = classArray[i]
         ax.add_patch(
@@ -106,84 +108,6 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
             plt.close()
 
 
-def test_net(net, imdb, onlymax, max_per_image=100):
-    num_images = len(imdb.image_index)
-
-	# timers
-    _t = {'im_detect' : Timer(), 'misc' : Timer()}
-    normed_features = dict()
-    outputbboxes = dict()
-    for i in xrange(num_images):
-        imagepath = imdb.image_path_at(i)
-        imagename = imagepath.split('/')[-1]
-        im = cv2.imread(imagepath)
-        _t['im_detect'].tic()
-        if False:
-            scores, boxes, features, scores_det, bboxes_det = im_detect(net, im, True, None)
-            roi_classes = ['logo' for j in range(30)]
-            write_bboxes(im, 'now.jpg', boxes[0:30], scores_det[0:30], roi_classes)
-        else:
-            scores, boxes, features, scores_det = im_detect(net, im, True, None)
-            scores = scores_det
-            boxes
-            if False:
-                s_det = scores_det[:, 1]
-                inds = np.array(s_det).argsort()[::-1][:10]
-                print inds
-                #inds = inds[0:10]
-                #s_det = [j for j in range(1)]
-                roi_classes = ['logo' for j in range(len(inds))]
-                write_bboxes(im, str(i) + '.jpg', boxes[inds], s_det[inds], roi_classes)
-        _t['im_detect'].toc()
-
-        _t['misc'].tic()
-        max_score = 0
-        roi_bboxes = list()
-        roi_scores = list()
-        roi_classes = list()
-        roi_features = list()
-        logo_inds = list()
-        if onlymax:
-            logo_inds.append(scores_det[:, 1].argmax())
-        else:
-            for j in range(len(scores)):
-                m = scores[j, 1:].max()
-                if m > logo_threshold:
-                    logo_inds.append(j)
-        for idx in logo_inds:
-            s = scores[idx, 1:]
-            max_score = s.max()
-			#brand_idx = s.argmax()
-			#bbox = boxes[idx, 4 * brand_idx : 4 * (brand_idx + 1)]
-            feature = features[idx, 1:]
-            feature = feature.flatten()
-            norm = np.linalg.norm(feature)
-            feature = feature / norm
-            roi_bboxes.append(boxes[idx])
-            roi_scores.append(max_score)
-            roi_classes.append('logo')
-            roi_features.append(feature)
-		#write_bboxes(im, imagename, roi_bboxes, roi_scores, roi_classes)
-        normed_features[imagename] = [imagepath, roi_features, boxes[logo_inds, :]]
-
-        _t['misc'].toc()
-
-        print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
-              .format(i + 1, num_images, _t['im_detect'].average_time,
-                      _t['misc'].average_time)
-
-    return normed_features
-
-def get_features(net, args, dataset, custom, onlymax):
-    if custom:
-        imdb = get_custom_imdb(dataset)
-    else:
-        imdb = get_imdb(dataset)
-        imdb.competition_mode(args.comp_mode)
-        #if not cfg.TEST.HAS_RPN:
-            #imdb.set_proposal_method(cfg.TEST.PROPOSAL_METHOD)
-    return test_net(net, imdb, onlymax, max_per_image=args.max_per_image), imdb
-
 def parse_args():
     """
     Parse input arguments
@@ -198,7 +122,7 @@ def parse_args():
                         help='model to test',
                         default=None, type=str)
     parser.add_argument('--cfg', dest='cfg_file',
-                        help='optional config file', default=None, type=str)
+                        help='optional config file', default='./py_faster_rcnn/experiments/cfgs/faster_rcnn_end2end.yml', type=str)
     parser.add_argument('--wait', dest='wait',
                         help='wait until net file exists',
                         default=True, type=bool)
@@ -228,6 +152,7 @@ if __name__ == '__main__':
 
     print('Called with args:')
     print(args)
+    
 
     if args.cfg_file is not None:
         cfg_from_file(args.cfg_file)
@@ -267,21 +192,24 @@ if __name__ == '__main__':
         _t['im_detect'].tic()
         scores, boxes, features, scores_det, boxes_det = im_detect(net, im, True, None)
         scores = scores_det
-        print scores
         #boxes = boxes_det
+        if visualize_logo_detection:
+            s_det = scores_det[:, 1]
+            inds = np.array(s_det).argsort()[::-1][:10]
+            roi_classes = ['logo' for j in range(len(inds))]
+            write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)
         _t['im_detect'].toc()
 
         _t['misc'].tic()
 
         for j in xrange(1, imdb.num_classes):
-            inds = np.where(scores[:, j-1] > thresh)[0]
-            cls_scores = scores[inds, j-1]
+            inds = np.where(scores[:, j] > thresh)[0]
+            cls_scores = scores[inds, j]
             cls_boxes = boxes[inds, j*4:(j+1)*4]
             cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
                 .astype(np.float32, copy=False)
             keep = nms(cls_dets, cfg.TEST.NMS)
             cls_dets = cls_dets[keep, :]
-            print len(cls_dets)
             if vis:
                 vis_detections(im, imdb.classes[j], cls_dets, 0.3, imagepath.split('/')[-1].split('.')[0])
             all_boxes[j][i] = cls_dets

@@ -41,9 +41,11 @@ def coloredBgr(im, bgrbgrmean):
 
     return im
 
-bgrpath = '/home/atuezkoe/datasets/TA/'
-logopath = '/home/atuezkoe/datasets/metu/930k_logo_v3/'
-output = '/home/atuezkoe/datasets/SYN_METU_TA'
+bgrpath = '/home/andras/data/datasets/Tripadvisor'
+#bgrpath = '/home/andras/data/datasets/MIRFLICKR/images'
+logopath = '/home/andras/data/datasets/METU/metu/data/Images'
+#logopath = '/home/andras/data/datasets/METU/metu/data/Images'
+output = '/home/andras/data/datasets/SYNMETUTA'
 
 images = 'Images'
 imagesoutput = os.path.join(output, images)
@@ -67,8 +69,13 @@ os.makedirs(imagesetsoutput)
 bgrs = [os.path.join(dp, f) for dp, dn, filenames in os.walk(bgrpath) for f in filenames if os.path.splitext(f)[1] == '.jpg']
 logos = [os.path.join(dp, f) for dp, dn, filenames in os.walk(logopath) for f in filenames if os.path.splitext(f)[1] == '.jpg']
 
+print len(bgrs)
+print len(logos)
+
 def generate():
     imageset = ''
+    fileindir = 20000
+    actdir = -1
     for i, logofile in enumerate(logos):
 
         f = logofile.split('/')[-1].split('.')[0]
@@ -120,7 +127,7 @@ def generate():
         out = np.float32([[int(logowidth*(tlx)), int(logoheight*(tlyp))], [int(logowidth*(1+trx)), int(logoheight*(tryp))], \
             [int(logowidth*(1+brx)), int(logoheight*(1+bryp))], [int(logowidth*(blx)), int(logoheight*(1+blyp))]])
 
-        warp = np.zeros((max(out[1,0], out[2,0]), max(out[2,1], out[3,1]), 4), np.uint8)
+        warp = np.zeros((int(max(out[1,0], out[2,0])), int(max(out[2,1], out[3,1])), 4), np.uint8)
 
         warp[:,:,:] = [255, 255, 255, 0]
 
@@ -165,15 +172,19 @@ def generate():
         blurredlogo = cv2.blur(bgr[shiftrows-5:shiftrows+rows+5, shiftcols+5:shiftcols+cols+5 ], (3,3))
         np.copyto(bgr[shiftrows-5:shiftrows+rows+5, shiftcols+5:shiftcols+cols+5 ], blurredlogo)
 
+        if i % fileindir == 0:
+            actdir += 1
+            os.makedirs(os.path.join(imagesoutput, str(actdir)))
+            os.makedirs(os.path.join(bboxesoutput, str(actdir)))
 
 
-        cv2.imwrite(os.path.join(imagesoutput, fwithext), bgr)
+        cv2.imwrite(os.path.join(imagesoutput, str(actdir), fwithext), bgr)
         warp[:,:,:] = [255, 255, 255, 0]
 
-        imageset += f + '\n'
+        imageset += str(actdir) + '/' + f + '\n'
 
 
-        with open(os.path.join(bboxesoutput, fwithext + '.bboxes.txt'), 'w') as bbox:
+        with open(os.path.join(bboxesoutput, str(actdir), fwithext + '.bboxes.txt'), 'w') as bbox:
             bbox.write(str(shiftcols) + ' ' + str(shiftrows) + ' ' + str(shiftcols+cols) + ' ' + str(shiftrows+rows) + ' logo')
 
         if i % 1000 == 0:
