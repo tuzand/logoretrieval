@@ -1,0 +1,51 @@
+\chapter{Literaturverzeichnisse}
+
+\label{chap:ZusfassAusblick}
+
+Generell erfordert ein Literaturverzeichnis die Anwendung von Bib\TeX\ und zwar in der Reihenfolge: \texttt{latex}, \texttt{bibtex}, \texttt{latex}, \texttt{latex}. Die zwei nachfolgenden Läufe von latex sind nötig um die Referenzierungen korrekt zu erstellen.
+
+Bei bibtopic wird kein Bib\TeX-Lauf auf der aux-Datei des Hauptdokuments mehr benötigt, dafür wird für jedes gewünschte Verzeichnis eine \texttt{<Dateiname>1.aux}, \texttt{<Dateiname>2.aux} usw.\ angelegt. D.h. man muss Bib\TeX\ auf diese Dateien anwenden.
+
+Im TeXnicCenter legt man sich dazu im Ausgabeprofil für jedes Verzeichnis einen Postprozessor-Lauf an, der jeweils die Variable \texttt{"\%bm<Nummer>"} enthalten, also \zB \texttt{"\%bm1"}.
+
+\section{Mehrere Literaturverzeichnisse -- Verwendung von \texttt{bibtopic}}
+
+Durch die Verwendung mehrerer Literaturverzeichnisse ergeben sich leichte Änderungen, die im Folgenden erklärt sind.
+
+\subsection{Auszug aus den Restrictions der \texttt{bibtopic}-Doku}
+BibTeX's cross-referencing doesn't work between items in different btSects. Since BIBTEX is run separately on the files corresponding to different bt-Sects, it won't be able to resolve the cross-reference.
+
+When the bibliography files have several items with the same author and the same year, they are tagged with 'a', 'b', 'c' etc. extensions even if not all of them are cited. When the bibliography is printed with \verb+\btPrintCited+, funny effects might occur, e.g. a bibliography where only a 'b' item is shown.
+
+bibtopic.sty doesn't work with the 'unsorted' citation styles such as unsrt or unsrtdin. Use the package multibib.sty instead.
+
+bibtopic.sty is case sensitive, while BIBTEX isn't. That means that while BIBTEX treats a .bib entry like: \verb+@article{Gnus:98,+\dots and a citation \verb+\cite{gnus:98}+ as the same key, bibtopic.sty treats them as different keys, and you will get an 'undefined reference' error for the citation command.
+
+When mixing several citation styles, it's important to know that numerical citation styles and author-year styles are generally incompatible with each other. This means that the style declared first will always override later redeclarations, since it is globally set at the begin of the document and can't be changed afterwards. Examples for numerical styles in that sense are plain and alpha (even if the name doesn't sound like it), examples for author-year styles are the 'harvard' styles agsm and dcu or the authordate1-4 style. As for these examples, you may mix alpha with plain, but not with agsm or vice versa.
+
+\subsection{Weitere Möglichkeiten}
+
+Es gibt noch die Pakete \texttt{bibunits} oder \texttt{chapterbib} für Literaturangaben nach jedem Kapitel. Da muss man aber selbst basteln und die Doku zu den Paketen anschauen.
+
+Das Paket \texttt{multibib} ist inkompatibel zu \texttt{natbib}, das in der Vorlage genutzt wird. Wer \texttt{multibib} unbedingt will, muss dann die Vorlage so anpassen, dass auch ohne \texttt{natbib} das rauskommt, wie man es will.
+
+\section{Jahresangabe bei Inproceedings-Einträgen}
+
+Der standardmäßig verwendete BibTeX-Stil \enquote{AlphaDINFirstName.bst} gibt bei Inproceedings-Einträgen das Jahr nicht mit aus (vermutlich weil es oft Teil des Konferenznamens ist). Möchte man sichergehen, dass das Jahr-Feld mit ausgegeben wird, gibt es die \enquote{AlphaDINFirstNameWYear.bst}, die stattdessen verwendet werden kann.
+
+\section{Verwendung des Stichwortverzeichnisses}
+
+Wer möchte, kann sich einen Index anlegen. Das geschieht durch Verwendung des \verb+\index+ Befehls. Das heißt, das Wort \index{Stichwortverzeichnis} taucht jetzt im Index auf.
+
+Das Aussehen wird über eine Style-Datei für die \texttt{makeindex.exe} geregelt. Diese hat die Dateiendung \texttt{ist}.
+Im Ausgabeprofil sollte dann also bei den Makeindex-Optionen \verb+-g -s index_hpfsc.ist "%tm"+
+drinstehen. Das g steht für german, also deutsche Sortierung nach DIN 5007. Bei englischen Arbeiten dann weglassen. Achtung: Hier wird die Dateivariable \verb+%tm+
+verwendet, weil die aktuelle MikTeX-Version aus Sicherheitsgründen bei Makeindex keine Absolutpfade mehr zulässt und TeXnicCenter keine Relativpfade kann. Also wird nur der Name übergeben.
+
+
+Very nice are the papers of \cite{Mahmoudi2009,Voigt2005,DWandt1997,Yeh,Voigt2004}.
+
+For the bibtopic test here is from \texttt{testliteratur.bib} \cite{swilliams2009oc} and from \texttt{BibtexDatabase.bib} \cite{Apfelbach1988}.
+
+%\bibliographystyle{bib/bst/AlphaDINFirstName}
+%\bibliography{bib/BibtexDatabase}

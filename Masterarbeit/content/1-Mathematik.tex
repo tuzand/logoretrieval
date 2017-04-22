@@ -1,0 +1,368 @@
+\chapter{Schriften und Mathezeugs}
+
+\section{Zeichenvorrat Textmodus}
+
+Hier ist normaler Text zu sehen, gesetzt in Utopia. Utopia ist eine für Fließtext sehr geeignete Serifenschrift. {\sffamily Im Gegensatz dazu sieht man hier die Schrift Biolinum, ein freier Optima-Klon. Sie ist eine serifenlose Schrift, die mit der Optima harmoniert. Sie wurde gewählt, weil es keine serifenlose Variante der Utopia gibt.} Es folgt ein kurzer Direktvergleich der beiden Schriftarten:\\
+Hamburgefonstiv.\\
+\textsf{Hamburgefonstiv}.\\
+H\textsf{H}a\textsf{a}m\textsf{m}b\textsf{b}u\textsf{u}r\textsf{r}g\textsf{g}e\textsf{e}f\textsf{f}o\textsf{o}n\textsf{n}s\textsf{s}t\textsf{t}i\textsf{i}v\textsf{v}.
+
+\textsc{Kapitälchen in Utopia}.
+
+\section{Horizontale Abstände}
+
+Will man vermeiden, dass \LaTeX zwei Worte an ungünstiger Stelle auseinanderreißt (oder im Blocksatz ungünstig gesperrt schreibt), \zb weil diese einen festen Begriff darstellen, kann man mit dem Tilde-Zeichen \verb+~+ dafür sorgen, dass ein festes, nicht-umbrechendes und nicht-dehnbares Leerzeichen eingefügt wird.
+
+Oft braucht man etwas Freiheit, was die Abstände angeht. \LaTeX bietet diese vordefinierten Befehle an:
+Es gibt für positive Abstände in aufsteigender Reihenfolge \texttt{thinspace} (auch kurz als \verb+\,+ geschrieben, meistens zwischen Zahl und Maßeinheit sowie zwischen Abkürzungen wie bei \zb), \texttt{medspace} (kurz \verb+\:+) und \texttt{thickspace} (kurz \verb+\;+) dann \texttt{enskip}, \texttt{quad} (oft im Mathemodus hinter Formeln als zusätzliche Definition wie $i,j\in \mathbb{R}$) und \texttt{qquad}. Negative Abstände gehen mit \texttt{negthinspace} (kurz \verb+\!+), \texttt{negmedspace} und \texttt{negthickspace}.
+
+\section{Text mit inline-Mathe}
+
+Um das Umbrechen von inline-Mathe-Formeln zu verhindern, einfach den ganzen Matheausdruck innerhalb der Dollarzeichen in geschweifte Klammern packen. Allerdings kann das dann sehr unschöne Zeilenumbrüche zur Folge haben.
+
+The following part may generate LaTeX-Warnings if specific math symbols are, \eg, not available in bold. They will be printed in unbold=normal instead. So watch out for such warnings if bold has another meaning compared to normal.
+
+Don't confuse the 2 possibilities of \texttt{mathbf} and \texttt{mathbold}.%
+Normal text ist 1,a,b,,i,\i,j, $\jmath$ ist im Mathemodus ebenso wie $a^{-1}b_i$, %
+\texttt{mathbf} is $\mathbf{a^{-1}b_i}$ %
+while \texttt{boldsymbol} is $\boldsymbol{a^{-1}b_i}$%$\boldmath{a^{-1}b_i}$
+. \texttt{mathbf} uses the text font and \texttt{mathbold} uses the math font. Fractions in text are set better with $\nicefrac{3}{4\pi}$ if it's math content (note the different math numerals) and \nicefrac{3}{4} if there's no math content and \textsf{\nicefrac{3}{4} in sans-serif}. The limits of an integral are set on the side like in $\int_0^\infty{a_i b^k}$, but you can also have the limits on top and bottom even in text mode: $\int\limits_0^\infty{a_i b^k}$ but then the lines are spread apart and it looks ugly. Use it only if you must.
+%
+And then there is also \texttt{boldmath}. It doesn't have arguments but rather acts as a switch. It can also be used only in text mode, not in math mode! See here: {\boldmath$a^{-1}b_i$} and if not blocked properly with curly brackets the following is also going to be bold $a^{-1}b_i$ which it is not. But if using boldmath look whether you get warnings that a certain font shape is unavailable (like U/wasy/b/n that is replaced by the non-bold variant U/wasy/m/n) Use it only as a last resort for making characters bold that usually don't feature a bold version. Otherwise in math mode use \texttt{boldsymbol} \texttt{mathbold} wherever possible. This is standard inline math text: $\sum_{i=1}^n{a_i b^2}$ where you can easily discern a from $a$ and g from $g$.
+
+Um zu vermeiden, dass inline-Mathe die Zeilenabstände (den Durchschuss) auseinanderdrückt, ist im Dokument ein 1{,}35-facher Zeilenabstand eingestellt. Damit sollte inline-Mathe in normalem Umfang wie \zB 3\,$\nicefrac{m^2}{s^2}$ oder 4\,$\tfrac{m^2}{s^2}$ und $\nabla^{2}_{i} \begin{bmatrix} x & y & z & w & q\end{bmatrix} ^\mathrm{T}$ keine Probleme verursachen. Allerdings sieht man dann auch ziemlich schnell, dass bei so enorm hohen Riesendingern mit Brüchen wie im Falle von $\sqrt[n]{\frac{n^2\cdot m!}{x_i y_i}}$ die Zeilen dann doch wieder aufgeweitet werden. 
+%wenn in der nächsten Zeile gleich nochmals $\sqrt[n]{\frac{n^2\cdot m!}{x_i y_i}}$ steht und dort auch stehen bleibt. $\dfrac{m}{s}$
+
+Es gibt auch vordefinierte Befehle für Vektoren und Matrizen damit man einheitlich definieren kann, dass die \zB fett erscheinen: $\Vektor{v}_{\text{vektor}} \cdot \Matrix{A}_{\text{matrix}} \mathrel{\tilde{=}} \Matrix{B}$ {\tiny \texttt{mathrel}  wurde benutzt um aus dem akzentuierten Zeichen eine mathematische Relation zu machen, wo die Abstände stimmen} oder auch mit \texttt{mathsf} $\Vektor{v}_{\mathsf{vektor}} \cdot \Matrix{A}_{\mathsf{matrix}} = \Matrix{B}$ oder alternativ \texttt{mathrm} $\Vektor{v}_{\mathrm{vektor}} \cdot \Matrix{A}_{\mathrm{matrix}} = \Matrix{B}$, das aber gleich aussehen sollte wie \texttt{text}. Nicht tun darf man aber $\Vektor{v}_{vektor} \cdot \Matrix{A}_{matrix} = \Matrix{B}_{eff}$ weil die Bezeichnung dann als Variablenprodukt $v\cdot e\cdot k\cdot t\cdot o\cdot r$ gesehen wird, was besonders an den häßlichen Abständen bei "`\emph{eff}"' zu sehen ist. Die Lösung dafür ist mathrm oder mathit.
+
+Eine Matrixgleichung \ref{matrixeq1} und eine Casesumgebung \ref{caseseq1}.
+
+\subsection{Nomenclature / Symbolverzeichnis Einträge}
+\index{Symbolverzeichnis}
+A nomenclature entry about $\dot{v}$ \nomenclature[rv]{$\dot{v}$}{First temporal derivative of the velocity. Use math mode.} and another one not mentioned in the text \nomenclature[rA]{$\boldsymbol{A}$}{Bold math matrix A, war Euler Mathbold}.
+
+Zwecks richtiger Sortierung wird ein optionales Argument verwendet: {\scriptsize\verb+\nomenclature[rA]{$\boldsymbol{A}$}+} bzw.\ \newline {\scriptsize\verb+\nomenclature[gg]{${\gamma}$}{Constant for gravitation}+}. In der \texttt{newcommands.tex} wird \verb+\nomgroup+ umdefiniert und dort auch die Überschriften für die Unterteilung festgelegt. Einträge ohne Sortierangabe werden sortiert wie zuvor auch.
+
+\nomenclature[re]{${\expe}$}{Eulersche Zahl}
+\nomenclature[rB]{${B}$}{Matrix B}
+\nomenclature[rC]{${C}$}{Matrix C}
+\nomenclature[rD]{${D}$}{Matrix D}
+\nomenclature[rE]{${E}$}{Matrix E}
+\nomenclature[cF]{$\mathcal{F}$}{Fourier F}
+\nomenclature[gg]{${\gamma}$}{Constant for gravitation}
+\nomenclature[rH]{${H}$}{Matrix H}
+\nomenclature[gh]{${\eta}$}{Konstante Eta}
+\nomenclature{$\boldsymbol{I}$}{Identity Matrix}
+\nomenclature{$\mathcal{J}$}{J operator}
+\nomenclature{${K}$}{Matrix K}
+\nomenclature{${L}$}{Matrix L}
+\nomenclature{$\boldsymbol{M}$}{Matrix bold M}
+\nomenclature{${N}$}{Matrix N}
+\nomenclature[ge]{${\varepsilon}$}{Das allseits beliebte wissenschaftliche Epsilon}
+\nomenclature{$\mathcal{O}$}{Landau-Kalkül, O-Notation}
+\nomenclature{${P}$}{Matrix P}
+\nomenclature{$\mathscr{Q}$}{Q-Operator which has an absurdly long description which in turn may not fit in one line and which may or may not be broken down into several lines of description text forming a description paragraph. Such long descriptions are probably not that interesting in a symbol index}
+\nomenclature{${Y}$}{Matrix Y}
+\nomenclature{${Z}$}{Matrix Z}
+
+%% PW: commath geht leider nicht
+%Commath macht Differentiale roman, wenn der zugehörige \verb+\dif+-Befehl oder \verb+\Dif+ bei Ableitungen verwendet wird:  $\int\limits_{\Omega_\mathit{sensor}}{\dif \Omega \dif E(\theta, \varphi, t, t+\delta t)}$  oder  $\Dif f$  oder $\md{f}{5}{x}{2}{y}{3}$ sowie \od[2]{f}{x}.
+
+\section{Formelumgebungen}
+\index{Gleichungen}\index{Formeln}
+Für Formeln sollte man auf eqnarray verzichten (siehe l2tabu) und dafür mit der align-Umgebung oder auch der gather-Umgebung arbeiten.
+
+Ist Zeilenumbruch bei Formel nötig, immer vor einem Binäroperator die Zeile umbrechen, so dass die nächste Zeile mit dem Operator beginnt.
+
+\begin{align}
+f\frac{ab}{\dot{v}} &= \int\limits_{-\infty}^{\infty} \rho \sqrt[n]{e^{-2\pi i \xi}} {\partial \xi} \cdot 2^k-\binom{b}{1}2^{k-1}+\dbinom{d}{2}2^{k-2}-\tbinom{t}{3} \intertext{unter Zuhilfenahme von} 1+1 &=2 \quad \forall a \quad \exists B \to \infty \quad \text{\scriptsize{ohne Nummer am Ende!}} \notag \\
+\begin{bmatrix} X & l & h\\ \mathcal{M} & \mathfrak{e} & \mathfrak{m} \\ %\mathbold{
+g%
+%}
+ & y & Y \end{bmatrix} &= \vec{\boldsymbol{A}}\cdot \begin{pmatrix} a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \\ c_1 & c_2 & c_3  \end{pmatrix} \label{matrixeq1} \\
+a^2 + b^2 &\stackrel{!}{=}c^2 \qquad \forall \; a,b,c \in \mathbb{R} \notag \\
+\binom{n+1}{3} &= \sqrt[7]{\alpha} \notag\\
+\end{align}
+
+\begin{align}
+f\frac{ab}{\dot{v}} &= \int\limits_{-\infty}^{\infty} \rho \sqrt[n]{e^{-2\pi i \xi}} {\partial \xi} \cdot 2^k-\binom{b}{1}2^{k-1}+\dbinom{d}{2}2^{k-2}-\tbinom{t}{3}\notag\\
+\binom{n+1}{3} &= \sqrt[7]{\alpha} \label{eq:alpha}\\
+\binom{n+1}{4} &= \sqrt[4]{\beta} \label{eq:beta}\\
+\SkalProd{x}{y} & \text{ macht normale Skalarprodukt-Klammern} \linebreak[1] \text{unabhängig davon was drin steht}\\
+\SkalProd{x^2_j}{y^2_j} & \text{  macht normale Skalarprodukt-Klammern} \linebreak[1] \text{unabhängig davon was drin steht}\\
+\SkalProdD{x^2_j}{y^2_j} & \text{ macht dynamische Skalarprodukt-Klammern,}\linebreak[1] \text{die größer werden, wenn Indices etc. da sind.}\\
+\left.\frac{x^3}{3}\right|_0^1 & \text{ Wenn nur ein Einschränkungsstrich oder eine Klammer} \linebreak[1] \text{ auf einer Seite gebraucht wird, muss man einen dummy-Gegenpart einführen.}
+\end{align}
+
+Man sieht in Gleichung \ref{eq:alpha}, dass sie anders ist als Gleichung \ref{eq:beta}.
+
+\section{Zeichenvorrat Mathemodus}
+
+Hier gibt es die ganzen Zeichen zu bewundern, die zur Verfügung stehen. Zum Beispiel ein \nomenclature{$\mathscr{P}$}{Arbitrarily chosen math symbol.} $\mathscr{P}$.
+\index{Sonderzeichen}
+\begin{align}
+\text{normal\quad} & ABCDEFGHIJKLMNOPQRSTUVWXYZ \notag \\%
+& abcdefghijklmnopqrstuvwxyz \notag\\
+& 0123456789\notag\\
+& \wp\wr\Re\Im \propto\ell\nabla\partial\infty\propto\jmath\imath\emptyset \notag\\%  \dotlessi und \dotlessj klappen nicht%
+& \hat{x},\tilde{x},\check{x},\acute{x},\breve{x},\grave{x},\vec{x},\bar{x},\dot{x},\ddot{x},\not{\negthickspace x},\widehat{abcd},\widetilde{abcd}\notag\\%
+\text{bold\quad} & \boldsymbol{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag \\%
+%& \boldmath{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag \\  %defined also \mb command%
+ & \boldsymbol{abcdefghijklmnopqrstuvwxyz} \notag\\
+ & \boldsymbol{0123456789} \notag\\
+%& \boldmath{abcdefghijklmnopqrstuvwxyz}
+ & \boldsymbol{\wp\wr\Re\Im \propto\ell\nabla\partial\infty\propto\jmath\imath}\notag\\%
+%& \boldmath{\wp\wr\Re\Im \propto\ell\nabla\partial\infty\propto\jmath\imath}\\%
+\text{mathrm Textschrift\quad} &\mathrm{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag\\%
+ & \mathrm{abcdefghijklmnopqrstuvwxyz}\\%
+ & \mathrm{0123456789}\\%
+\text{mathbf Textschrift\quad} &\mathbf{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag \\%
+& \mathbf{abcdefghijklmnopqrstuvwxyz}\\%
+& \mathbf{0123456798}\\%
+\text{mathsf\quad} &\mathsf{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag \\%
+& \mathsf{abcdefghijklmnopqrstuvwxyz}\\%
+& \mathsf{0123456789}%
+\end{align}
+
+\begin{align}
+\text{greek\quad} & \alpha\beta\gamma\delta\{\epsilon\varepsilon\}\zeta\eta\{\theta\vartheta\}\iota\kappa\lambda\mu\nu\xi\{\pi\varpi\}\{\rho\varrho\}\{\sigma\varsigma\}\tau\{\phi\varphi\}\chi\psi\omega,\upsilon \notag\\%varsigma ist wie sigma, varrho ist wie rho
+	& \Gamma\Delta  \Theta  \Lambda  \Xi \Pi \Sigma \Phi \Psi\Omega\Upsilon\\%
+	& {\varGamma \varDelta \varTheta \varLambda \varXi \varPi \varSigma \varPhi \varPsi \varOmega \varUpsilon } \\ %gehört zu amsmath
+% & \upGamma\upDelta  \upTheta  \upLambda  \upXi \upPi \upSigma \upPhi \upPsi\upOmega\upUpsilon\\ % %%nur Euler und mathpazo%
+\text{greek bold\quad} 	& \boldsymbol{\alpha\beta\gamma\delta  \{\epsilon\varepsilon\} \zeta\eta\{\theta\vartheta\} \iota\kappa\lambda\mu\nu\xi \{\pi\varpi\}  \{\rho\varrho\} \{\sigma\varsigma\}  \tau\{\phi\varphi\}\chi\psi\omega \; \upsilon} \notag \\%Zeile verursacht 4 Fehler, wenn Komma drinbleibt. Vermutlich auch nur dann, wenn bm geladen ist. Gibt Fehler wegen \mathpunct.
+	& \boldsymbol{\Gamma\Delta  \Theta  \Lambda  \Xi \Pi \Sigma \Phi \Psi\Omega\Upsilon}\notag\\%
+	& \boldsymbol{\varGamma \varDelta \varTheta \varLambda \varXi \varPi \varSigma \varPhi \varPsi \varOmega \varUpsilon } \notag \\%
+%	& \boldsymbol{\upGamma\upDelta  \upTheta  \upLambda  \upXi \upPi \upSigma \upPhi \upPsi\upOmega\upUpsilon}\\ % %%nur Euler und mathpazo
+\text{mathfrak\quad} & \mathfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag\\%
+ & \mathfrak{abcdefghijklmnopqrstuvwxyz}\quad\mathfrak{0123456789} \notag \\%
+\text{mathfrak bold\quad}  & \boldsymbol{\mathfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ}} \notag\\%
+ & \boldsymbol{\mathfrak{abcdefghijklmnopqrstuvwxyz}\quad\mathfrak{0123456789}} \notag \\%
+\text{mathcal\quad} & \mathcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag\\%
+ & \boldsymbol{\mathcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}} \notag \\		%some say that this doesn't work but it seems like it does
+% & \text{\boldmath$\mathcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$ } \\  %workaround if the above doesn't work. ugly but works
+\text{mathscr\quad} & \mathscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag \\  %Mathscr ist Teil der kpfonts oder von Euler
+\text{mathbb\quad} & \mathbb{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag \\%
+ & \boldsymbol{\mathbb{ABCDEFGHIJKLMNOPQRSTUVWXYZ}} \notag %
+%\text{mathds\quad} & \mathds{ABCDEFGHIJKLMNOPQRSTUVWXYZ} \notag \\%
+% & \boldsymbol{\mathds{ABCDEFGHIJKLMNOPQRSTUVWXYZ}}\\%
+% & \pmb{\mathds{ABCDEFGHIJKLMNOPQRSTUVWXYZ}} \\% Poor man's bold. Ugly. Emergency use only!%
+\end{align}
+
+\section{Weitere Beispiele}
+
+\subsection{Labeling von einzelnen Gleichungen}
+\index{Labels bei Gleichungen}
+Label in align-Umgebung: Jede Linie kann separat gelabelt werden:
+\begin{align}
+  \lambda_i + \mu_i = 0 \label{eq:lin1}\\
+  \mu_i \xi_i = 0 \label{eq:lin2}\\
+  \lambda_i [y_i( w^T x_i + b) - 1 + \xi_i] = 0 \label{eq:lin3}
+\end{align} 
+
+Das funktioniert aber nur für AMS Umgebungen \eqref{eq:lin1}, die für mehrere Gleichungen \eqref{eq:lin2} gedacht sind (z.B. \texttt{align}, \texttt{gather}), nicht bei solchen \eqref{eq:lin3}, die nur in der Lage sind eine Gleichung auf mehrere Zeilen zu verteilen (\texttt{multline}).
+Auch ohne dieses Einzellabeling wird für die Referenzierung auf Gleichungen der Befehl \texttt{eqref} verwendet, der um die Nummern gleich Klammern macht.
+
+
+\subsection{Cases-Umgebung}
+\index{Fallunterscheidung}
+
+\begin{align}
+f(n)&=\begin{cases}
+  			\sum\limits^\infty_0{n/2},  & \text{wenn }n\text{ gerade,}\notag\\
+  			\prod^0_{-\infty}{3n+1}, & \text{wenn }n\text{ ungerade.}
+			\end{cases}
+			\label{caseseq1}
+\end{align}
+
+\subsection{Overset und Substack}
+
+\[ f_x(x,y) \overset{!}{=}0 \]
+
+Den Befehl \texttt{underset} gibt es genauso wie \texttt{overset}. Ersatzweise kann auch \texttt{stackrel} benutzt werden.
+
+Müssen unter einem Operator mehrere Zeilen gesetzt werden, hilft \texttt{substack}.
+
+\[ \lim_{\substack{x\to x_0 \\ y \to y_0}}f(x,y)=f(x_0,y_0) \]
+
+\begin{equation}
+A_1(r_{\textrm{C}}) \times A_2(r_{\textrm{C}}):=
+\left(
+	\bigcup_{\substack{j \in \{1,\ldots,J\}: \\ r_{\textrm{I}}(j)=r_{\textrm{C}}}}
+		U_1^{\textrm{I}}(j)\times U_2^{\textrm{I}}(j)
+\right)
+\bigcup
+\left(
+	\bigcup_{\substack{k \in \{1,\ldots,K\}:\\  r_{\textrm{H}}(k)=r_{\textrm{C}}}}
+		U_1^{\textrm{H}}(k)\times U_2^{\textrm{H}}(k)
+\right)
+\subset Z_1 \times Z_2
+\end{equation}
+
+\subsection{Klammern drunter und drüber und Kasten außenrum}
+
+Unter einer Formel Klammern zu setzen wird mit \texttt{underbrace} gemacht. Der vorgefertigte Befehl \texttt{com} hilft hier auch.
+
+Mit \texttt{Aboxed} (aus maththools) kann sogar in Align-Umgebungen eine Box erzeugt werden, wo \texttt{boxed} nicht hilft.
+
+\begin{align}
+\gamma &=
+	\underbrace{\cancel{c(\Vek{r})}}_{\mathrm{const.}},\;
+	\underbrace{\cancel{d(\Vek{r})}}_{\mathrm{const.}},\;
+	\underbrace{\cancel{\varrho(\Vek{d}_{in},\Vek{d}_{out}, x, y)}}_{\text{Lambertian everywhere}}\\
+	\Aboxed{z(x,y) &= 75}
+\end{align}
+
+Entsprechend gibt es \texttt{overbrace}. Bei Pfeilen hilft \texttt{xleftarrow} bzw.\ \texttt{xrightarrow}.
+
+\[
+  \boxed{A \xleftarrow{\text{this way}} B}
+   \xrightarrow[\text{or that way}]{} C
+\]
+
+Durch das mathtools-Paket gibt es auch noch mehr längenvariable Pfeile.
+
+\[
+ \argmax_{f(c)} C \xLeftrightarrow[under under under]{over} D\\
+\]
+
+
+\subsection{Matrizen mit was am Rand}
+
+\begin{gather}
+M = \bordermatrix{~ & x & y \cr
+                   A & 1 & 0 \cr
+                   B & 0 & 1 \cr}
+\end{gather}
+
+\begin{gather}
+M = \bbordermatrix{~ & x & y \cr
+                   A & 1 & 0 \cr
+                   B & 0 & 1 \cr}
+\end{gather}
+
+\subsubsection{Geht auch mit TikZ}
+\index{TikZ}
+%\begin{align*}
+%P&=
+%\begin{tikzpicture}[baseline=-\the\dimexpr\fontdimen22\textfont2\relax ]
+%\matrix(m)[matrix of math nodes,left delimiter=(,right delimiter=),inner sep=4pt,ampersand replacement=\&]
+%{
+%x_1 \&  y_1 \& s_1 \&  z_1 \\
+%x_2 \&  y_2 \& s_2 \&  z_2 \\
+%x_3 \&  y_3 \& s_3 \&  z_3 \\
+%x_4 \&  y_4 \& s_4 \&  z_4 \\
+%};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\foreach \s in {1,2,...,4}{
+% bottom index
+%\node[red,shift=(m-4-\s.south),yshift=-0.4cm](0,0) {$a_{\s}$};
+%}
+%\foreach \n in {1,2,...,4}{
+% top index
+%\node[blue,shift=(m-1-\n.north),yshift=0.4cm](0,0) {$b_{\n}$} ;
+%}
+%\end{tikzpicture}
+%\end{align*}
+
+
+\subsubsection{Weitere Möglichkeit}
+Das Paket \texttt{blkarray} könnte auch weiterhelfen.
+\[%
+\begin{blockarray}{cccccc}
+c_1 & c_2 & c_3 & c_4 & c_5 \\
+\begin{block}{(ccccc)c}
+  1 & 1 & 1 & 1 & 1  \\
+  0 & 1 & 0 & 0 & 1  \\
+  0 & 0 & 1 & 0 & 1  \\
+  0 & 0 & 0 & 1 & 1  \\
+  0 & 0 & 0 & 0 & 1  \\
+\end{block}
+d_1 & d_2 & d_3 & d_4 & d_5 \\
+\end{blockarray}%
+\]
+
+
+\section{Jennis Mathezeugs}
+
+\begin{equation}\label{Focussed_Propto}
+p_U(z|d) \propto p(d|z) p(z) \mathbf{1}_U(z).
+\end{equation}
+Thereby, $\bm{1}_U(z):=1$ if $z \in U$, $\bm{1}_U(z):=0$
+if $z \in Z \setminus U$.
+
+Thereby, $\boldsymbol{1}_U(z):=1$ if $z \in U$, $\boldsymbol{1}_U(z):=0$
+if $z \in Z \setminus U$.
+
+\begin{equation}\label{Prior_z1z2}
+p(z_1,z_2) \propto q_0(z_1,z_2) \ast \ast u_Y(z_1,z_2),  \quad
+q_0(z_1,z_2) \sim \mathcal{N}\left((0,0),\sigma^2 \cdot I_2
+\right), \quad u_Y(z_1,z_2) \sim \mathcal{U}(Y).
+\end{equation}
+
+\begin{equation}
+d_1=\Big\{ \big \{(\mu_1(k),\mu_2(k)),\sigma_{\mu}(k),
+r_{\textrm{H}}(k), q(k) \big \}, \quad q(k):= \big
+\{b(z_3,k)|z_3 \in Z_3 \big \},\quad k \in \{1,\ldots,K\} \Big \}.
+\end{equation}
+
+\begin{equation}\label{l_d1}
+l(d_1|z_1,z_2,z_3,r)=\sum_{k=1}^K b(z_3,k)q_k(z_1,z_2), \quad
+q_k(z_1,z_2) \sim \mathcal{N}\left((\mu_1(k),\mu_2(k)),\sigma_{\mu}(k)^2
+\cdot I_2 \right).
+\end{equation}
+
+These areas and the corresponding edge pairs
+$e_j$ constitute local regions
+$U^{\textrm{I}}(j):=U_1^{\textrm{I}}(j) \times U_2^{\textrm{I}}(j)
+\times Z_3 \times R^{\textrm{I}}(j) \subset Z \times R$ which are
+informative with respect to the position $(z_1,z_2)$ and the
+driving direction $r$. We have
+$R^{\textrm{I}}(j)=\{r_{\textrm{I}}(j)\} \subset R_{\textrm{C}}$
+and $r_{\textrm{I}}(j) =\textrm{``west or east''}$ if
+region $U^{\textrm{I}}(j)$ corresponds to a horizontally aligned
+edge pair $e_j$, and $r_{\textrm{I}}(j) =\textrm{"`north or
+south"'}$ if $e_j$ is vertically aligned.
+
+All in all, the local context $U \subset Z \times R$ is then given
+by \\$U:=\left(\bigcup_{j \in
+\{1,\ldots,J\}}U^{\textrm{I}}(j)\right) \bigcup \left(\bigcup_{k
+\in \{1,\ldots,K\}}U^{\textrm{H}}(k)\right)$. For
+$\sigma_{_\mu}(k)=0.1 \cdot |Z_1|$, $k \in \{1,\ldots,K\}$, $|U|\approx 3 \cdot 10^6$.
+
+%% Pfui: Benutzt \atop
+%\begin{equation}
+%A_1(r_{\textrm{C}}) \times A_2(r_{\textrm{C}}):=
+%\left(\bigcup_{j \in \{1,\ldots,J\}: \atop r_{\textrm{I}}(j)=r_{\textrm{C}}
+%}U_1^{\textrm{I}}(j)\times U_2^{\textrm{I}}(j)\right) \bigcup
+%\left(\bigcup_{k \in
+%\{1,\ldots,K\}: \atop r_{\textrm{H}}(k)=r_{\textrm{C}}
+%}U_1^{\textrm{H}}(k)\times U_2^{\textrm{H}}(k)\right) \subset Z_1
+%\times Z_2
+%\end{equation}
+
+\begin{equation}\label{upper}
+p(z|d) \leq p_U(z|d), \quad z \in U.
+\end{equation}
+
+ it holds
+$o(z^*,z^{**}):=\frac{p_U(z^{*}|d)}{p_U(z^{**}|d)}=
+\frac{p(z^{*}|d)}{p(z^{**}|d)}$ for all $z^{*},z^{**} \in U$.
+
+\begin{equation}\label{LowerBound_calculation}
+\begin{split}
+P(U|d) &= \frac{\int_U l(d|z) p(z) dz}{\int_U l(d|z)p(z)dz + \int_{Z \setminus U } l(d|z) p(z)dz }\\
+& \geq \frac{\int_U l(d|z) p_U(z) dz}{\int_U l(d|z) p_U(z) dz +
+(\frac{1}{P(U)}-1)  \prod_{s=1}^{S} \delta_s}=: \beta.
+\end{split}
+\end{equation}
+
+\begin{equation}\label{interval_scheme_formula}
+p(z|d) \in \left[\beta  p_U(z|d), p_U(z|d) \right],  \quad z \in U,
+\quad \textrm{and} \quad p(z|d) \in \left[0, 1 - \beta\right],
+\quad z \in Z \setminus U.
+\end{equation}
+
+\begin{equation} \label{p_star}
+p(z|d)=o(z,z^*)\;p^*, \quad  z \in U, \quad  \textrm{and} \quad p(z|d) \leq 1 - p^* \int_{\zeta \in U} o(\zeta,z^*) \; d\zeta, \quad  z \in Z\setminus U.
+\end{equation}
+

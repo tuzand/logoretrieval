@@ -1,0 +1,166 @@
+\begin{titlepage}
+\thispagestyle{empty}
+
+%%%%%%%%%%%%  KIT FRAME
+\ifthenelse{\boolean{iesenglishs}}{\ThisCenterWallPaper{1.0}{./images/KIT-FrameA4-EN_13.pdf}}{\ThisCenterWallPaper{1.0}{./images/KIT-FrameA4-DE_13.pdf}}%
+
+
+%%%%Dazu muss \usepackage[absolute]{textpos} eingebunden werden.
+%%%%Die erste Zahl gibt die Breite des Textblocks an (wird fur Bilder NICHT!!! ignoriert, legt die Bildbreite fest), die
+%%%%zweite den Abstand zum linken und die dritte den Abstand zum oberen Seitenrand.
+%
+%%%% \begin{textblock}{hsize}[ho,vo](hpos,vpos) //ho, vo, um mit Mitte statt oberer Ecke zu arbeiten
+
+%%%%%%%%%%%%  KIT LOGO
+		\begin{textblock}{3.6}(3.5,2.0)
+		\RaggedRight
+				  	\ifthenelse{\boolean{iesenglishs}}{%
+							\includegraphics[width=\textwidth]{./images/kit_logo_en_col_epstopdf_13.pdf}}{%
+							\includegraphics[width=\textwidth]{./images/kit_logo_de_col_epstopdf_13.pdf}
+						}
+		\end{textblock}
+%%%%%%%%%%%%  IOSB LOGO
+		\begin{textblock}{4.81}(14.0,2.0)
+		\RaggedRight
+				  	\ifthenelse{\boolean{useiosblogo}}{\includegraphics[width=\textwidth]{./images/iosblogo_col_AiPDF13_CMYKnoPantone.pdf}}{}
+		\end{textblock}
+%%%%%%%%%%%%  IES LOGO		
+		\begin{textblock}{4.14}(9.0,25.0)
+		\RaggedRight
+				  	\includegraphics[width=\textwidth]{./images/ieslogo_Auge_mitText_13.pdf}
+		\end{textblock}
+  \mbox{}\vspace{4\baselineskip}\\
+%%\sffamily
+%%\scshape
+
+%%%%%%%%%%%%  TITEL DER ARBEIT
+ 	\begin{textblock}{14}[0.5,0.5](11.5,9.0)
+		\huge
+ 		\Centering
+		\textbf{\Worktitle}
+ 	\end{textblock}
+
+%%%%%%%%%%%% TYP DER ARBEIT
+ 	\begin{textblock}{9}[0.5,0.5](11.5,13.0)
+	\Centering
+ 	\rmfamily
+ 	\textsc{
+%		\ifthenelse{\boolean{iesenglishs}}{%
+%\LARGE%
+%PhD thesis\\}{%
+%\LARGE%
+%Dissertation\\}% 
+\ifthenelse{\boolean{iesenglishs}}{Master thesis\\}{Masterarbeit\\}% 
+ 	% \ifthenelse{\boolean{iesenglishs}}{Diploma thesis}{Diplomarbeit}% 
+ 	 %%\ifthenelse{\boolean{iesenglishs}}{Term paper}{Studienarbeit}% 
+	}% end of textsc
+ 		\end{textblock}
+	
+%%%%%%%%%%%% INSTITUTION	
+	\begin{textblock}{16}[0.5,0.5](11.5,14.5)
+	\Centering
+	\rmfamily
+ 	\textsc{
+	\ifthenelse{\boolean{iesenglishs}}{%
+			%\large
+			KIT - Karlsruhe Institute of Technology\\}{%
+			%\large
+			KIT - Karlsruher Institut für Technologie\\
+	}%
+ 	\ifthenelse{\boolean{iesenglishs}}{%
+ 		\ifthenelse{\boolean{useiosblogo}}{%
+			%\large
+			Fraunhofer IOSB - Fraunhofer Institute of Optronics,\\System Technologies and Image Exploitation\\}{}%
+ 	  }{%
+ 		\ifthenelse{\boolean{useiosblogo}}{%
+			%\large
+			Fraunhofer IOSB - Fraunhofer-Institut für Optronik,\\Systemtechnik und Bildauswertung\\}{}%
+ 	  }%
+ 	}  %%endof textsc
+	\end{textblock}
+
+%%%%%%%%%%%% AUTORNAME UND DATUM
+ 	\begin{textblock}{14}[0.5,0.5](11.5,17.5)
+		\Centering
+		\rmfamily\large
+		\textbf{\Authorname}%
+		\vspace{1\baselineskip}\\%
+		\Submissiondate%
+ 	\end{textblock}
+
+%% Tabbing und tabular gehen nicht
+ 	%\begin{textblock}{9}(3.5,15.5)
+		%\begin{tabular}[t]{lrr@{.}l}
+			%Position 1 & DM &  5 & 49\\
+			%Position 2 & DM & 10 & 95\\
+		%\end{tabular}
+	
+		%\begin{tabbing}
+				%\hspace*{3cm}\=\hspace{4cm}
+					%First Reviewer: \> \Reviewer\\Second Reviewer: \> \Supervisor\\
+		%\end{tabbing}
+ 	%\end{textblock}
+
+%%%%%%%%%%%% BETREUER
+	\begin{textblock}{10}[0.5,0.5](11.5,23.0)
+	\RaggedRight
+		\ifthenelse{\boolean{isdissertation}}{%
+		%% Dissertation
+			\ifthenelse{\boolean{iesenglishs}}{
+				First Reviewer: \hfill \Reviewer\\Second Reviewer: \hfill \Supervisor\\
+			}{%
+				Erster Gutachter: \hfill \Reviewer\\Zweiter Gutachter: \hfill \Supervisor\\
+			}%
+		}{%
+		%% Diplomarbeit
+			\ifthenelse{\boolean{iesenglishs}}{%
+				Main Advisor: \hfill \Reviewer\\Co-Advisor: \hfill \Supervisor\\
+			}{%
+				Verantwortlicher Betreuer: \hfill \Reviewer\\Betreuender Mitarbeiter: \hfill \Supervisor\\
+			}%
+		}
+ 	\end{textblock}
+	
+	\cleardoublepage
+ 	\end{titlepage}
+ 
+\ClearWallPaper
+
+
+%%% Bei Diplomarbeiten etc.
+
+\ifthenelse{\boolean{isdissertation}}{}{%
+%%% Weitere Seite für die Erklärung der Selbstständigkeit
+\begin{titlepage}
+\thispagestyle{empty}
+
+\ifthenelse{\boolean{iesenglishs}}{%
+\chapter*{Statement of authorship}% %%PW
+%% Andere Möglichkeiten
+%% Own Work Declaration  %%sagt die Uni von Edinburgh
+%% Affidavit  %% versicherung an eides statt
+}{%
+\chapter*{Erklärung der Selbstständigkeit}%
+}
+\thispagestyle{empty}
+%% Text von hz übernommen
+\ifthenelse{\boolean{iesenglishs}}{%
+I hereby declare that I have produced this work by myself except the utilities known to the supervisor, 
+that I have labeled all used utilities completely and detailed and that I have labeled all material that has been taken with or without modification from the work of others.
+}{%
+Ich versichere hiermit wahrheitsgemäß, die Arbeit bis auf die dem
+Aufgabensteller bereits bekannte Hilfe selbständig angefertigt, alle
+benutzten Hilfsmittel vollständig und genau angegeben und alles kenntlich
+gemacht zu haben, was aus Arbeiten anderer unverändert oder mit
+Abänderung entnommen wurde.}
+%% Alternative
+%Hiermit versichere ich, die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt sowie die Zitate deutlich kenntlich gemacht zu haben.
+\vspace{4\baselineskip}\\
+\ifthenelse{\boolean{iesenglishs}}{%
+\Signplace, \Submissiondate \hfill \Authorname}{%
+\Signplace, den \Submissiondate} \hfill \Authorname%
+\vspace{4\baselineskip}\\
+\clearpage
+\mbox{}\thispagestyle{empty}
+\end{titlepage}
+}%

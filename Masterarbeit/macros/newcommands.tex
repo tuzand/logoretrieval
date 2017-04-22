@@ -1,0 +1,472 @@
+% Latex Commands: Math **********************************
+% ------------------------------------------------------------------------
+% Partly by: Matthias Pospiech
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%PW: Aus nomencl-Handbuch zur Unterteilung des Symbolverzeichnisses
+\RequirePackage{ifthen}
+\renewcommand{\nomgroup}[1]{%
+\ifthenelse{\equal{#1}{R}}{\item[\textbf{Römische Zeichen}]}{%
+\ifthenelse{\equal{#1}{G}}{\item[\textbf{Griechische Zeichen}]}{%
+\ifthenelse{\equal{#1}{C}}{\item[\textbf{Kalligrafische Zeichen}]}{%
+}%
+}%
+}%
+}%
+
+
+% --| Math |-------------------------------------------------------
+
+
+%%%%%%%% Macht Probleme: Kompilierung hängt dann.
+%%%% PW: Matrix elements alignment
+%%%% Optionaler Parameter, default-Wert ist 'c'.
+%%%% Erweitert nur den matrix-Befehl. Ohne das optionale Argument klappts auch noch.
+%\renewcommand*\env@matrix[1][c]{%
+%\hskip -\arraycolsep%
+%\let\@ifnextchar\new@ifnextchar%
+%\array{*\c@MaxMatrixCols #1}%
+%}
+
+
+% -- Replacements --
+\newcommand{\comp}{\ast}
+%\renewcommand{\dagger}{+}
+
+% -- new commands --
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\Abs}[1]{\left\lvert#1\right\rvert}
+\providecommand{\norm}[1]{\left\Vert#1\right\Vert}
+\providecommand{\Trace}[1]{\ensuremath{\Tr\{\,#1\,\}}} % Trace /Spur
+%
+
+% -- differentials --
+\renewcommand{\d}{\partial\mspace{2mu}} % partial diff
+\newcommand{\td}{\,\mathrm{d}}	% total diff
+\newcommand{\ddt}[1]{\frac{\td #1}{\td t}}
+
+% -- Abbrevitations --
+%\renewcommand{\Re}{\text{Re}}			% Real value
+%\renewcommand{\Im}{\text{Im}}			% Imaginary value
+\newcommand{\Rep}{\text{Re}}			% Real value
+\newcommand{\Imp}{\text{Im}}			% Imaginary value
+\newcommand{\complex}{\mathbb{C}} % Complex
+\newcommand{\real}{\mathbb{R}}    % Real
+%\newcommand{\R}{\real}						% Real
+%\newcommand{\N}{\mathbb{N}}
+%\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\L}{\mathcal{L}}
+%%\newcommand{\N}{\mathcal{N}}
+%%\newcommand{\R}{\mathcal{R}}
+\newcommand{\Dc}{\mathcal{D}}
+%%PW besser so:
+ \newcommand{\C}{\ensuremath{\mathbb{C\ }}}
+ \newcommand{\R}{\ensuremath{\mathbb{R\ }}}
+ \newcommand{\Q}{\ensuremath{\mathbb{Q\ }}}
+ \newcommand{\Z}{\ensuremath{\mathbb{Z\ }}}
+ \newcommand{\N}{\ensuremath{\mathbb{N\ }}}
+ 
+ \newcommand{\Calt}{\ensuremath{\mathds{C\ }}}
+ \newcommand{\Ralt}{\ensuremath{\mathds{R\ }}}
+ \newcommand{\Qalt}{\ensuremath{\mathds{Q\ }}}
+ \newcommand{\Zalt}{\ensuremath{\mathds{Z\ }}}
+ \newcommand{\Nalt}{\ensuremath{\mathds{N\ }}}
+
+
+%%PW
+%%Wenn Paket bm nicht geladen ist, erste Zeile einkommentieren
+%\newcommand{\bm}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\mb}[1]{\ensuremath{\bm{#1}}}
+
+%
+\newcommand{\Ham}{\mathcal{H}}    % Hamilton
+%\newcommand{\Prob}{\mathscr{P}}    % Hamilton
+\newcommand{\unity}{\mathds{1}}   % Real
+%
+
+\newcommand\gammab{\gamma_\bot}
+\newcommand\gammap{\gamma_\parallel}
+\newcommand\gammai{\gamma_\text{int}}
+\newcommand\gammae{\gamma_\text{ext}}
+
+
+\newcommand{\ie}{i.e.}
+\newcommand{\eg}{e.g.}
+\newcommand{\dhe}{d.\,h.\ }
+\newcommand{\Dhe}{D.\,h.\ }
+\newcommand{\eV}{e.\,V.\ }
+\newcommand{\zB}{z.\,B.\ }
+\newcommand{\zb}{z.\,B.\ }
+\newcommand{\oae}{o.\,\"{a}.\ }
+\newcommand{\uU}{u.\,U.\ }
+\newcommand{\ua}{u.\,a.\ }
+\newcommand{\ia}{i.\,a.\ }
+\newcommand{\og}{o.\,g.\ }
+\newcommand{\bzw}{bzw.\ }
+\newcommand{\usw}{usw.\ }
+\newcommand{\vgl}{vgl.\ }
+\newcommand{\etc}{etc.\ }
+\newcommand{\evtl}{evtl.\ }
+\newcommand{\ca}{ca.\ }
+\newcommand{\sog}{sog.\ }
+\newcommand{\insbes}{insbes.\ }
+
+\newcommand{\datei}[1]{\texttt{\bfseries #1}}
+
+
+%PW: Evtl. nützliche Macros
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\Vektor}[1]{\bm{#1}}
+\newcommand{\Matrix}[1]{\bm{#1}}
+\newcommand{\Vek}[1]{\boldsymbol{#1}}
+\newcommand{\NormVert}[2]{\mathcal{N}(#1,#2)}
+\newcommand{\Pb}[1]{\ensuremath{p \left( #1 \right)}}
+\newcommand{\Prob}[2]{\ensuremath{p \left( #1 \middle\vert #2 \right)}}
+\newcommand{\SkalProd}[2]{\langle #1,#2 \rangle}
+\newcommand{\SkalProdD}[2]{\left\langle #1,#2 \right\rangle}
+
+\newcommand{\Complexity}{\ensuremath{\mathcal{O}}}
+
+\newcommand{\diftwo}{\ensuremath{\dif\hspace{0.2pt}^{2}}}
+\newcommand{\Menge}[1]{\ensuremath{\left\{#1\right\}}}
+
+\newcommand*\expe{\mathrm{e}}
+
+
+% Die Definition eigener mathematischer Befehle ist besonders sinnvoll, wenn diese im Dokument oft verwendet werden.
+% Man kann dann hier an zentraler Stelle z.B. Vektoren mit Pfeil statt fett formatieren.
+
+\newcommand{\supp}[1]{ \text{supp}\!\left\{#1\right\} }
+\DeclareMathOperator{\falttwod}{\ast\ast} %
+\DeclareMathOperator{\sollsein}{\;\stackrel{!}{=}\;} %
+
+%%%% PW: Korrekte Initialisierung des widehat-Dach-Symbols
+\newcommand\lowerwidehatsym{%
+  \text{\smash{\raisebox{-1.3ex}{%
+    $\widehatsym$}}}}
+		
+\newcommand\fixwidehat[1]{%
+  \mathchoice
+    {\accentset{\displaystyle\lowerwidehatsym}{#1}}
+    {\accentset{\textstyle\lowerwidehatsym}{#1}}
+    {\accentset{\scriptstyle\lowerwidehatsym}{#1}}
+    {\accentset{\scriptscriptstyle\lowerwidehatsym}{#1}}
+}
+
+%% Verwendung in eigenen Macros z.B.:
+%\newcommand{\PhiWithHatAndSuperscriptW}{\ensuremath{\fixwidehat{\Phi}^{\mathrm{W}}}}
+
+%%%%%
+
+
+
+% -- New Operators --
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\grad}{grad}
+%\DeclareMathOperator{\div}{div}
+\renewcommand{\div}{\text{div}\,}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\const}{const}
+\DeclareMathOperator{\e}{e} 			% exponatial Function
+
+% -- new symbols --
+\newcommand{\laplace}{\Delta}
+\newcommand{\dalembert}{\Box}
+
+% -- new arrows --
+\renewcommand{\leadsto}{\Longrightarrow}
+\newcommand{\leftrightleadsto}{\Longleftrightarrow}
+
+
+% -- Text subscripts--
+\newcommand{\rel}{_\text{rel}}
+%\newcommand{\st}{\text{st}}
+%
+
+% -- other --
+\newcommand{\com}[2]{\underbrace{#1}_{\textrm{\scriptsize #2}}}
+\newcommand{\with}[1]{\stackrel{\ref{#1}}{\Longrightarrow}}
+%\newcommand{\unit}[1]{\,\textrm{#1}}
+
+%\newcommand{\variance}[1]{\delta \mean{#1}^2}
+\newcommand{\variance}[1]{(\Delta{#1})^2}
+%\newcommand{\variance}[1]{\delta #1^2}
+
+% -- Physics --------------------------------
+\newcommand\op[1]{{\hat{\mathrm{#1}}}}  % Operator
+
+\newcommand\expect[1]{\ensuremath{\left\langle{#1}\right\rangle}} %
+%
+\newcommand{\mean}[1]{\ensuremath{\overline{#1}}} % mean value
+%
+\newcommand{\state}[1]{\ensuremath{\ket{#1}}}
+%
+\newcommand\commutator[2]{\ensuremath{\mathinner{%
+    \mathopen[\,#1,#2\,\mathclose]}}}
+\newcommand{\Commutator}[2]{\ensuremath{\left[\,#1,#2\,\right]}}
+\newcommand{\bigcommutator}[2]{\ensuremath{\bigl[\,#1,#2\,\bigr]}}
+\newcommand{\Bigcommutator}[2]{\ensuremath{\Bigl[\,#1,#2\,\Bigr]}}
+%
+\newcommand\poisson[2]{\mathinner{%
+    \mathopen\{#1,#2\mathclose\}}}
+%
+
+% -- Layout --------------------------------
+
+
+
+\newcommand*{\dashfill}{\leavevmode\cleaders\hbox{-}\hfill\kern0pt}
+
+\newcommand*{\midhrulefill}{
+\leavevmode
+\cleaders\hbox to 1ex{\raisebox{.5ex}{\rule{1ex}{.4pt}}}\hfill\kern0pt
+}
+
+
+
+\newcommand{\naherung}{\marginlabel{\ovalbox{\sffamily{\small Näherung}}}} %Näherungszeichen
+
+
+% PW: für bbordermatrix mit eckigen Klammern
+% braucht etoolbox-Paket
+% Alternativ: klassische plainTeX \bordermatrix mit eckigen Klammern (Redefinition von Befehlen):
+\let\bbordermatrix\bordermatrix
+\patchcmd{\bbordermatrix}{8.75}{4.75}{}{}
+\patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
+\patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
+
+
+%% Set PDF properties with hyperref. nicht mit pdfx
+%%\hypersetup{ pdftitle={\Worktitle}, pdfauthor={\Authorname}}
+
+%%PW: l2tabu: Also \begin{center} macht in floats zusätzlichen Abstand. \Centering ist richtig!
+
+\newcommand{\bild}[6]      % Bild-Pfadname, Beschriftung, Label, Breite, Kurzbeschriftung (für Abbildungsverzeichnis), optional: Platzierung
+{
+     \begin{figure}[#6]
+%      \begin{center}		%l2tabu
+				\Centering
+        \includegraphics*[width=#4]{#1}
+        \caption[#5]{\label{#3} #2}
+%      \end{center}			%l2tabu
+     \end{figure}
+}
+
+%So funktioniert es natürlich auch noch. Captions sind schon besser. Der Captionname ist noch zu groß
+\newcommand{\randbild}[5]   % Bild-Pfadname, Kurzbeschriftung (für Abbildungsverzeichnis), Beschriftung, Breite zw. 0 und 1 = 100% des Randes, Label
+{%
+\marginpar%
+	{%
+	%%%%%\RaggedRight
+	%%%%%\fontsize{5}{6.5}
+	%%%%%\selectfont\selectfont
+	\captionsetup{font=scriptsize,%footnotesize
+	labelfont={bf,scriptsize},%footnotesize
+	justification=raggedright, indention=0.0cm}  %Variante des Caption-Pakets. Inkompatibel zu nonfloat, wo figcaption herkommt.
+		%\Centering% %% sorgt dafür, dass Bild weiter links als Anfang der Caption. Mit weglassen nur noch schnlimmer
+		\RaggedLeft  %% sorgt dafür, dass Bild bündig mit Anfang der Caption
+		\includegraphics[width=#4\marginparwidth]{#1}%
+		\noindent
+		%\setcapindent{-1em}  %KOMA-Script-Weg
+		%\addtokomafont{caption}{\footnotesize}  %KOMA-Script-Weg
+		%\setkomafont{caption}{\footnotesize\sffamily\linespread{1}\selectfont}
+		%\setkomafont{captionlabel}{\footnotesize\sffamily}
+		%\figcaption[#2]{\label{#5}{#3}}%
+		%\parbox{#4\marginparwidth}{%
+		\captionof{figure}[#2]{\label{#5}{#3}}
+		%}
+		%\figcaption[#2]{\label{#5}\footnotesize{#3}}%
+		%\figcaption[#2]{\label{#5}\scriptsize{#3}}%
+	}%
+}
+
+
+
+%%PW ---------------------- TikZ ------------------------
+\usetikzlibrary{decorations.pathmorphing} % noisy shapes
+\usetikzlibrary{fit}					% fitting shapes to coordinates
+\usetikzlibrary{backgrounds}	% drawing the background after the foreground
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix,calc} % for bordermatrix example
+
+%%%PW ------------------- Kommentare ------------------
+
+\newenvironment{dacomment}%
+{
+\marginpar{\framebox{!}}%
+\Centering%
+\begin{minipage}{.85\textwidth}%
+	\normalfont \mdseries \sffamily %
+	\small \color{grau}%
+\end{minipage}
+}%
+%Verwendung nicht mit \usepackage{version}, sondern mit comment
+
+
+
+% % redefine \textmu to other mu commands usefull inside text
+% \renewcommand{\textmu}{$\upmu$}
+
+
+\makeatletter
+%\renewcommand{\@chapcntformat}[1]{%
+%	\fbox{\csname the#1\endcsname}%
+%	\hspace{0.5em}}
+
+%\renewcommand{\chapter}{\@startsection
+%	{chapter}% 		% Name
+%	{0}%								% ebene
+%	{0mm}%							% einzug
+%	{ - 0.5\baselineskip}% % Abstand nach oben
+%	{0.2\baselineskip}% % Abstand nach unten
+%	{\bfseries}}%				% Stil					
+
+% Caption für nicht-fließenden Figure Umgebung:
+\newcommand\figcaption{\def\@captype{figure}\caption} 
+\makeatother	
+
+\newcommand\nz{\smallskip \\} %Neue Zeile
+\newcommand\npar{\smallskip \par} %Neue Zeile
+
+\newcommand{\figureref}[1]{(Abbildung \ref{#1})}%
+\newcommand{\eqnref}[1]{(\ref{#1})}%
+
+% Command for margin text with usefull style
+%\newcommand{\marginlabel}[1]{\mbox{}\marginline{\hspace{0pt}\footnotesize\sffamily #1}}%
+\newcommand{\marginlabel}[1]{\marginnote{#1}}%
+
+%\newcommand{\comment}[1]{\marginnote{#1}}%
+
+% Enable space for figures that extent into the margin (right and/or leftside)
+% Can be used inside a figure
+% Note: sidecap defines a similar environment 'wide' !
+\newenvironment{widespace}[2]{%
+   \begin{list}{}{%
+      \setlength{\topsep}{0pt}%
+      \setlength{\leftmargin}{#1}%
+      \setlength{\rightmargin}{#2}%
+      \setlength{\listparindent}{\parindent}%
+      \setlength{\itemindent}{\parskip}%
+   }%
+   \item[]%
+}%
+{%
+   \end{list}%
+}%
+
+\newlength{\marginwidth}
+\setlength{\marginwidth}{\marginparwidth}
+\addtolength{\marginwidth}{\marginparsep}
+
+%% Beispiel:
+% \begin{figure}
+% \begin{widespace}{-\marginwidth}{0pt}
+%  \subfloat[Bergzebrastute]
+%  {\includegraphics[width=0.45\linewidth]{../Bilder/Eingewoehnung2.jpg}}
+%  \hspace*{1em}
+%  \subfloat[Morro Moco]
+%  {\includegraphics[width=0.45\linewidth]{../Bilder/bergzebra2.jpg}}
+% \end{widespace}
+% \end{figure}
+
+
+
+
+%% PW: Alternativ zu sidewaysfigure:
+%% Erscheint im PDF (im Sumatra zumindest) bereits gedreht wenn pdflscape package statt lscape genommen wird.
+%% Modifiziert von
+%% http://tex.stackexchange.com/questions/62780/sideways-figure-with-rotated-page-number
+%\newenvironment{LSfigure}[1][!t]
+  %{\begin{landscape}\begin{figure}}
+  %{\end{figure}\end{landscape}}
+
+
+  
+
+
+
+
+
+
+
+%So war es und so funktioniert es auch. Captions sind aber noch zu groß
+%\newcommand{\randbild}[5]   % Bild-Pfadname, Kurzbeschriftung (für Abbildungsverzeichnis), Beschriftung, Breite zw. 0 und 1 = 100% des Randes, Label
+%{%
+%\marginpar%
+	%{%
+		%\Centering%
+		%\includegraphics[width=#4\marginparwidth]{#1}%
+		%\figcaption[#2]{\label{#5}\small{#3}}%
+	%}%
+%}
+
+
+%% PW
+%% Aus http://mrunix.de/forums/showthread.php?t=69987
+%% klappt auch nicht so wie es soll. Gibt eine normale Figure und einen "Floats lost" Fehler.
+%\newcommand{\changefont}[3]{\fontfamily{#1}\fontseries{#2}\fontshape{#3}\selectfont}
+%\newcommand{\marg}[1]{\marginnote{%
+%\RaggedRight%
+%\fontsize{9.5}{13.5}%
+%\selectfont%
+%\selectfont%
+%\changefont{lmss}{b}{n}%
+%\begin{figure}%
+%\Centering%
+%\includegraphics[width=\marginparwidth]{#1}%
+%\caption[Testcaption]{Das ist eine Testcaption}%
+%\label{TESTLABEL}%
+%\end{figure}%
+%}}
+
+
+
+%% Das hier setzt die Caption völlig falsch mittenrein.
+%\newcommand{\randbild}[5]   % Bild-Pfadname, Kurzbeschriftung (für Abbildungsverzeichnis), Beschriftung, Breite zw. 0 und 1 = 100% des Randes, Label
+%{%
+%\marginnote{%
+	%\captionsetup{font=footnotesize, labelfont={bf,footnotesize}, justification=raggedright, indention=0.0cm}  %Variante des Caption-Pakets. Inkompatibel zu nonfloat, wo figcaption herkommt.
+		%\Centering%
+		%\includegraphics[width=#4\marginparwidth]{#1}%
+		%%\noindent
+		%\captionof{figure}[#2]{\label{#5}{#3}}
+	%}%
+%}
+
+
+%% PW: Nur Captions in den Rand, Bild bleibt im Text. Braucht Paket mcaption
+%\newcommand{\randcapbild}[5]  % Bild-Pfadname, Kurzbeschriftung (für Abbildungsverzeichnis), Beschriftung, Breite zw. 0 und 1 = 100% des Randes, Label
+%{%
+%\begin{figure}
+	%\begin{margincap}
+		%\Centering
+		%\includegraphics[width=#4\marginparwidth]{#1}
+		%\caption[#2]{#3}
+		%\label{#5}
+	%\end{margincap}
+%\end{figure}
+%}
+
+
+
+
+
+%%PW ----------------- TikZ Chapter headings ---------------------------------
+%% aus http://texblog.net/latex-archive/layout/fancy-chapter-tikz/
+%% Bringt TeX capacity exceeded, grouping levels
+
+
+
+
+
+
+% Caption with defined width
+\newcommand{\wcaption}[2]{%
+   \begin{minipage}{#1}%
+   \caption{#2}%
+   \end{minipage}%
+}

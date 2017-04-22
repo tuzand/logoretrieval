@@ -1,0 +1,465 @@
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Fonts Fonts Fonts
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+% Alle Schriften die hier angegeben sind sehen im PDF richtig aus.
+% Die LaTeX Standardschrift ist die Latin Modern (lmodern Paket).
+% If Latin Modern is not available for your distribution you must install the
+% package cm-super instead. Otherwise your fonts will look horrible in the PDF
+
+% DO NOT LOAD ae Package for the font !
+
+
+
+%% PW: NFSS-Erweiterungen wie zB condensed. Eigentlich wegen venturisadf drin.
+\usepackage{nfssext-cfr}
+
+%% PW: Initialen
+\usepackage{lettrine}
+
+%% ==== Zusammengesetzte Schriften  (Sans + Serif) =======================
+
+%% - Latin Modern
+%\usepackage{lmodern}  %%% PW: muss trotz mathpazo o.ä. rein, damit nicht die ec-Schriften im pk-Format geladen werden. Die sind nicht skalierbar und verhindern, dass microtype anständig läuft.  %%Nochmal probiert und gab irgendwie doch keine Probleme mehr mit microtype
+
+%\usepackage{kpfonts}
+
+%%%%%%%%%%%% KPfonts mit Euler Math: Microtype: Letterspace -5
+%\usepackage[sc,slantedGreek]{mathpazo}   %% PW mit smallcaps-Option wird ein anderer Font mit besserem Kerning verwendet  %%%% Nach Mathpazo ist mathrm in Palatino statt in kpfonts.
+%\usepackage[mathpazo]{flexisym}  %%PW: Gehört zu breqn (s.u.)
+%\usepackage{pxfonts} %%PW: Kompletterer Satz an Zeichen als Math Pazo
+
+%\usepackage[%
+%%light,%
+%%fulloldstylenums,%
+%%fulloldstyle,%
+%%fullveryoldstyle,%
+%nomath,% killt auch und insb. die mathbb-Variante. Sorgt aber dafür, dass die Oldstyle-Zahlen in Euler-Mathfrak funktionieren
+%%notext,%
+%%nosf,%
+%%nott,%
+%%onlyrm,%
+%%noamsmath,%
+%%notextcomp,%
+%%lighttext,%
+%%oldstylenums,%
+%%oldstyle,%
+%%veryoldstyle,%
+%%rmx,%
+%%easyscsl,%
+%%nofligatures,%
+%%%%Math
+%%lighttext,%
+%%sfmath,%
+%%sfmathbb,%
+%%rmmathbb,%
+%%nomathscript,%
+%%mathcalasscript,%
+%%classicReIm,%
+%%uprightRoman,%
+%%frenchstyle,%
+%%oldstylenumsmath,%
+%%oldstylemath,%
+%%veryoldstylemath,%
+%%narrowiints,%
+%%partialup,% macht im Euler-Math aus partial ein hslash
+%intlimits,%
+%%widermath,%
+%%noDcommand,%
+%largesmallcaps%
+%]{kpfonts}
+
+\usepackage{libertine}  %% Für Biolinum, Freier Optima-Klon
+%\biolinum
+
+\usepackage{fourier}  %%PW: Nach den kpfonts laden, sonst textcomp-Fehler. Möglicherweise würde es auch gehen, wenn man bei den kpfonts die Option notextcomp verwendet.
+%\usepackage[scaled=0.85]{berasans}
+
+%\cdwidth ist condensed bzw. \textcd
+
+%% PW Die beiden ersten gehören zu venturis. Brachten aber nix, hat trotzdem nicht geklappt
+%\usepackage{xkeyval}
+%\usepackage{nfssext-cfr}  %% s.o. ist schon eingebunden
+
+%\usepackage[%
+%lf%  %%lining figures im Gegensatz zu osf (default) old style figures
+%]{venturis}  %%Erzeugt keinen Fehler obwohl das Paket eigentlich venturisadf heißt. Siehe venturisadf Dokumentation.
+
+%% Hat nicht geklappt weil noch Problem mit MikTeX-Package, Aktivierung von Hand:
+%0. Installation von Paket venturisadf über den MikTeX-Paketmanager. Automatisch gings irgendwie nicht :-(
+%1. initexmf --edit-config-file updmap		%Da folgendes reinschreiben
+%
+%# Maps for using PS version of VenturisADF fonts
+%Map yvt.map
+%Map yv2.map
+%Map yv1.map
+%Map yv3.map
+%Map yvo.map
+%# end maps for VenturisADF
+%
+%2. initexmf --mkmaps
+%3. initexmf -u
+
+
+%\usepackage{pandora}  %%PW: Bitmapschrift! Kollidiert mit Microtype
+
+%% PW: Optima clone: usepackage{urw-classico} oder usepackage{urw-classico}. Ist aber nicht direkt in LaTeX Distri wegen Lizenz
+
+\renewcommand{\ttdefault}{lmtt}
+%\renewcommand{\sfdefault}{lmss}        %%PW --- Latin Modern Sans für Überschriften
+\renewcommand{\sfdefault}{fxb}  %fxb ist Biolinum. Keine Kursive!
+%\renewcommand{\sfdefault}{yv1}  %yv1 ist venturis sans
+%\renewcommand{\sfdefault}{yv3}  %yv3 ist venturis2 sans
+\setkomafont{sectioning}{\normalcolor\bfseries}
+
+%%PW: Palatino definiert mathrm und mathbf um, aber kpfonts überschreibt es nicht.
+%% Mathrm und Mathbf sollen wieder aus den kpfonts kommen, Mathsf ist wenn man nichts macht aus lmodern, wird auch auf kpfonts umdefiniert.
+%\DeclareMathAlphabet{\mathrm} {OT1}{jkp}{m}{n}
+%\DeclareMathAlphabet{\mathbf} {OT1}{jkp}{b}{n}
+%\DeclareMathAlphabet{\mathsf} {OT1}{jkpss}{m}{n}
+
+
+%\DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
+%\DeclareSymbolFont{AMSb}{U}{msb}{m}{n}
+
+%\DeclareFontFamily{U}{msb}{}
+%\DeclareFontShape{U}{msb}{m}{n}{ <5> <6> <7> <8> <9> gen * msbm <10> <10.95> <12> <14.4> <17.28> <20.74> <24.88> msbm10}  %aus LaTeX-Begleiter S.445. Gibt Problem: Er kann die msbm10 nicht finden, kein TFM file dazu.
+%\DeclareFontShape{U}{msb}{m}{n}{msbm10}
+%\DeclareSymbolFont{AMSb}{U}{msb}{m}{n}
+%\SetSymbolFont{AMSb}{bold}{U}{msb}{b}{n}
+
+%\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+
+\DeclareSymbolFont{amscal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{amscal}{bold}{OMS}{cmsy}{b}{n}
+
+\DeclareSymbolFont{eulercal}{U}{zeus}{m}{n}
+\SetSymbolFont{eulercal}{bold}{U}{zeus}{b}{n}
+
+
+%%%PW: Mathcal und MathBB wieder rückdefinieren
+\AtBeginDocument{%
+  \let\mathbb\relax
+	%%\DeclareMathAlphabet\amsa{U}{msa}{m}{n}
+		\DeclareSymbolFont{AMSb}{U}{msb}{m}{n}
+	%	\SetSymbolFont{AMSb}{bold}{U}{msb}{b}{n} %gibt kein bold bei der msb laut LaTeX-Begleiter. S.446
+	%\DeclareMathAlphabet{\amsb}{U}{msb}{m}{n}  % habe das Gefühl: Declare...Alphabet führt viel früher zum "`too many alphabets"' Fehler
+	%besser DeclareSymbolFontAlphabet laut LaTeX-Begleiter, wenn die Symbole bereits geladen sind (S.448)
+	\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+	%\SetMathAlphabet{\mathbb}{normal}{AMSb}
+	%\SetMathAlphabet{\mathbb}{normal}{U}{msb}{m}{n}
+	%\newcommand{\mathbb}{\amsb}
+}
+	
+\AtBeginDocument{%
+  %\let\mathcal\relax
+	%\DeclareMathAlphabet\amscal{OMS}{cmsy}{m}{n}
+	  %\SetMathAlphabet    \mathcal{normal}{OMS}{cmsy}{m}{n}
+  %\DeclareMathAlphabet\mathbcal{OMS}       {cmsy}{b}{n}
+	%besser DeclareSymbolFontAlphabet laut LaTeX-Begleiter, wenn die Symbole bereits geladen sind (S.448)
+	\DeclareSymbolFontAlphabet{\mathcal}{amscal}  %braucht keines der 16 Register
+  %\newcommand{\mathcal}{\amscal}
+}
+%
+%
+%%%%Mathscr definieren. Braucht man gar nicht, weil eucal dafür da ist
+\AtBeginDocument{%
+  %\let\mathscr\relax
+	%\DeclareMathAlphabet\eulercal{U}{zeus}{m}{n}
+  %\DeclareMathAlphabet\mathbscr{U}       {zeus}{b}{n}
+	  %\SetMathAlphabet    \mathscr{normal}{U}{zeus}{m}{n}
+	\DeclareSymbolFontAlphabet{\mathscr}{eulercal}
+  %\newcommand{\mathcal}{\eulercal}
+}
+
+%%Aus mathpazo
+%\AtBeginDocument{%
+  %\let\mathbb\relax
+  %\DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}
+  %\newcommand{\mathbb}{\PazoBB}
+%}
+
+
+
+%%%%PW: Mathcal wieder rückdefinieren	
+%\AtBeginDocument{%
+  %\let\mathcal\relax
+	%\DeclareMathAlphabet\amscal{OMS}{cmsy}{m}{n}
+	  %\SetMathAlphabet    \mathcal{normal}{OMS}{cmsy}{m}{n}
+	%\DeclareMathAlphabet\mathbcal{OMS}       {cmsy}{b}{n}
+	%%besser DeclareSymbolFontAlphabet laut LaTeX-Begleiter, wenn die Symbole bereits geladen sind (S.448)
+	%%\DeclareSymbolFontAlphabet{\mathcal}{amscal}  %braucht keines der 16 Register
+  %\newcommand{\mathcal}{\amscal}
+%}
+%%
+
+%%%PW: Mathfrak wieder rückdefinieren	
+%\AtBeginDocument{%
+  %\let\mathcal\relax
+	%\DeclareMathAlphabet\amscal{OMS}{cmsy}{m}{n}
+	  %\SetMathAlphabet    \mathcal{normal}{OMS}{cmsy}{m}{n}
+	%\DeclareMathAlphabet\mathbcal{OMS}       {cmsy}{b}{n}
+	%%besser DeclareSymbolFontAlphabet laut LaTeX-Begleiter, wenn die Symbole bereits geladen sind (S.448)
+	%%\DeclareSymbolFontAlphabet{\mathcal}{amscal}  %braucht keines der 16 Register
+  %\newcommand{\mathcal}{\amscal}
+%}
+%%%
+
+
+
+%%%% PW: Breites Dach-Symbol definieren. Wichtig für einige newcommand-Definitionen später
+\DeclareMathSymbol{\widehatsym}{\mathord}{largesymbols}{"62}
+
+
+
+
+
+% Recommanded to use with fonts: Aldus, Garamond, Melior, Sabon
+
+%%PW: Achtung: Wenn auskommentiert kein Mathbold-Befehl!!
+%\usepackage[                           %% --- EulerVM (MATH)
+%   small,       %for smaller Fonts, 95% Normalgröße
+%   %euler-hat-accent  %Euler dach-Akzent
+%   euler-digits % digits in euler fonts style
+%]{eulervm}
+
+%%PW: Euler Script: Gibt dann aber Fehler wegen zu vielen Mathealphabeten
+%\usepackage[%
+%mathscr%
+%]%
+%{eucal}%
+
+\usepackage{mathdots}  %%PW: fixt Problem mit den \dots Befehlen
+%\usepackage{eufrak}  %% PW: Euler Fraktur   %%knallt mit amssymb, was das gleiche macht
+
+%%PW alternative Blackboard Mengenbuchstaben. Brauchen auch Math alphabet
+%\usepackage[%
+%%sans%
+%]{dsfont} 
+
+%% PW
+\renewcommand*{\marginfont}{%
+\scriptsize
+%\color{red}
+\sffamily
+}
+%%%%%
+
+% PW:
+\usepackage{pifont} % numbers in circles
+
+%%PW:
+%Palatino text with Euler math
+%\usepackage{mathpple}
+
+
+%%%%%%%%%%%%% Utopia with Fourier Math
+%\usepackage{fourier}  %%Doch, geht mit Microtype. Fehler beim Unendlich-Zeichen (Ist Musik-Bindungsbogen) wenn eulervm geladen!
+
+
+%\usepackage{cm-super}
+%% -------------------
+%
+%% - Times, Helvetica, Courier (Word Standard...)
+%\usepackage{mathptmx}
+%\usepackage[scaled=.90]{helvet}
+%\usepackage{courier}
+%% -------------------
+%%
+%% - Palatino , Helvetica, Courier
+
+
+%%%%%%%%%%%%% Palatino mit Euler Math: Microtype: Letterspace +5
+%\usepackage[sc]{mathpazo}   %% PW mit smallcaps-Option wird ein anderer Font mit besserem Kerning verwendet
+
+%\usepackage[scaled=.95]{helvet}
+%\usepackage{courier}
+
+%\usepackage{tgpagella}  %%TeX-Gyre erweiterte Version der URW Palladio
+%%%%The TeX Gyre Pagella family consists of 4 text fonts: regular,
+%%%%italic, bold and bold italic (qplr, qplri, qplb, qplbi).
+%%% Pagella sollte durch microtype zusätzliche Laufweite bekommen!
+
+%\usepackage{breqn}  %%PW: Nach allen Mathe-bezogenen Paketen laden. Experimentell! Teil des MH bundles
+
+%% -------------------
+%
+%% - Bera Schriften
+%\usepackage{bera}
+%% -------------------
+%
+%% - Charter, Bera Sans
+%Charter besser per mathdesign-bitstream
+%\usepackage{charter}\linespread{1.05}    %Probleme mit Microtype
+%\usepackage{charter}
+%\renewcommand{\sfdefault}{fvs}
+
+
+%% ===== Serifen =========================================================
+
+%\usepackage{mathpazo}                 %% --- Palatino
+%\usepackage{charter}\linespread{1.05} %% --- Charter
+%\usepackage{bookman}                  %% --- Bookman (laedt Avant Garde !!)
+%\usepackage{newcent}                  %% --- New Century Schoolbook (laedt Avant Garde !!)
+
+%\usepackage[%                         %% --- Fourier
+%%   upright,     % Math fonts are upright
+%%   expert,      % Only for EXPERT Fonts!
+%%   oldstyle,    % Only for EXPERT Fonts!
+%%   fulloldstyle % Only for EXPERT Fonts!
+%]{fourier} %  %%PW:gut, außer mathcal und mathbb
+%
+
+%% Gentium
+%%\usepackage{gentium}
+
+
+%% ===== Sans Serif ======================================================
+
+%\usepackage[scaled=.95]{helvet}        %% --- Helvetica
+%\usepackage{cmbright}                  %% --- CM-Bright (eigntlich eine Familie)  %% Geht nicht mit Microtype!!
+%\usepackage{hfbright} ?????                  %% --- CM-Bright (eigntlich eine Familie) als Type1  %% Geht erst durch hfbright mit Microtype!!
+%\usepackage{tpslifonts}                %% --- tpslifonts % Font for Slides
+%\usepackage{avantgar}                  %% --- Avantgarde
+
+
+%% Arev, Sans-serif
+%\usepackage{arev}
+
+%% Iwona
+%\usepackage[math]{iwona}
+%\usepackage{iwona}
+%%%%\renewcommand{\rmdefault}{lm}
+%\renewcommand{\rmdefault}{iwona}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+%% TeX Gyre Heros
+%\usepackage{tgheros}
+
+
+%% URW Optima, braucht Schriftdateien
+%\renewcommand*\sfdefault{uop}
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+%Klappt nicht wirklich
+%\usepackage{epigrafica}
+
+
+%%%% =========== Italics ================
+
+%\usepackage{chancery}                  %% --- Zapf Chancery
+
+%%%% =========== Typewriter =============
+
+%\usepackage{courier}                   %% --- Courier
+%\renewcommand{\ttdefault}{cmtl}        %% --- CmBright Typewriter Font
+
+%\renewcommand{\ttdefault}{lmtt}        %% --- Latin Modern Typewriter Font   %%PW: Hat Probleme bei Codelistings, bfseries sieht man nicht.
+%\renewcommand{\ttdefault}{txtt}        %% --- Aus txfonts (Times-Paket)   %%ist auch ganz ok, aber nahe an den kpfonts
+%\usepackage{inconsolata}   %%PW: Kann kein bfseries.
+
+%%\usepackage[scaled]{beramono}
+
+%\usepackage[%                          %% --- Luxi Mono (Typewriter)
+%   scaled=0.9%
+%]{luximono}
+
+%%\usepackage{inconsolata}  %% nicht fett und nicht kursiv!
+
+
+
+%%%% =========== Mathe ================
+
+
+%%%\renewcommand{\rmdefault}{ugm} %nicht nötig PW. Urw GaraMond
+%
+%\usepackage[
+%% %   adobe-utopia,
+%%   garamond,
+%   bitstream-charter   %% so wird Charter geladen!  %%Problem mit Unendlich-Zeichen, wenn eulervm geladen
+% ]{mathdesign}
+
+
+%\renewcommand{\rmdefault}{bch}		%%PW bitstream charter
+
+%%%\renewcommand{\sfdefault}{lmss}   %%PW latin modern sans serif
+
+%%%% (((( !!! kommerzielle Schriften !!! )))))))))))))))))))))))))))))))))))))))))))))))))))
+
+%% ===== Serifen (kommerzielle Schriften ) ================================
+
+%% --- Adobe Aldus
+%\renewcommand{\rmdefault}{pasx}
+%\renewcommand{\rmdefault}{pasj} %%oldstyle digits
+% math recommended: \usepackage[small]{eulervm}
+
+%% --- Adobe Garamond
+%\usepackage[%
+%   osf,        % oldstyle digits
+%   scaled=1.05 %appropriate in many cases
+%]{xagaramon}
+% math recommended: \usepackage{eulervm}
+
+%% --- Adobe Stempel Garamond
+%\renewcommand{\rmdefault}{pegx}
+%\renewcommand{\rmdefault}{pegj} %%oldstyle digits
+
+%% --- Adobe Melior
+%\renewcommand{\rmdefault}{pml}
+% math recommended: %\usepackage{eulervm}
+
+%% --- Adobe Minion
+%\renewcommand{\rmdefault}{pmnx}
+%\renewcommand{\rmdefault}{pmnj} %oldstyle digits
+% math recommended: \usepackage[small]{eulervm} or \usepackage{mathpmnt} % commercial
+
+%% --- Adobe Sabon
+%\renewcommand{\rmdefault}{psbx}
+%\renewcommand{\rmdefault}{psbj} %oldstyle digits
+% math recommended: \usepackage{eulervm}
+
+%% --- Adobe Times
+% math recommended: \usepackage{mathptmx} % load first !
+%\renewcommand{\rmdefault}{ptmx}
+%\renewcommand{\rmdefault}{ptmj} %oldstyle digits
+
+%% --- Linotype ITC Charter
+%\renewcommand{\rmdefault}{lch}
+
+%% --- Linotype Meridien
+%\renewcommand{\rmdefault}{lmd}
+
+%%% ===== Sans Serif (kommerzielle Schriften) ============================
+
+%% --- Adobe Frutiger
+%\usepackage[
+%   scaled=0.90
+%]{frutiger}
+
+%% --- Adobe Futura (=Linotype FuturaLT) : Sans Serif
+%\usepackage[
+%   scaled=0.94  % appropriate in many cases
+%]{futura}
+
+%% --- Adobe Gill Sans : Sans Serif
+%\usepackage{gillsans}
+
+%% -- Adobe Myriad  : Sans Serif
+%\renewcommand{\sfdefault}{pmy}
+%\renewcommand{\sfdefault}{pmyc} %% condensed Font
+
+%% --- Syntax : sans serif font
+%\usepackage[
+%   scaled
+%]{asyntax}
+
+%% --- Adobe Optima : Semi Sans Serif
+%\usepackage[
+%   medium %darker medium weight fonts
+%]{optima}
+
+%% --- Linotype ITC Officina Sans
+%\renewcommand{\sfdefault}{lo9}
+
+
+

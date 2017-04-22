@@ -1,0 +1,75 @@
+\chapter{Zitierungen, Randbilder}
+
+Verweis auf etwas auf einer anderen Seite mit dem \texttt{varioref}-Paket: Siehe im Bildkapitel \vref{chap:Images}. Wenn das auf einer anderen Seite ist, wird die Seite mit angegeben.
+Auf der gleichen Seite bei Abbildung \vref{exPDFEPSwdh} wird keine Seite angegeben, außer man erzwingt es. Abbildung \vpageref{exPDFEPSwdh2} und Abbildung \vpageref{exPDFEPSwdh2}. Ist nur eine Seite unterschied wird das in Worten ausgeschrieben.
+
+Verweis auf etwas auf einer anderen Seite mit dem \texttt{cleveref}-Paket: Siehe im Bildkapitel \cref{chap:Images}.
+
+Very important work has been done by Roldan \cite{Roldan1997,Roldan1998,Roldan2001,Roldan2001a,Roldan2003,Roldan2005}.
+
+	\begin{equation}
+		\boxed{	\left\langle V \right\rangle = - \frac{2}{3 k_B T} \left(\frac{\mu_1 \mu_2}{4 \pi \epsilon_0 R^3}\right)^2 }
+	\end{equation}
+
+Mal schauen, was der Randbild-Befehl mit den normalen Bildern macht. Zuerst also ein tolles Bild:
+\begin{figure}[htb]
+\Centering
+\includegraphics[scale=0.4]{images/EPStoPDF_Bild.pdf}
+\caption[Captionformattest]{Nochmal ein Bild vom Anfang um zu sehen ob das Captionformat beim Randbild was ausmacht.}
+\label{exPDFEPSwdh}
+\end{figure}
+ 
+Ein Beispiel für die Unterscheidung zwischen der Basis und dem Gitter liefert uns der NaCl-Kristall (herkömmliches Kochsalz).  Man kann die Kristallstruktur von NaCl aufbauen, indem man abwechselnd Na$^+$- und Cl$^-$-Ionen auf die Gitterpunkte eines einfachen kubischen Gitters setzt. (siehe Abbildung Gitterstrukturen). Um Promille auszudrücken kann man \textperthousand benutzen (aus dem \texttt{textcomp}-Paket) oder eine hässlichere Variante \permil (aus \texttt{wasysym})
+
+%Referenz aufs erste Bild \ref{keinnacl1}. Und jetzt das Randbild im Code.
+
+%\randbild{images/bcc2.eps}{Kein NaCl Kristall}{Kein NaCl Kristall}{0.8}{keinnacl1}  % Bild-Pfadname, Kurzbeschriftung (für Abbildungsverzeichnis), Beschriftung, Breite zw. 0 und 1 = 100% des Randes, Label Referenz
+
+In diesem Kristall ist jedes Ion umgeben von sechs nächsten Nachbarn entgegengesetzter Ladung. Das Raumgitter des NaCl ist jedoch nach unserer Definiton kubisch flächenzentriert mit einer zweiatomigen Basis, eben einem Na$^+$- und einem Cl$^-$-Ion. Die Kristallstruktur ergibt sich dann sozusagen durch das ineinanderstellen der jeweils kubisch flächenzentrierten Gitter der beiden Ionensorten.
+
+In %
+%\marginnote{%
+%\rule{1.5cm}{1cm}%
+%\captionof{figure}[caption für toc]{Meine Bildunterschrift}%
+%}%
+diesem Kristall ist jedes Ion umgeben von sechs nächsten Nachbarn entgegengesetzter Ladung. Das Raumgitter des NaCl ist jedoch nach unserer Definiton kubisch flächenzentriert mit einer 
+%\marg{images/bcc.eps}
+zweiatomigen Basis, eben einem Na$^+$- und einem Cl$^-$-Ion. Die Kristallstruktur ergibt sich dann sozusagen durch das ineinanderstellen der jeweils kubisch flächenzentrierten Gitter der beiden Ionensorten.
+
+In diesem Kristall ist jedes Ion umgeben von sechs nächsten Nachbarn entgegengesetzter Ladung. Das Raumgitter des NaCl ist jedoch nach unserer Definiton kubisch flächenzentriert mit einer zweiatomigen Basis, eben einem Na$^+$- und einem Cl$^-$-Ion. Die Kristallstruktur ergibt sich dann sozusagen durch das ineinanderstellen der jeweils kubisch flächenzentrierten Gitter der beiden Ionensorten.
+
+\npar
+Die Punkte des Gitters werden durch Gittervektoren\index{Gittervektoren} miteinander verbunden. An den Gitterpunkten selbst muß kein Atom vorliegen, sie sind nur Punkte der Periodizität.
+
+%Referenz auf das zweite Bild \ref{keinnacl2}, aber auch nochmal aufs erste \ref{keinnacl1}
+
+%\randbild{images/bcc2.eps}{Immer noch kein NaCl Kristall}{Immer noch kein NaCl Kristall}{0.8}{keinnacl2}  % Bild-Pfadname, Kurzbeschriftung (für Abbildungsverzeichnis), Beschriftung, Breite zw. 0 und 1 =
+
+%% Ulrike Fischer Beispiel
+\begin{figure}
+\Centering
+	\marginnote{Legende\\ erster Eintrag}%
+	\rule{3cm}{2cm} %Box, Breite, Höhe
+	\caption[caption für toc]{\marginnote{Legende\\ erster Eintrag}Bildunterschrift. Ja, das ist mit Absicht ein schwarzer Block.}
+	\label{fig:Bild}
+\end{figure}
+
+
+\begin{figure}[htb]
+\Centering
+\includegraphics[scale=0.4]{images/EPStoPDF_Bild.pdf}
+\caption[Captionformattest]{Nochmal ein Bild vom Anfang um zu sehen ob das Captionformat beim Randbild was ausmacht.}
+\label{exPDFEPSwdh2}
+\end{figure}
+
+\blindtext
+
+I'd like to cite \cite{Mahmoudi2009} as an underscore URL test, \cite{Agrawal} \cite{Agarwal88} and especially \cite{Bludau98} and \cite{Barmenkov2004}.
+Not to forget \cite{Pask95} and the work of \cite{Paschotta97}.
+
+\blindtext
+
+Very nice are the papers of \cite{Mahmoudi2009,Voigt2005,DWandt1997,Yeh,Voigt2004}.
+
+%\bibliographystyle{bib/bst/AlphaDINFirstName}
+%\bibliography{bib/BibtexDatabase}

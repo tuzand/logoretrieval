@@ -1,0 +1,16 @@
+\chapter{Proposal Based Object Detection and Classification}
+
+\section{Fully Convolutional Neural Networks}
+Fully Convolutional Neural Networks were proposed by . In that paper they introduce how to transform a neural network with classificator layers at the end to a fully convolutional network. The fully connected layers should be removed from the end of the network.
+Fully connected layers need a fix sized input. As the fully convolutional network does not have  fully connected layer anymore, it has the advantage of being able to train and test with images of arbitrary sizes.
+The output of such a network is usually a 2 dimensional feature map, which can be used as a per class heatmap. This conv map can also be used directly for semantic segmentation, where each pixel of an image should be assigned to a class.
+
+\section{Region proposal systems}
+Region proposals are possible object locations As we saw in the chapter two, the multiscale sliding window method induces a lot of computational costs. In order to reduce this burden region proposal systems can be used. Earlier solutions used external proposal systems, e.g. selective search. Today the proposal system is already part of the neural network. 
+
+\section{Region Based Convolutional Neural Network}
+Region based convolutional neural networks use external region proposals. The network is used to run the complete inference on every region proposal bounding boxes. 
+
+\section{Fast Region Based Convolutional Neural Network} This network consists of a fully connected neural network, also called as base network [OverFeat], and a fully connected classifiation network. This version of region based convolutional neural network also uses external region proposals. First the image is completely pushed through the fully convolutional network. The output is a downscaled feature map, which is fed to the so called ROI Pooling layer. This layer crops regions from the map according to the appropriate downscaled region proposals, and executes pooling on each regions. After the pooling there are some fully connected layers, which make the final classification of the regions of interest. The advantage of this method is much lower computational costs. This is achieved by the much lower computational redundancy of running convolutional layers on the whole image only once. 
+
+\section{Faster Region Based Convolutional Neural Network}
