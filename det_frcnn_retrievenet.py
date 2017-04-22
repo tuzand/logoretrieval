@@ -39,15 +39,17 @@ RESULTPOSTFIX = '.result2.txt'
 FRCNN = 'py_faster_rcnn'
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/faster_rcnn_end2end/simple_detectionpath/test.prototxt')
+PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv_srf_ice/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
-PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/test.prototxt')
+PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/synmetu_ta_detection/vgg_cnn_m_1024_faster_rcnn_synmetuta_detection_iter_600000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/synmetu_ta_detection/vgg_cnn_m_1024_faster_rcnn_synmetuta_detection_iter_50000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
@@ -81,7 +83,7 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
-    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename)
+    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
     plt.close()
 
 def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
@@ -190,11 +192,11 @@ if __name__ == '__main__':
         imagename = imagepath.split('/')[-1]
         im = cv2.imread(imagepath)
         _t['im_detect'].tic()
-        scores, boxes, features, scores_det, boxes_det = im_detect(net, im, True, None)
-        scores = scores_det
+        scores, boxes = im_detect(net, im, False, None)
+        #print scores
         #boxes = boxes_det
         if visualize_logo_detection:
-            s_det = scores_det[:, 1]
+            s_det = scores[:, 1]
             inds = np.array(s_det).argsort()[::-1][:10]
             roi_classes = ['logo' for j in range(len(inds))]
             write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)

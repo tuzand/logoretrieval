@@ -49,12 +49,13 @@ PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/alln
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/synmetu_ta_detection/vgg_cnn_m_1024_faster_rcnn_synmetuta_detection_iter_600000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
 QUERYPATH = '/home/andras/logoexamples'
-#QUERYPATH = '/home/andras/audi'
+#SEARCHPATH = '/home/andras/audi'
 #SEARCHPATH = '/home/andras/lotoflogo'
 SEARCHPATH = 'srf_ski_good'
 
@@ -233,7 +234,6 @@ def parse_args():
 def search(net):
 
     all_test_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
-    #all_train_features, imdb = get_features(net, args, 'srf_ski_good', custom=False, onlymax=False)
     all_train_features, imdb = get_features(net, args, SEARCHPATH, custom=False, onlymax=False)
 
     num_images = len(imdb.image_index)

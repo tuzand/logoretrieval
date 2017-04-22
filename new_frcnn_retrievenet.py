@@ -31,8 +31,8 @@ import sys
 
 max_per_image = 0
 vis = False
-logo_threshold = 0.1
-thresh = 0.0
+logo_threshold = 0.7
+thresh = 0.8
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
@@ -49,16 +49,19 @@ PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/alln
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
-QUERYPATH = '/home/andras/logoexamples'
-#QUERYPATH = '/home/andras/audi'
+QUERYPATH = '/home/andras/query_logos/cut'
+#SEARCHPATH = '/home/andras/audi'
 #SEARCHPATH = '/home/andras/lotoflogo'
 SEARCHPATH = 'srf_ski_good'
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
+    if len(bboxArray) == 0:
+        return
     im = im[:, :, (2, 1, 0)]
     fig, ax = plt.subplots(figsize=(12, 12))
     ax.imshow(im, aspect='equal')
@@ -66,6 +69,7 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
         bbox = bboxArray[i]
         score = scoreArray[i]
         class_name = classArray[i]
+        
         ax.add_patch(
             plt.Rectangle((bbox[0], bbox[1]),
                           bbox[2] - bbox[0],
@@ -83,10 +87,10 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
-    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
+    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + classArray[i] + '_' + imagename.split('.')[0] + '.jpg')
     plt.close()
 
-def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
+def vis_detections(im, class_name, dets, imagename, thresh=0.3):
     """Visual debugging of detections."""
     import matplotlib.pyplot as plt
     im = im[:, :, (2, 1, 0)]
@@ -106,8 +110,20 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
             plt.axis('off')   
             plt.tight_layout()
             plt.draw()
-            plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename)
+            plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
             plt.close()
+
+def draw_boxes(im, dets, imagename):
+    if dets.shape[0] == 0:
+        return
+    for i in xrange(np.minimum(10, dets.shape[0])):
+        bbox = dets[i, :4]
+        x = bbox[0]
+        y = bbox[1]
+        w = bbox[2] - bbox[0]
+        h = bbox[3] - bbox[1]
+        cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
+    cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
 
 def py_cpu_nms(dets, thresh):
     """Pure Python NMS baseline."""
@@ -181,11 +197,6 @@ def test_net(net, imdb, onlymax, max_per_image=100):
                     logo_inds.append(j)
         for idx in logo_inds:
             s = scores[idx, 1:]
-            #print s
-            #print s.argmax()
-            #imdb = get_imdb('fl_train')
-            #classes = imdb.classes
-            #print classes[s.argmax()+1]
             max_score_idx = s.argmax()
             max_score = s.max()
             feature = features[idx]
@@ -259,7 +270,6 @@ def parse_args():
     return args
 
 def updateFeatures(net, boxes):
-    dummy = np.array([[[[1]]]]).astype(np.float32)
     for filename, value in boxes.items():
         roi_bboxes = list()
         roi_scores = list()
@@ -267,31 +277,33 @@ def updateFeatures(net, boxes):
         filepath = value[0]
         features = value[1]
         bboxes = value[2]
-        print filepath
-
         img = cv2.imread(filepath)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         for idx, box in enumerate(bboxes):
-            x1 = box[0]
-            y1 = box[1]
-            x2 = box[2]
-            y2 = box[3]
-            roi = img[y1:y2, x1:x2]
-            roi = cv2.resize(roi, (224, 224))
-            roi = roi.swapaxes(0,2).swapaxes(1,2)
-            roi = np.array([roi]).astype(np.float32)
-            net.set_input_arrays(roi, dummy)
-            net.forward()
+            features[idx] = getClassificatorFeatures(net, img, box)
 
-            feature = net.blobs['fc1000'].data
-            feature = feature.flatten()
-            norm = np.linalg.norm(feature)
-            features[idx] = feature / norm
+def getClassificatorFeatures(net, im, box):
+    dummy = np.array([[[[1]]]]).astype(np.float32)
+    x1 = box[0]
+    y1 = box[1]
+    x2 = box[2]
+    y2 = box[3]
+    roi = im[y1:y2, x1:x2]
+    roi = cv2.resize(roi, (224, 224))
+    roi = roi.swapaxes(0,2).swapaxes(1,2)
+    roi = np.array([roi]).astype(np.float32)
+    net.set_input_arrays(roi, dummy)
+    net.forward()
 
+    feature = net.blobs['fc1000'].data
+    feature = feature.flatten()
+    norm = np.linalg.norm(feature)
+    return feature / norm
 
 
 def search(net):
 
-    all_query_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
+    #all_query_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
     all_search_features, imdb = get_features(net, args, SEARCHPATH, custom=False, onlymax=False)
 
     PROTO = '/home/andras/data/models/resnet/ResNet-50-deploy.prototxt'
@@ -299,10 +311,21 @@ def search(net):
 
     net = caffe.Net(PROTO, MODEL, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(MODEL))[0]
+    all_query_features = dict()
+    queryimdb = get_custom_imdb(QUERYPATH)
+    num_images = len(queryimdb.image_index)
+    feat = list()
+    for i in xrange(num_images):
+        imagepath = queryimdb.image_path_at(i)
+        imagename = imagepath.split('/')[-1]
+        im = cv2.imread(imagepath)
+        im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        height, width, channels = im.shape
+        all_query_features[imagename] = getClassificatorFeatures(net, im, (0,0,width,height))
+        feat.append(all_query_features[imagename])
+    #print "Similarity: " + str(np.dot(feat[0], feat[1]))
 
 
-    print 'Update query features'
-    updateFeatures(net, all_query_features)
     print 'Update search features'
     updateFeatures(net, all_search_features)
     
@@ -310,6 +333,7 @@ def search(net):
     # all detections are collected into:
     #    all_boxes[cls][image] = N x 5 array of detections in
     #    (x1, y1, x2, y2, score)
+    
     all_boxes = [[[] for _ in xrange(num_images)]
                  for _ in xrange(imdb.num_classes)]
 
@@ -317,32 +341,33 @@ def search(net):
     _t = {'misc' : Timer()}
 
     i = 0
-    for searchfilename, search_value in all_search_features.items():
+    #for searchfilename, search_value in all_search_features.items():
+    for i in xrange(num_images):
+        searchfilepath = imdb.image_path_at(i)
+        searchfilename = searchfilepath.split('/')[-1]
         _t['misc'].tic()
         roi_bboxes = list()
         roi_scores = list()
         roi_classes = list()
+        search_value = all_search_features[searchfilename]
         searchfilepath = search_value[0]
         search_features = search_value[1]
         search_bboxes = search_value[2]
-        
+                
         scores = np.zeros((len(search_bboxes), imdb.num_classes))
         boxes = np.zeros((len(search_bboxes), imdb.num_classes * 4))
         maxdistance = 0
         for queryfilename, query_value in all_query_features.items():
-            queryfilepath = query_value[0]
-            query_feature = query_value[1][0]
-            query_bboxes = query_value[2]
-            
+            #query_feature = query_value[1]
+            query_feature = query_value
+
+                        
             for j in range(len(search_features)):
                 search_feature = search_features[j]
                 similarity = np.dot(query_feature, search_feature)
                 # get the index of the classname
                 classindex = imdb.classes.index(queryfilename.split('.')[0])
-                #distance = np.linalg.norm(query_feature - search_feature)
                 scores[j, classindex] = similarity
-                #if distance > maxdistance:
-                #    maxdistance = distance
 
                 max_score_index = search_feature.argmax()
                 boxes[j, classindex*4 : classindex*4+4] = \
@@ -369,9 +394,15 @@ def search(net):
             cls_dets = cls_dets[keep, :]
             if vis:
                 im = cv2.imread(searchfilepath)
-                vis_detections(im, imdb.classes[j], cls_dets, searchfilename)
+                classArray = [queryfilename.split('.')[0] for l in range(len(keep))]
+                print classArray
+                write_bboxes(im, searchfilename, cls_dets[:, :4], cls_dets[:, 4], classArray)
+                #draw_boxes(im, cls_dets, searchfilename)
             all_boxes[j][i] = cls_dets
-
+        #if searchfilename == '_100000027.png':
+            #for j in xrange(1, imdb.num_classes):
+                #print str(all_boxes[j][i]) + ' '
+        #    print ''
         # Limit to max_per_image detections *over all classes*
         if max_per_image > 0:
             image_scores = np.hstack([all_boxes[j][i][:, -1]
@@ -381,12 +412,32 @@ def search(net):
                 for j in xrange(1, imdb.num_classes):
                     keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
                     all_boxes[j][i] = all_boxes[j][i][keep, :]
+        #if searchfilename == '_100000027.png':
+        #    for j in xrange(1, imdb.num_classes):
+                #print str(all_boxes[j][i]) + ' '
+        #    print ''
         _t['misc'].toc()
 
         print 'im_detect: {:d}/{:d} {:.3f}s' \
               .format(i + 1, num_images,
                       _t['misc'].average_time)
+
+        '''im = cv2.imread(searchfilepath)
+        drawboxes = list()
+        drawclasses = list()
+        drawscores = list()
+        for k in xrange(1, imdb.num_classes):
+            boxes = all_boxes[k][i]
+            for l in boxes:
+                drawclasses.append(imdb.classes[k])
+                drawboxes.append([l[0], l[1], l[2], l[3]])
+                drawscores.append(l[4])
+        #print drawboxes
+        #print drawclasses
+        write_bboxes(im, searchfilename, drawboxes, drawscores, drawclasses)'''
+
         i += 1
+
 
     det_file = os.path.join(output_dir, 'detections.pkl')
     with open(det_file, 'wb') as f:
@@ -406,6 +457,16 @@ if __name__ == '__main__':
         cfg_from_file(args.cfg_file)
     if args.set_cfgs is not None:
         cfg_from_list(args.set_cfgs)
+
+    cfg.TEST.HAS_RPN = True
+    cfg.TRAIN.HAS_RPN = True
+    cfg.TRAIN.IMS_PER_BATCH = 1
+    cfg.TRAIN.BBOX_NORMALIZE_TARGETS_PRECOMPUTED = True
+    cfg.TRAIN.RPN_POSITIVE_OVERLAP = 0.7
+    cfg.TRAIN.RPN_BATCHSIZE = 256
+    cfg.TRAIN.PROPOSAL_METHOD = 'gt'
+    cfg.TRAIN.BG_THRESH_LO = 0.0
+
 
     cfg.GPU_ID = args.gpu_id
 
