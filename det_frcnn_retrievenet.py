@@ -31,7 +31,7 @@ import sys
 
 max_per_image = 0
 vis = False
-visualize_logo_detection = False
+visualize_logo_detection = True
 thresh = 0.2
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'

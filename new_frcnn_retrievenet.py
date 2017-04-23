@@ -30,12 +30,12 @@ import cPickle
 import sys
 
 max_per_image = 0
-vis = False
-logo_threshold = 0.7
-thresh = 0.8
+logo_threshold = 0.1
+similarity_threshold = 0.9
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
+visualize_logo_recognition = False
 visualize_logo_detection = False
 np.set_printoptions(threshold=np.nan)
 
@@ -56,7 +56,7 @@ MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_share
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
 QUERYPATH = '/home/andras/query_logos/cut'
 #SEARCHPATH = '/home/andras/audi'
-#SEARCHPATH = '/home/andras/lotoflogo'
+#SEARCHPATH = '/home/andras/data/datasets/LegalSamples'
 SEARCHPATH = 'srf_ski_good'
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
@@ -81,13 +81,10 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
                 bbox=dict(facecolor='blue', alpha=0.5),
                 fontsize=14, color='white')
 
-    #ax.set_title(('Detections with '
-    #              'p(obj | box) >= {:.1f}').format(logo_threshold),
-    #              fontsize=14)
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
-    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + classArray[i] + '_' + imagename.split('.')[0] + '.jpg')
+    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
     plt.close()
 
 def vis_detections(im, class_name, dets, imagename, thresh=0.3):
@@ -116,7 +113,7 @@ def vis_detections(im, class_name, dets, imagename, thresh=0.3):
 def draw_boxes(im, dets, imagename):
     if dets.shape[0] == 0:
         return
-    for i in xrange(np.minimum(10, dets.shape[0])):
+    for i in xrange(dets.shape[0]):
         bbox = dets[i, :4]
         x = bbox[0]
         y = bbox[1]
@@ -124,36 +121,6 @@ def draw_boxes(im, dets, imagename):
         h = bbox[3] - bbox[1]
         cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
     cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
-
-def py_cpu_nms(dets, thresh):
-    """Pure Python NMS baseline."""
-    x1 = dets[:, 0]
-    y1 = dets[:, 1]
-    x2 = dets[:, 2]
-    y2 = dets[:, 3]
-    scores = dets[:, 4]
-
-    areas = (x2 - x1 + 1) * (y2 - y1 + 1)
-    order = scores.argsort()[::-1]
-
-    keep = []
-    while order.size > 0:
-        i = order[0]
-        keep.append(i)
-        xx1 = np.maximum(x1[i], x1[order[1:]])
-        yy1 = np.maximum(y1[i], y1[order[1:]])
-        xx2 = np.minimum(x2[i], x2[order[1:]])
-        yy2 = np.minimum(y2[i], y2[order[1:]])
-
-        w = np.maximum(0.0, xx2 - xx1 + 1)
-        h = np.maximum(0.0, yy2 - yy1 + 1)
-        inter = w * h
-        ovr = inter / (areas[i] + areas[order[1:]] - inter)
-
-        inds = np.where(ovr <= thresh)[0]
-        order = order[inds + 1]
-
-    return keep
 
 def test_net(net, imdb, onlymax, max_per_image=100):
     num_images = len(imdb.image_index)
@@ -167,17 +134,12 @@ def test_net(net, imdb, onlymax, max_per_image=100):
         imagename = imagepath.split('/')[-1]
         im = cv2.imread(imagepath)
         _t['im_detect'].tic()
-        if False:
-            scores, boxes, features, scores_det, boxes_det = im_detect(net, im, True, None)
-            roi_classes = ['logo' for j in range(30)]
-            write_bboxes(im, 'now.jpg', boxes[0:30], scores_det[0:30], roi_classes)
-        else:
-            scores, boxes, features, scores_det, boxes_det = im_detect(net, im, True, None)
-            if visualize_logo_detection:
-                s_det = scores_det[:, 1]
-                inds = np.array(s_det).argsort()[::-1][:1]
-                roi_classes = ['logo' for j in range(len(inds))]
-                write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)
+        scores, boxes, features, scores_det, boxes_det = im_detect(net, im, True, None)
+        if visualize_logo_detection:
+            s_det = scores_det[:, 1]
+            inds = np.array(s_det).argsort()[::-1][:10]
+            roi_classes = ['logo' for j in range(len(inds))]
+            write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)
         _t['im_detect'].toc()
 
         _t['misc'].tic()
@@ -190,11 +152,7 @@ def test_net(net, imdb, onlymax, max_per_image=100):
         if onlymax:
             logo_inds.append(scores_det[:, 1].argmax())
         else:
-            for j in range(len(scores)):
-                #m = scores[j, 1:].max()
-                m = scores_det[j, 1]
-                if m > logo_threshold:
-                    logo_inds.append(j)
+            logo_inds = np.where(scores_det[:, 1] > logo_threshold)[0]
         for idx in logo_inds:
             s = scores[idx, 1:]
             max_score_idx = s.argmax()
@@ -207,7 +165,6 @@ def test_net(net, imdb, onlymax, max_per_image=100):
             roi_scores.append(max_score)
             roi_classes.append('logo')
             roi_features.append(feature)
-        #write_bboxes(im, str(i) + '.jpg', roi_bboxes, roi_scores, roi_classes)
 
         #normed_features[imagename] = [imagepath, roi_features, boxes[logo_inds, :]]
         normed_features[imagename] = [imagepath, roi_features, roi_bboxes]
@@ -262,14 +219,11 @@ def parse_args():
                         help='max number of detections per image',
                         default=100, type=int)
 
-    #if len(sys.argv) == 1:
-    #    parser.print_help()
-    #    sys.exit(1)
-
     args = parser.parse_args()
     return args
 
 def updateFeatures(net, boxes):
+    i = 0
     for filename, value in boxes.items():
         roi_bboxes = list()
         roi_scores = list()
@@ -281,6 +235,8 @@ def updateFeatures(net, boxes):
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         for idx, box in enumerate(bboxes):
             features[idx] = getClassificatorFeatures(net, img, box)
+        i += 1
+        print str(i) + "/" + str(len(boxes))
 
 def getClassificatorFeatures(net, im, box):
     dummy = np.array([[[[1]]]]).astype(np.float32)
@@ -306,15 +262,14 @@ def search(net):
     #all_query_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
     all_search_features, imdb = get_features(net, args, SEARCHPATH, custom=False, onlymax=False)
 
-    PROTO = '/home/andras/data/models/resnet/ResNet-50-deploy.prototxt'
-    MODEL = '/home/andras/data/models/resnet/ResNet-50-model.caffemodel'
+    PROTO = '/home/andras/data/models/resnet/ResNet-101-deploy.prototxt'
+    MODEL = '/home/andras/data/models/resnet/ResNet-101-model.caffemodel'
 
     net = caffe.Net(PROTO, MODEL, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(MODEL))[0]
     all_query_features = dict()
     queryimdb = get_custom_imdb(QUERYPATH)
     num_images = len(queryimdb.image_index)
-    feat = list()
     for i in xrange(num_images):
         imagepath = queryimdb.image_path_at(i)
         imagename = imagepath.split('/')[-1]
@@ -322,9 +277,6 @@ def search(net):
         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
         height, width, channels = im.shape
         all_query_features[imagename] = getClassificatorFeatures(net, im, (0,0,width,height))
-        feat.append(all_query_features[imagename])
-    #print "Similarity: " + str(np.dot(feat[0], feat[1]))
-
 
     print 'Update search features'
     updateFeatures(net, all_search_features)
@@ -341,14 +293,10 @@ def search(net):
     _t = {'misc' : Timer()}
 
     i = 0
-    #for searchfilename, search_value in all_search_features.items():
     for i in xrange(num_images):
         searchfilepath = imdb.image_path_at(i)
         searchfilename = searchfilepath.split('/')[-1]
         _t['misc'].tic()
-        roi_bboxes = list()
-        roi_scores = list()
-        roi_classes = list()
         search_value = all_search_features[searchfilename]
         searchfilepath = search_value[0]
         search_features = search_value[1]
@@ -356,12 +304,11 @@ def search(net):
                 
         scores = np.zeros((len(search_bboxes), imdb.num_classes))
         boxes = np.zeros((len(search_bboxes), imdb.num_classes * 4))
-        maxdistance = 0
         for queryfilename, query_value in all_query_features.items():
             #query_feature = query_value[1]
             query_feature = query_value
 
-                        
+            # Calculate similarity between logos
             for j in range(len(search_features)):
                 search_feature = search_features[j]
                 similarity = np.dot(query_feature, search_feature)
@@ -370,39 +317,36 @@ def search(net):
                 scores[j, classindex] = similarity
 
                 max_score_index = search_feature.argmax()
-                boxes[j, classindex*4 : classindex*4+4] = \
-                    search_bboxes[j]
-                #    search_bboxes[j, max_score_index*4 : max_score_index*4+4]
-                roi_bboxes.append(search_bboxes[j])
-                roi_scores.append(similarity)
-                roi_classes.append(queryfilename.split('.')[0])
-                #print queryfilename.split('.')[0] + ': ' + str(similarity)
-            #im = cv2.imread(searchfilepath)
-            #write_bboxes(im, searchfilename, roi_bboxes, roi_scores, roi_classes)
-        #print maxdistance
-        #scores = scores / maxdistance
-        #scores = 1- scores
+                boxes[j, classindex*4 : classindex*4+4] = search_bboxes[j]
 
-
+        img_dets = None
         for j in xrange(1, imdb.num_classes):
-            inds = np.where(scores[:, j] > thresh)[0]
+            inds = np.where(scores[:, j] > similarity_threshold)[0]
             cls_scores = scores[inds, j]
             cls_boxes = boxes[inds, j*4:(j+1)*4]
             cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
                 .astype(np.float32, copy=False)
-            keep = nms(cls_dets, cfg.TEST.NMS)
+            keep = nms(cls_dets, 0.2)
             cls_dets = cls_dets[keep, :]
-            if vis:
-                im = cv2.imread(searchfilepath)
-                classArray = [queryfilename.split('.')[0] for l in range(len(keep))]
-                print classArray
-                write_bboxes(im, searchfilename, cls_dets[:, :4], cls_dets[:, 4], classArray)
-                #draw_boxes(im, cls_dets, searchfilename)
             all_boxes[j][i] = cls_dets
-        #if searchfilename == '_100000027.png':
-            #for j in xrange(1, imdb.num_classes):
-                #print str(all_boxes[j][i]) + ' '
-        #    print ''
+            if cls_dets != None:
+                classes = np.zeros(cls_dets.shape[0])
+                classes.fill(j)
+                cls_dets = np.hstack((cls_dets, classes[:, np.newaxis])) \
+                    .astype(np.float32, copy=False)
+                if img_dets == None:
+                    img_dets = cls_dets
+                else:
+                    img_dets = np.concatenate((img_dets,cls_dets))
+        keep = nms(img_dets, 0.2)
+        img_dets = img_dets[keep]
+        if visualize_logo_recognition:
+            im = cv2.imread(searchfilepath)
+            classArray = [imdb.classes[int(img_dets[l, 5])] for l in range(len(img_dets))]
+            write_bboxes(im, searchfilename, img_dets[:, :4], img_dets[:, 4], classArray)
+        for j in xrange(1, imdb.num_classes):
+            cls_dets = img_dets[img_dets[:, 5] == j]
+            all_boxes[j][i] = cls_dets
         # Limit to max_per_image detections *over all classes*
         if max_per_image > 0:
             image_scores = np.hstack([all_boxes[j][i][:, -1]
@@ -412,10 +356,6 @@ def search(net):
                 for j in xrange(1, imdb.num_classes):
                     keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
                     all_boxes[j][i] = all_boxes[j][i][keep, :]
-        #if searchfilename == '_100000027.png':
-        #    for j in xrange(1, imdb.num_classes):
-                #print str(all_boxes[j][i]) + ' '
-        #    print ''
         _t['misc'].toc()
 
         print 'im_detect: {:d}/{:d} {:.3f}s' \
@@ -491,7 +431,7 @@ if __name__ == '__main__':
     for lt in np.arange(0,1,0.1):
         for t in np.arange(0,1,0.1):
             logo_threshold = lt
-            thresh = t
+            similarity_threshold = t
             print "Act Thresh: " + str(thresh)
             print "Act Logo Thresh: " + str(logo_threshold)
             print "MAP: " + str(maxMAP)
