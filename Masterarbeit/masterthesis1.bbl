@@ -1,3 +1,72 @@
-%%% produced automatically by bibtopic.sty v1.1
-%%% produced automatically by bibtopic.sty v1.1
-\csname bt@warn@outdated\endcsname{masterthesis1}
+\begin{thebibliography}{Ren15}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\input{babelbst.tex}
+\newcommand{\Capitalize}[1]{\uppercase{#1}}
+\newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[Gir16]{Girshick:2016:RCN:2881668.2882239}
+\textsc{Girshick}, Ross; \textsc{Donahue}, Jeff; \textsc{Darrell}, Trevor
+  \bbland{} \textsc{Malik}, Jitendra: Region-Based Convolutional Networks for
+  Accurate Object Detection and Segmentation. \textit{IEEE Trans. Pattern Anal.
+  Mach. Intell.} (2016), \bblvol{}~38(1):\bblpp{} 142--158,
+  \urlprefix\url{http://dx.doi.org/10.1109/TPAMI.2015.2437384}
+
+\bibitem[He15]{DBLP:journals/corr/HeZRS15}
+\textsc{He}, Kaiming; \textsc{Zhang}, Xiangyu; \textsc{Ren}, Shaoqing \bbland{}
+  \textsc{Sun}, Jian: Deep Residual Learning for Image Recognition.
+  \textit{CoRR} (2015), \bblvol{} abs/1512.03385,
+  \urlprefix\url{http://arxiv.org/abs/1512.03385}
+
+\bibitem[Kri12]{NIPS2012_4824}
+\textsc{Krizhevsky}, Alex; \textsc{Sutskever}, Ilya \bbland{} \textsc{Hinton},
+  Geoffrey~E: ImageNet Classification with Deep Convolutional Neural Networks,
+  \bblin{}: F.~Pereira; C.~J.~C. Burges; L.~Bottou \bbland{} K.~Q. Weinberger
+  (\capitalize\bbleditors{}) \textit{Advances in Neural Information Processing
+  Systems 25}, Curran Associates, Inc. (2012), \bblpp{} 1097--1105,
+  \urlprefix\url{http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf}
+
+\bibitem[Lon14]{DBLP:journals/corr/LongSD14}
+\textsc{Long}, Jonathan; \textsc{Shelhamer}, Evan \bbland{} \textsc{Darrell},
+  Trevor: Fully Convolutional Networks for Semantic Segmentation. \textit{CoRR}
+  (2014), \bblvol{} abs/1411.4038,
+  \urlprefix\url{http://arxiv.org/abs/1411.4038}
+
+\bibitem[Ren15]{NIPS2015_5638}
+\textsc{Ren}, Shaoqing; \textsc{He}, Kaiming; \textsc{Girshick}, Ross \bbland{}
+  \textsc{Sun}, Jian: Faster R-CNN: Towards Real-Time Object Detection with
+  Region Proposal Networks, \bblin{}: C.~Cortes; N.~D. Lawrence; D.~D. Lee;
+  M.~Sugiyama \bbland{} R.~Garnett (\capitalize\bbleditors{}) \textit{Advances
+  in Neural Information Processing Systems 28}, Curran Associates, Inc. (2015),
+  \bblpp{} 91--99,
+  \urlprefix\url{http://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks.pdf}
+
+\bibitem[Rus15]{ILSVRC15}
+\textsc{Russakovsky}, Olga; \textsc{Deng}, Jia; \textsc{Su}, Hao;
+  \textsc{Krause}, Jonathan; \textsc{Satheesh}, Sanjeev; \textsc{Ma}, Sean;
+  \textsc{Huang}, Zhiheng; \textsc{Karpathy}, Andrej; \textsc{Khosla}, Aditya;
+  \textsc{Bernstein}, Michael; \textsc{Berg}, Alexander~C. \bbland{}
+  \textsc{Fei-Fei}, Li: {ImageNet Large Scale Visual Recognition Challenge}.
+  \textit{International Journal of Computer Vision (IJCV)} (2015), \bblvol{}
+  115(3):\bblpp{} 211--252
+
+\bibitem[Ser13]{journals/corr/SermanetEZMFL13}
+\textsc{Sermanet}, Pierre; \textsc{Eigen}, David; \textsc{Zhang}, Xiang;
+  \textsc{Mathieu}, Michaël; \textsc{Fergus}, Rob \bbland{} \textsc{LeCun},
+  Yann: OverFeat: Integrated Recognition, Localization and Detection using
+  Convolutional Networks. \textit{CoRR} (2013), \bblvol{} abs/1312.6229,
+  \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1312.html#SermanetEZMFL13}
+
+\bibitem[Tur17]{DBLP:journals/corr/TursunAK17}
+\textsc{Tursun}, Osman; \textsc{Aker}, Cemal \bbland{} \textsc{Kalkan}, Sinan:
+  A Large-scale Dataset and Benchmark for Similar Trademark Retrieval.
+  \textit{CoRR} (2017), \bblvol{} abs/1701.05766,
+  \urlprefix\url{http://arxiv.org/abs/1701.05766}
+
+\bibitem[Uij13]{Uijlings13}
+\textsc{Uijlings}, J.R.R.; \textsc{van~de Sande}, K.E.A.; \textsc{Gevers}, T.
+  \bbland{} \textsc{Smeulders}, A.W.M.: Selective Search for Object
+  Recognition. \textit{International Journal of Computer Vision} (2013),
+  \urlprefix\url{http://www.huppelen.nl/publications/selectiveSearchDraft.pdf}
+
+\end{thebibliography}

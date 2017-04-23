@@ -1,3 +1,95 @@
-%%% produced automatically by bibtopic.sty v1.1
-%%% produced automatically by bibtopic.sty v1.1
-\csname bt@warn@outdated\endcsname{masterthesis2}
+\begin{thebibliography}{{Joh}10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\input{babelbst.tex}
+\newcommand{\Capitalize}[1]{\uppercase{#1}}
+\newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[Bar09]{swilliams2009oc}
+\textsc{Barkby}, Stephen; \textsc{Williams}, {Stefan B.}; \textsc{Pizarro},
+  Oscar \bbland{} \textsc{Jakuba}, {Michael V.}: An efficient approach to
+  bathymetric {SLAM}, \bblin{}: \textit{IROS}, \bblpp{} 219--224
+
+\bibitem[Bey10]{iessomsem2009}
+\textsc{Beyerer}, J�rgen \bbland{} \textsc{Huber}, Marco
+  (\capitalize\bbleditors{}): \textit{Proceedings of the 2009 Joint Workshop of
+  Fraunhofer IOSB and Institute for Anthropomatics, Vision and Fusion
+  Laboratory}, \bblvol{}~4, KIT Scientific Publishing (2010)
+
+\bibitem[Bos08]{bosse08mapmatch}
+\textsc{Bosse}, Michael \bbland{} \textsc{Zlot}, Robert: Map Matching and Data
+  Association for Large-Scale Two-dimensional Laser Scan-based SLAM. \textit{I.
+  J. Robotic Res.} (2008), \bblvol{}~27(6):\bblpp{} 667--691
+
+\bibitem[Bro08]{hybridslam08}
+\textsc{Brooks}, Alex \bbland{} \textsc{Bailey}, Tim: Hybrid{SLAM}: Combining
+  {FastSLAM} and {EKF-SLAM} for reliable mapping, \bblin{}: \textit{WAFR 2008:
+  The Eighth International Workshop on the Algorithmic Foundations of
+  Robotics}, \bblp{} 123123
+
+\bibitem[Coi07]{coiras07}
+\textsc{Coiras}, Enrique; \textsc{Petillot}, Yvan \bbland{} \textsc{Lane},
+  David~M.: {Multiresolution 3-D Reconstruction From Side-Scan Sonar Images}.
+  \textit{IEEE Transactions on Image Processing} (2007),
+  \bblvol{}~16(2):\bblpp{} 382--390, heriot-Watt University Edinburgh
+
+\bibitem[Coi09]{coiras09uaa}
+\textsc{Coiras}, Enrique \bbland{} \textsc{Groen}, Johannes: {3D} Target Shape
+  From {SAS} Images Based on a Deformable Mesh, \bblin{}: \textit{Proceedings
+  of the 3rd International Conference on Underwater Acoustic Measurements
+  ({UAA}), Nafplion, Greece}, \bblp{} 123
+
+\bibitem[Dur04]{Dura2004}
+\textsc{Dur{\'a}}, Esther; \textsc{Bell}, Judith~M. \bbland{} \textsc{Lane},
+  David~M.: {Reconstruction of textured seafloors from side-scan sonar images}.
+  \textit{IEE Proceedings -- Radar, Sonar and Navigation} (2004), \bblvol{}
+  151(2):\bblpp{} 114--126
+
+\bibitem[Fai09]{fairfieldPhD2009}
+\textsc{Fairfield}, Nathaniel: \textit{Localization, Mapping, and Planning in
+  3D Environments}, \bblphdthesis{}, Robotics Institute, Carnegie Mellon
+  University, Pittsburgh, PA (2009)
+
+\bibitem[Jak10]{jakuba2010oc}
+\textsc{Jakuba}, {Michael V.}; \textsc{Pizarro}, Oscar \bbland{}
+  \textsc{Williams}, {Stefan B.}: High resolution, consistent navigation and
+  {3D} optical reconstructions from {AUVs} using magnetic compasses and
+  pressure-based depth sensors, \bblin{}: \textit{Proceedings of MTS/IEEE
+  OCEANS 2010, Sydney, Australia}, \bblp{} 123123
+
+\bibitem[{Joh}10]{swilliams2010oc}
+\textsc{{Johnson-Roberson}}, Matthew; \textsc{Pizarro}, Oscar;
+  \textsc{Williams}, {Stefan B.} \bbland{} \textsc{Mahon}, Ian: Generation and
+  visualization of large-scale three-dimensional reconstructions from
+  underwater robotic surveys. \textit{Journal of Field Robotics} (2010),
+  \bblvol{}~27(1):\bblpp{} 21--51
+
+\bibitem[Lan91]{Langer1991}
+\textsc{Langer}, Dirk \bbland{} \textsc{Hebert}, Martial: {Building Qualitative
+  Elevation Maps From Side Scan Sonar Data For Autonomous Underwater
+  Navigation}, \bblin{}: \textit{Proc. IEEE International Conference on
+  Robotics and Automation}, \bblpp{} 2478--2483
+
+\bibitem[Mal10]{mallios10oc}
+\textsc{Mallios}, Angelos; \textsc{Ridao}, Pere; \textsc{Ribas}, David
+  \bbland{} \textsc{Hern{\`a}ndez}, Emili: Probabilistic Sonar Scan Matching
+  {SLAM} for Underwater Environment, \bblin{}: \textit{Proceedings of the
+  Oceans IEEE}, Sydney, Australia, \bblp{} 123
+
+\bibitem[Ped09]{pedraza09bspline}
+\textsc{Pedraza}, Luis; \textsc{Rodriguez-Losada}, Diego; \textsc{Mat\'{\i}a},
+  Fernando; \textsc{Dissanayake}, Gamini \bbland{} \textsc{Mir\'{o}},
+  Jaime~Valls: Extending the limits of feature-based SLAM with B-splines.
+  \textit{Trans. Rob.} (2009), \bblvol{}~25(2):\bblpp{} 353--366
+
+\bibitem[Rib08]{RibasPhd2008Uni}
+\textsc{Ribas}, David; \textsc{Ridao}, Pere \bbland{} \textsc{Neira}, Jos{\'e}:
+  \textit{Underwater {SLAM} for Structured Environments Using an Imaging
+  Sonar}, \bblphdthesis{}, Departament of Computer Engineering, Universitat de
+  Girona (2008)
+
+\bibitem[Run10]{runte10}
+\textsc{Runte}, Adrian: {Robuste Merkmale auf 3D-Daten}, Term Paper, Vision and
+  Fusion Laboratory (IES), Karlsruhe Institute of Technology (2010)
+
+\end{thebibliography}

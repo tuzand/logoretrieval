@@ -197,7 +197,7 @@
 
 
 %% PW: Todo-Liste
-\listoftodos
+%\listoftodos
 
 
 %%% Symbolverzeichnis
@@ -261,14 +261,16 @@
 %%% Der btsect-Befehl wird bei Verwendung des bibtopic-Pakets verwendet (default)
 %%% bibtopic erlaubt mehrere Literaturverzeichnisse
 % Verzeichnis 1
+%\bibliography{bib/BibtexDatabase}
 \begin{btSect}{bib/BibtexDatabase}
+%\begin{btSect}{bib/testliteratur}
 %%\section{References from books}  % Extra ?berschrift - muss nicht rein
 %\btPrintCited[alphadin]{bib/BibtexDatabase}
 %%%%% PW: F?r jedes btPrintCited kommt ein Eintrag, der den Titel des Literaturverzeichnisses in dt. oder engl. angibt
 %%%%% Benennung der Verzeichnisse ggf. anpassen
 \ifthenelse{\boolean{iesenglishs}}%
 {%
-	\renewcommand{\bibname}{First literature index}%
+	\renewcommand{\bibname}{Bibliography}%
 }{%
 	\renewcommand{\bibname}{Erstes Literaturverzeichnis}%
 }
@@ -277,7 +279,7 @@
 \end{btSect}
 
 % Verzeichnis 2a und b
-\begin{btSect}{bib/testliteratur}
+%\begin{btSect}{bib/testliteratur}
 %\begin{btSect}[bib/bst/AlphaDINFirstName]{articles}
 %% \section{References from articles}  % Extra ?berschrift - muss nicht rein
 %%%%% PW: F?r jedes btPrintCited kommt ein Eintrag, der den Titel des Literaturverzeichnisses in dt. oder engl. angibt
@@ -289,7 +291,7 @@
 }
 %\chapter*{\bibname}
 %%%%% btPrintCited schreibt nur zitierte Quellen hin, also die verwendeten Eintr?ge
-\btPrintCited  
+%\btPrintCited  
 %\btPrintCited[alphadin]{bib/literatur}
 %% \section{Articles not cited}  % Extra ?berschrift - muss nicht rein
 %
@@ -303,13 +305,13 @@
 %\chapter*{\bibname}
 %%%%% btPrintNotCited schreibt im Gegenteil gerade die nicht zitierten Quellen hin
 %\hypersetup{backref=false}  %% none, Wenn nicht zitiert, keine Verlinkung. %%Klappt leider nicht so
-\btPrintNotCited
-\end{btSect}
+%\btPrintNotCited
+%\end{btSect}
 
 
 
 % Nicht mit bibtopic:
-%\bibliography{bib/BibtexDatabase}
+%\liography{bib/BibtexDatabase}
 
 %\clearpage
 %\cleardoubleoddpage
