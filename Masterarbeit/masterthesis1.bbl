@@ -1,9 +1,36 @@
-\begin{thebibliography}{Ren15}
+\begin{thebibliography}{Low04}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 \input{babelbst.tex}
 \newcommand{\Capitalize}[1]{\uppercase{#1}}
 \newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[Dal05]{Dalal:2005:HOG:1068507.1069007}
+\textsc{Dalal}, Navneet \bbland{} \textsc{Triggs}, Bill: Histograms of Oriented
+  Gradients for Human Detection, \bblin{}: \textit{Proceedings of the 2005 IEEE
+  Computer Society Conference on Computer Vision and Pattern Recognition
+  (CVPR'05) - Volume 1 - Volume 01}, CVPR '05, IEEE Computer Society,
+  Washington, DC, USA, \bblpp{} 886--893,
+  \urlprefix\url{http://dx.doi.org/10.1109/CVPR.2005.177}
+
+\bibitem[Don13]{DBLP:journals/corr/DonahueJVHZTD13}
+\textsc{Donahue}, Jeff; \textsc{Jia}, Yangqing; \textsc{Vinyals}, Oriol;
+  \textsc{Hoffman}, Judy; \textsc{Zhang}, Ning; \textsc{Tzeng}, Eric \bbland{}
+  \textsc{Darrell}, Trevor: DeCAF: {A} Deep Convolutional Activation Feature
+  for Generic Visual Recognition. \textit{CoRR} (2013), \bblvol{}
+  abs/1310.1531, \urlprefix\url{http://arxiv.org/abs/1310.1531}
+
+\bibitem[Eve]{pascal-voc-2007}
+\textsc{Everingham}, M.; \textsc{Van~Gool}, L.; \textsc{Williams}, C.~K.~I.;
+  \textsc{Winn}, J. \bbland{} \textsc{Zisserman}, A.: The {PASCAL} {V}isual
+  {O}bject {C}lasses {C}hallenge 2007 {(VOC2007)} {R}esults,
+  http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html
+
+\bibitem[Gir13]{DBLP:journals/corr/GirshickDDM13}
+\textsc{Girshick}, Ross~B.; \textsc{Donahue}, Jeff; \textsc{Darrell}, Trevor
+  \bbland{} \textsc{Malik}, Jitendra: Rich feature hierarchies for accurate
+  object detection and semantic segmentation. \textit{CoRR} (2013), \bblvol{}
+  abs/1311.2524, \urlprefix\url{http://arxiv.org/abs/1311.2524}
 
 \bibitem[Gir16]{Girshick:2016:RCN:2881668.2882239}
 \textsc{Girshick}, Ross; \textsc{Donahue}, Jeff; \textsc{Darrell}, Trevor
@@ -32,6 +59,11 @@
   (2014), \bblvol{} abs/1411.4038,
   \urlprefix\url{http://arxiv.org/abs/1411.4038}
 
+\bibitem[Low04]{Lowe:2004:DIF:993451.996342}
+\textsc{Lowe}, David~G.: Distinctive Image Features from Scale-Invariant
+  Keypoints. \textit{Int. J. Comput. Vision} (2004), \bblvol{}~60(2):\bblpp{}
+  91--110, \urlprefix\url{http://dx.doi.org/10.1023/B:VISI.0000029664.99615.94}
+
 \bibitem[Ren15]{NIPS2015_5638}
 \textsc{Ren}, Shaoqing; \textsc{He}, Kaiming; \textsc{Girshick}, Ross \bbland{}
   \textsc{Sun}, Jian: Faster R-CNN: Towards Real-Time Object Detection with
@@ -56,6 +88,14 @@
   Yann: OverFeat: Integrated Recognition, Localization and Detection using
   Convolutional Networks. \textit{CoRR} (2013), \bblvol{} abs/1312.6229,
   \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1312.html#SermanetEZMFL13}
+
+\bibitem[Siv03]{Sivic:2003:VGT:946247.946751}
+\textsc{Sivic}, Josef \bbland{} \textsc{Zisserman}, Andrew: Video Google: A
+  Text Retrieval Approach to Object Matching in Videos, \bblin{}:
+  \textit{Proceedings of the Ninth IEEE International Conference on Computer
+  Vision - Volume 2}, ICCV '03, IEEE Computer Society, Washington, DC, USA,
+  \bblpp{} 1470--,
+  \urlprefix\url{http://dl.acm.org/citation.cfm?id=946247.946751}
 
 \bibitem[Tur17]{DBLP:journals/corr/TursunAK17}
 \textsc{Tursun}, Osman; \textsc{Aker}, Cemal \bbland{} \textsc{Kalkan}, Sinan:

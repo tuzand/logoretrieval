@@ -6,7 +6,7 @@ In this work a system for logo retrieval with proposal based object detection an
 
 The challenge of this task is manifold. The first problem is that the logos in these videos are far from being perfectly clear. They can be partially occluded, blurred - if the camera is moving fast, perspectively transformed, rotated and can have various coloring, suiting well to the design of the shirt or the arena. In addition, there is a problem with the ambient illumination variation just as for other computer vision tasks.
 Second challenge is the large variety of different brand's logos. This makes the detection of logos very challenging.
-Furthermore, there are only a few smaller publicly available datasets, with bounding box annotated logos.
+Furthermore, there are only a few smaller publicly available datasets, with bounding box annotated logos, and the majority of the images are adjusted to ensure a good visibility of the logos on them, not like the frames of the sport videos.
 
 In the decade before, hand-crafted feature extraction was prevalent in computer vision tasks. It needed an expert to create such a system, and it yielded often only results. Deep learning methods for computer vision problems are dominant since the success of convolutional neural networks in 2012 \cite{NIPS2012_4824}. This development is mainly powered by the annually organized ImageNet classification challenge \cite{ILSVRC15}. Since the aim of this contest to classify an object, which is filling out the majority of an image, the location of the particular object is irrelevant. To be able to classify and recognize objects which have a much smaller size relative to the size of the whole image, region based classification can be utilized.
 

@@ -1,18 +1,33 @@
 \chapter{Proposal Based Object Detection and Classification}
 
-\section{Fully Convolutional Neural Networks}
-Long et. al. proposed \cite{DBLP:journals/corr/LongSD14} how to transform a deep neural network with fully connected classifier layers at the end, to a fully convolutional network. For this purpose the fully connected layers are to be removed from the end of the network.
-Fully connected layers need a fix sized input. Since a fully convolutional network does not have fully connected layer anymore, it has the advantage of being able to train and test with images of arbitrary sizes.
-The output of such a network are two dimensional feature maps, which can be used as heatmaps per class. These convolutional maps can also be used directly for semantic segmentation, where each pixel of an image should be classified.
+In this section the theoretical overview of the logo retrieval system will be presented. First of all the fully convolutional networks will be introduced in section \ref{s:c-fullyconvnet}. Section \ref{s:c-rpn} explains region proposal systems for generating candidate object locations on an image. Afterwards, the section \ref{s:c-rcnn} describes region based convolutional neural networks for object detection and classification. The improvement of this method, the fast region based convolutional neural networks will be detailed in the section \ref{s:c-fastrcnn}. Folowing this, the further development, the faster region based convolutional neural networks will be reviewed in the section \ref{s:c-fasterrcnn}.
 
-\section{Region proposal systems}
-Region proposals are possible object locations on the image. As we saw in the chapter two, the multiscale sliding window method induces a lot of computational costs. In order to reduce this computational burden, region proposal systems can be used. Earlier solutions used external proposal systems, e.g. Selective Search \cite{Uijlings13}. Today the proposal system is already part of the neural network.
+\section{Fully Convolutional Neural Networks}\label{s:c-fullyconvnet}
+A neural network is fully convolutional, if it does not contain any fully connected layers. At first Matan et.al. used FCNs for recognizing strings of digits. Long et. al. proposed \cite{DBLP:journals/corr/LongSD14} how to transform a deep neural network with fully connected classifier layers at the end, to a fully convolutional network. For this purpose the fully connected layers at the end of the network are to be converted to convolutional layers.
+\smallbreak
+Since the number of weights of a neuron in a fully connected layer is defined by the shape of the data of the layer, the trained network can process only a fix-sized input. As a fully convolutional network does not have fully connected layer anymore, it has the advantage of being able to train and test with images of arbitrary sizes.
+\smallbreak
+The outputs of such a network are two dimensional feature maps, which can be used as heatmaps per class. These convolutional maps can also be used directly for semantic segmentation, where each pixel of an image should be classified.
+Nowadays fully convolutional networks are essential part of a state of the art object detector, yielding better performance, as well as shorter training and inference times.
 
-\section{Region Based Convolutional Neural Network}
-Region based convolutional neural networks use external region proposals. The network is used to run the complete inference on every region proposal bounding boxes. 
+\section{Region proposal systems}\label{s:c-rpn}
+To recognize different objects on an image, like logos, small regions should be considered. The easiest way to search for these locations is the exhaustive sliding window search, applied on multiple scales. Although, as section \ref{s:c-objectdetection} presents, this induces a lot of computational costs. In order to reduce this computational burden, region proposal systems can be utilized. Region proposals are possible object locations on an image.
+\smallbreak
+Earlier computer vision solutions used external proposal systems. This means that the proposals of every image should be pre-calculated before training or inference. One of the most popular region proposal methods is selective search \cite{Uijlings13}. It merges neighbor regions according to a similarity score in a bottom-up fashion. Today, as section \ref{s:c-fasterrcnn} introduces, the proposal system is already part of the neural network.
 
-\section{Fast Region Based Convolutional Neural Network}
-This type of network \cite{Girshick:2016:RCN:2881668.2882239} consists of a fully connected neural network, also called as base network in \citep{journals/corr/SermanetEZMFL13}, and a fully connected classifiation network. This version of region based convolutional neural network also uses external region proposals. First the image is completely pushed through the fully convolutional network. The output is a downscaled feature map, which is fed to the so called ROI Pooling layer. This layer crops regions from the map according to the appropriate downscaled region proposals, and executes pooling on each regions. After the pooling there are some fully connected layers, which make the final classification of the regions of interest. The advantage of this method is the much shorter inference time, achieved by the much lower computational redundancy of running convolutional layers on the whole image only once.
+\section{Region Based Convolutional Neural Networks}\label{s:c-rcnn}
 
-\section{Faster Region Based Convolutional Neural Network}
+This section gives a brief overview about how faster region based convolutional neural networks evolved.
+
+\subsection{Regions with Convolutional Neural Network Features}
+However this network is already historical, it is worth to mention, because Region based convolutional neural networks \cite{DBLP:journals/corr/GirshickDDM13} consist of three separate systems. The region proposals are generated external with selective search. The region of a possible object location is warped to a size of 227x227, and then the feature vector of this single region is extracted with a CNN, pretrained on the ImageNet dataset, fine-tuned on the final classes. The network is run on every region proposal bounding boxes, to extract vectors with a fixed-size. These vectors will to be written to the disk. Then a set of class-specific linear SVM is used to classify the specific region.
+
+\subsection{Fast Region Based Convolutional Neural Network}\label{s:c-fastrcnn}
+Fast Region based CNNs \cite{Girshick:2016:RCN:2881668.2882239} are aimed to improve the classification accuracy and feature vector extraction speed of the interesting regions, generated also with selective search. An intermediate convolutional feature map is extracted from the whole input image with a fully convolutional neural network, also called as base network in \citep{journals/corr/SermanetEZMFL13}. The output is a downscaled feature map, which is fed to the so called ROI Pooling layer. This layer crops regions from the map according to the appropriate downscaled region proposals, and executes a modified version of pooling on each regions, which results in a convolutional map with a fix shape, regardless the size of the region. After the pooling, fully connected layers are used to calculate the final class probabilities and bounding box regressions for each region. The output of the bounding box regression are class specific small position and size adjustments, needed to refine the rough object locations.
+\smallbreak
+The improvement of this method to the previous region based CNN introduced in section \ref{s:c-rcnn} is, the much shorter training and inference time, achieved by the much lower computational redundancy of running convolutional layers on the whole image only once, rather then for every proposed regions. Another improvement is, that the feature extraction and the classification happens in the same network, which results again in faster test and training times, due to the unnecessity of writing the extracted feature vectors to disk, which incidentally could require hundreds of gigabytes of storage \cite{Girshick:2016:RCN:2881668.2882239} for the VOC07 trainval set \cite{pascal-voc-2007}.
+
+\subsection{Faster Region Based Convolutional Neural Network}\label{s:c-fasterrcnn}
 \cite{NIPS2015_5638}
+
+RPN, Anchor, scale invariant,  iou 0.7 : object, 0.3: not object
