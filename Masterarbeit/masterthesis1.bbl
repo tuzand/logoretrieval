@@ -39,6 +39,12 @@
   Mach. Intell.} (2016), \bblvol{}~38(1):\bblpp{} 142--158,
   \urlprefix\url{http://dx.doi.org/10.1109/TPAMI.2015.2437384}
 
+\bibitem[He14]{DBLP:journals/corr/HeZR014}
+\textsc{He}, Kaiming; \textsc{Zhang}, Xiangyu; \textsc{Ren}, Shaoqing \bbland{}
+  \textsc{Sun}, Jian: Spatial Pyramid Pooling in Deep Convolutional Networks
+  for Visual Recognition. \textit{CoRR} (2014), \bblvol{} abs/1406.4729,
+  \urlprefix\url{http://arxiv.org/abs/1406.4729}
+
 \bibitem[He15]{DBLP:journals/corr/HeZRS15}
 \textsc{He}, Kaiming; \textsc{Zhang}, Xiangyu; \textsc{Ren}, Shaoqing \bbland{}
   \textsc{Sun}, Jian: Deep Residual Learning for Image Recognition.
@@ -108,5 +114,11 @@
   \bbland{} \textsc{Smeulders}, A.W.M.: Selective Search for Object
   Recognition. \textit{International Journal of Computer Vision} (2013),
   \urlprefix\url{http://www.huppelen.nl/publications/selectiveSearchDraft.pdf}
+
+\bibitem[Zit14]{edge-boxes-locating-object-proposals-from-edges}
+\textsc{Zitnick}, Larry \bbland{} \textsc{Dollar}, Piotr: Edge Boxes: Locating
+  Object Proposals from Edges, \bblin{}: \textit{ECCV}, European Conference on
+  Computer Vision,
+  \urlprefix\url{https://www.microsoft.com/en-us/research/publication/edge-boxes-locating-object-proposals-from-edges/}
 
 \end{thebibliography}

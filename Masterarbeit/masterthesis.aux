@@ -46,6 +46,8 @@
 \citation{NIPS2015_5638}
 \citation{DBLP:journals/corr/HeZRS15}
 \citation{NIPS2012_4824}
+\citation{Lowe:2004:DIF:993451.996342}
+\citation{Dalal:2005:HOG:1068507.1069007}
 \citation{ILSVRC15}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
@@ -54,10 +56,10 @@
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
 \FN@pp@footnotehinttrue 
-\FN@pp@footnotehinttrue 
 \citation{Lowe:2004:DIF:993451.996342}
 \citation{Sivic:2003:VGT:946247.946751}
 \citation{Dalal:2005:HOG:1068507.1069007}
+\FN@pp@footnotehinttrue 
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Related Work}{3}{chapter.2}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -73,6 +75,7 @@
 \FN@pp@footnotehinttrue 
 \citation{DBLP:journals/corr/LongSD14}
 \citation{Uijlings13}
+\citation{edge-boxes-locating-object-proposals-from-edges}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Proposal Based Object Detection and Classification}{5}{chapter.3}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -84,11 +87,13 @@
 \newlabel{s:c-rpn}{{3.2}{5}{Region proposal systems}{section.3.2}{}}
 \newlabel{s:c-rpn@cref}{{[section][2][3]3.2}{5}}
 \citation{DBLP:journals/corr/GirshickDDM13}
+\citation{NIPS2012_4824}
 \citation{Girshick:2016:RCN:2881668.2882239}
 \citation{journals/corr/SermanetEZMFL13}
 \citation{Girshick:2016:RCN:2881668.2882239}
 \citation{pascal-voc-2007}
-\citation{NIPS2015_5638}
+\citation{DBLP:journals/corr/GirshickDDM13}
+\citation{DBLP:journals/corr/HeZR014}
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Region Based Convolutional Neural Networks}{6}{section.3.3}}
 \newlabel{s:c-rcnn}{{3.3}{6}{Region Based Convolutional Neural Networks}{section.3.3}{}}
 \newlabel{s:c-rcnn@cref}{{[section][3][3]3.3}{6}}
@@ -96,43 +101,52 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Fast Region Based Convolutional Neural Network}{6}{subsection.3.3.2}}
 \newlabel{s:c-fastrcnn}{{3.3.2}{6}{Fast Region Based Convolutional Neural Network}{subsection.3.3.2}{}}
 \newlabel{s:c-fastrcnn@cref}{{[subsection][2][3,3]3.3.2}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{6}{subsection.3.3.3}}
-\newlabel{s:c-fasterrcnn}{{3.3.3}{6}{Faster Region Based Convolutional Neural Network}{subsection.3.3.3}{}}
-\newlabel{s:c-fasterrcnn@cref}{{[subsection][3][3,3]3.3.3}{6}}
+\citation{NIPS2015_5638}
+\newlabel{eq:c-frcnn-loss}{{\relax 3.1}{7}{Fast Region Based Convolutional Neural Network}{equation.3.3.1}{}}
+\newlabel{eq:c-frcnn-loss@cref}{{[equation][1][3]\relax 3.1}{7}}
+\newlabel{eq:c-smoothl1loss}{{\relax 3.2}{7}{Fast Region Based Convolutional Neural Network}{equation.3.3.2}{}}
+\newlabel{eq:c-smoothl1loss@cref}{{[equation][2][3]\relax 3.2}{7}}
+\newlabel{eq:c-iou}{{\relax 3.4}{7}{Fast Region Based Convolutional Neural Network}{equation.3.3.4}{}}
+\newlabel{eq:c-iou@cref}{{[equation][4][3]\relax 3.4}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{7}{subsection.3.3.3}}
+\newlabel{s:c-fasterrcnn}{{3.3.3}{7}{Faster Region Based Convolutional Neural Network}{subsection.3.3.3}{}}
+\newlabel{s:c-fasterrcnn@cref}{{[subsection][3][3,3]3.3.3}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{Region Proposal Network}{7}{subsubsection*.3}}
+\@writefile{toc}{\contentsline {subsubsection}{Training}{8}{subsubsection*.4}}
 \FN@pp@footnotehinttrue 
 \citation{DBLP:journals/corr/TursunAK17}
 \citation{DBLP:journals/corr/GirshickDDM13}
 \citation{DBLP:journals/corr/DonahueJVHZTD13}
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Logo Retrieval System}{7}{chapter.4}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Logo Retrieval System}{9}{chapter.4}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Logo Datasets}{7}{section.4.1}}
-\@writefile{lot}{\contentsline {table}{\numberline {\relax 4.1}{\ignorespaces Publicly available logo datasets with with bounding box annotations\relax }}{7}{table.caption.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Logo Datasets}{9}{section.4.1}}
+\@writefile{lot}{\contentsline {table}{\numberline {\relax 4.1}{\ignorespaces Publicly available logo datasets with with bounding box annotations\relax }}{9}{table.caption.5}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{table:logodatasets}{{\relax 4.1}{7}{Publicly available logo datasets with with bounding box annotations\relax }{table.caption.3}{}}
-\newlabel{table:logodatasets@cref}{{[table][1][4]\relax 4.1}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Logo Detection}{7}{section.4.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Logo Comparison}{7}{section.4.3}}
+\newlabel{table:logodatasets}{{\relax 4.1}{9}{Publicly available logo datasets with with bounding box annotations\relax }{table.caption.5}{}}
+\newlabel{table:logodatasets@cref}{{[table][1][4]\relax 4.1}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Logo Detection}{9}{section.4.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Logo Comparison}{9}{section.4.3}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Evaluation}{9}{chapter.5}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Evaluation}{11}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Logo Detection}{9}{section.5.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Logo Retrieval}{9}{section.5.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Logo Detection}{11}{section.5.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Logo Retrieval}{11}{section.5.2}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{11}{chapter.6}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{13}{chapter.6}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary}{11}{section.6.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Future Work}{11}{section.6.2}}
-\newlabel{Sec:1}{{6.2}{11}{Future Work}{section.6.2}{}}
-\newlabel{Sec:1@cref}{{[section][2][6]6.2}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary}{13}{section.6.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Future Work}{13}{section.6.2}}
+\newlabel{Sec:1}{{6.2}{13}{Future Work}{section.6.2}{}}
+\newlabel{Sec:1@cref}{{[section][2][6]6.2}{13}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
 \bibcite{Dalal:2005:HOG:1068507.1069007}{{Dal05}{}{{}}{{}}}
@@ -140,32 +154,34 @@
 \bibcite{pascal-voc-2007}{{Eve}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/GirshickDDM13}{{Gir13}{}{{}}{{}}}
 \bibcite{Girshick:2016:RCN:2881668.2882239}{{Gir16}{}{{}}{{}}}
+\bibcite{DBLP:journals/corr/HeZR014}{{He14}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/HeZRS15}{{He15}{}{{}}{{}}}
 \bibcite{NIPS2012_4824}{{Kri12}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/LongSD14}{{Lon14}{}{{}}{{}}}
 \bibcite{Lowe:2004:DIF:993451.996342}{{Low04}{}{{}}{{}}}
-\bibcite{NIPS2015_5638}{{Ren15}{}{{}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{\nonumberline Bibliography}{13}{chapter*.4}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline Bibliography}{15}{chapter*.6}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
+\bibcite{NIPS2015_5638}{{Ren15}{}{{}}{{}}}
 \bibcite{ILSVRC15}{{Rus15}{}{{}}{{}}}
 \bibcite{journals/corr/SermanetEZMFL13}{{Ser13}{}{{}}{{}}}
 \bibcite{Sivic:2003:VGT:946247.946751}{{Siv03}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/TursunAK17}{{Tur17}{}{{}}{{}}}
 \bibcite{Uijlings13}{{Uij13}{}{{}}{{}}}
+\bibcite{edge-boxes-locating-object-proposals-from-edges}{{Zit14}{}{{}}{{}}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Figures}{15}{chapter*.5}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Figures}{17}{chapter*.7}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Tables}{17}{chapter*.6}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Tables}{19}{chapter*.8}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\csname bt@set@cnt\endcsname{15}
+\csname bt@set@cnt\endcsname{17}
 \global\@namedef{scr@dte@chapter@lastmaxnumwidth}{9.79901pt}
 \global\@namedef{scr@dte@section@lastmaxnumwidth}{17.21332pt}
 \global\@namedef{scr@dte@subsection@lastmaxnumwidth}{25.22871pt}

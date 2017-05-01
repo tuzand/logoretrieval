@@ -10,17 +10,19 @@
 \contentsline {section}{\numberline {3.3}Region Based Convolutional Neural Networks}{6}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Regions with Convolutional Neural Network Features}{6}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Fast Region Based Convolutional Neural Network}{6}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{6}{subsection.3.3.3}
-\contentsline {chapter}{\numberline {4}Logo Retrieval System}{7}{chapter.4}
-\contentsline {section}{\numberline {4.1}Logo Datasets}{7}{section.4.1}
-\contentsline {section}{\numberline {4.2}Logo Detection}{7}{section.4.2}
-\contentsline {section}{\numberline {4.3}Logo Comparison}{7}{section.4.3}
-\contentsline {chapter}{\numberline {5}Evaluation}{9}{chapter.5}
-\contentsline {section}{\numberline {5.1}Logo Detection}{9}{section.5.1}
-\contentsline {section}{\numberline {5.2}Logo Retrieval}{9}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion}{11}{chapter.6}
-\contentsline {section}{\numberline {6.1}Summary}{11}{section.6.1}
-\contentsline {section}{\numberline {6.2}Future Work}{11}{section.6.2}
-\contentsline {chapter}{\nonumberline Bibliography}{13}{chapter*.4}
-\contentsline {chapter}{\nonumberline List of Figures}{15}{chapter*.5}
-\contentsline {chapter}{\nonumberline List of Tables}{17}{chapter*.6}
+\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{7}{subsection.3.3.3}
+\contentsline {subsubsection}{Region Proposal Network}{7}{subsubsection*.3}
+\contentsline {subsubsection}{Training}{8}{subsubsection*.4}
+\contentsline {chapter}{\numberline {4}Logo Retrieval System}{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}Logo Datasets}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Logo Detection}{9}{section.4.2}
+\contentsline {section}{\numberline {4.3}Logo Comparison}{9}{section.4.3}
+\contentsline {chapter}{\numberline {5}Evaluation}{11}{chapter.5}
+\contentsline {section}{\numberline {5.1}Logo Detection}{11}{section.5.1}
+\contentsline {section}{\numberline {5.2}Logo Retrieval}{11}{section.5.2}
+\contentsline {chapter}{\numberline {6}Conclusion}{13}{chapter.6}
+\contentsline {section}{\numberline {6.1}Summary}{13}{section.6.1}
+\contentsline {section}{\numberline {6.2}Future Work}{13}{section.6.2}
+\contentsline {chapter}{\nonumberline Bibliography}{15}{chapter*.6}
+\contentsline {chapter}{\nonumberline List of Figures}{17}{chapter*.7}
+\contentsline {chapter}{\nonumberline List of Tables}{19}{chapter*.8}

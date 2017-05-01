@@ -216,3 +216,41 @@ url = {http://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-de
 	title = "The {PASCAL} {V}isual {O}bject {C}lasses {C}hallenge 2007 {(VOC2007)} {R}esults",
 	howpublished = "http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html"
 }
+
+@article{DBLP:journals/corr/HeZR014,
+  author    = {Kaiming He and
+               Xiangyu Zhang and
+               Shaoqing Ren and
+               Jian Sun},
+  title     = {Spatial Pyramid Pooling in Deep Convolutional Networks for Visual
+               Recognition},
+  journal   = {CoRR},
+  volume    = {abs/1406.4729},
+  year      = {2014},
+  url       = {http://arxiv.org/abs/1406.4729},
+  timestamp = {Tue, 01 Jul 2014 11:58:08 +0200},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/journals/corr/HeZR014},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+
+@inproceedings{edge-boxes-locating-object-proposals-from-edges,
+author = {Zitnick, Larry and Dollar, Piotr},
+title = {Edge Boxes: Locating Object Proposals from Edges},
+booktitle = {ECCV},
+year = {2014},
+month = {September},
+abstract = {
+
+The use of object proposals is an effective recent approach for increasing the computational efficiency of object detection. We propose a novel method for generating object bounding box proposals using edges. Edges provide a sparse yet informative representation of an image. Our main observation is that the number of contours that are wholly contained in a bounding box is indicative of the likelihood of the box containing an object. We propose a simple box objectness score that measures the number of edges that exist in the box minus those that are members of contours that overlap the box's boundary. Using efficient data structures, millions of candidate boxes can be evaluated in a fraction of a second, returning a ranked set of a few thousand top-scoring proposals. Using standard metrics, we show results that are significantly more accurate than the current state-of-the-art while being faster to compute. In particular, given just 1000 proposals we achieve over 96% object recall at overlap threshold of 0.5 and over 75% recall at the more challenging overlap of 0.7. Our approach runs in 0.25 seconds and we additionally demonstrate a near real-time variant with only minor loss in accuracy.
+
+
+},
+publisher = {European Conference on Computer Vision},
+url = {https://www.microsoft.com/en-us/research/publication/edge-boxes-locating-object-proposals-from-edges/},
+address = {},
+pages = {},
+journal = {},
+volume = {},
+chapter = {},
+isbn = {},
+}

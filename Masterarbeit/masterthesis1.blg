@@ -4,44 +4,46 @@ The top-level auxiliary file: masterthesis1.aux
 The style file: bib/bst/AlphaDINFirstName.bst
 Database file #1: bib/BibtexDatabase.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 15 entries,
+Warning--empty pages in edge-boxes-locating-object-proposals-from-edges
+You've used 17 entries,
             3052 wiz_defined-function locations,
-            1207 strings with 17026 characters,
-and the built_in function-call counts, 9998 in all, are:
-= -- 693
-> -- 379
-< -- 31
-+ -- 139
-- -- 137
-* -- 986
-:= -- 1191
-add.period$ -- 10
-call.type$ -- 15
-change.case$ -- 109
-chr.to.int$ -- 15
-cite$ -- 15
-duplicate$ -- 901
-empty$ -- 827
-format.name$ -- 247
-if$ -- 1993
+            1219 strings with 17477 characters,
+and the built_in function-call counts, 10978 in all, are:
+= -- 756
+> -- 413
+< -- 34
++ -- 151
+- -- 149
+* -- 1085
+:= -- 1314
+add.period$ -- 11
+call.type$ -- 17
+change.case$ -- 121
+chr.to.int$ -- 17
+cite$ -- 18
+duplicate$ -- 995
+empty$ -- 916
+format.name$ -- 271
+if$ -- 2183
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 164
-newline$ -- 53
-num.names$ -- 34
-pop$ -- 293
+missing$ -- 181
+newline$ -- 59
+num.names$ -- 38
+pop$ -- 328
 preamble$ -- 1
-purify$ -- 139
+purify$ -- 155
 quote$ -- 0
-skip$ -- 327
+skip$ -- 355
 stack$ -- 0
-substring$ -- 318
-swap$ -- 586
-text.length$ -- 31
-text.prefix$ -- 15
+substring$ -- 332
+swap$ -- 635
+text.length$ -- 34
+text.prefix$ -- 17
 top$ -- 0
-type$ -- 120
-warning$ -- 0
-while$ -- 52
-width$ -- 20
-write$ -- 156
+type$ -- 136
+warning$ -- 1
+while$ -- 56
+width$ -- 23
+write$ -- 175
+(There was 1 warning)
