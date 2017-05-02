@@ -104,11 +104,11 @@ def prepare(inputpath, imagespath, inputfile, outputpath, detection, dataset):
             else:
                print os.path.join(inputpath, imagespath, origfile + '.jpg') + ' not found'
 
-#prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_simpleoutputpath, False, bl)
-#prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_detectionoutputpath, True, bl)
+prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_simpleoutputpath, False, bl)
+prepare(bl_inputpath, bl_imagespath, bl_inputfile, bl_detectionoutputpath, True, bl)
 
-prepare(flbl_inputpath, flbl_imagespath, flbl_inputfile, flbl_simpleoutputpath, False, bl)
-prepare(flbl_inputpath, flbl_imagespath, flbl_inputfile, flbl_detectionoutputpath, True, bl)
+#prepare(flbl_inputpath, flbl_imagespath, flbl_inputfile, flbl_simpleoutputpath, False, bl)
+#prepare(flbl_inputpath, flbl_imagespath, flbl_inputfile, flbl_detectionoutputpath, True, bl)
 
-#prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_simpleoutputpath, False, fl27)
-#prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_detectionoutputpath, True, fl27)
+prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_simpleoutputpath, False, fl27)
+prepare(fl27_inputpath, fl27_imagespath, fl27_inputfile, fl27_detectionoutputpath, True, fl27)

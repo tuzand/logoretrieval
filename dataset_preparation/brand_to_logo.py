@@ -1,23 +1,33 @@
 import os
 import shutil
+from shutil import copyfile
 
-indir = '/home/atuezkoe/datasets/SYN_METU_TA/Annotations/'
-outdir = '/home/atuezkoe/datasets/SYN_METU_TA/Annotations_logo/'
+
+ext = '.png'
+indir = '/home/andras/data/datasets/srf_ski/good/data/'
+outdir = '/home/andras/data/datasets/srf_ski_logo/good/data/'
 
 if os.path.exists(outdir):
     shutil.rmtree(outdir)
-os.makedirs(outdir)
+os.makedirs(os.path.join(outdir, 'Annotations'))
+os.makedirs(os.path.join(outdir, 'Images'))
+os.makedirs(os.path.join(outdir, 'ImageSets'))
 
 i = 0
-for filename in os.listdir(indir):
-    with open(os.path.join(indir, filename), 'r') as f:
+filelist = ""
+for filename in os.listdir(os.path.join(indir, 'Annotations')):
+    with open(os.path.join(indir, 'Annotations', filename), 'r') as f:
         lines = f.readlines()
     t = ''
     for line in lines:
         line = line.split(' ')
         t += line[0] + ' ' + line[1] + ' ' + line[2] + ' ' + line[3] + ' logo\n'
-    with open(os.path.join(outdir, filename), 'w') as f:
+    im = filename.split('.')[0]
+    filelist += im + '_det\n'
+    with open(os.path.join(outdir, 'Annotations', im + '_det.jpg.bboxes.txt'), 'w') as f:
         f.write(t)
-    if i % 1000 == 0:
-        print i
-    i += 1
+    copyfile(os.path.join(indir, 'Images', im + ext), os.path.join(outdir, 'Images', im + '_det.jpg'))
+
+with open(os.path.join(outdir, 'ImageSets', 'srf_ski_logo_good.txt'), 'w') as f:
+    f.write(filelist)
+

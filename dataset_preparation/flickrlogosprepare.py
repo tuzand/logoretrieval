@@ -41,7 +41,7 @@ def extractImages(fileListPath, phase, detection):
             if not os.path.exists(bbOutputPath):
                 os.makedirs(bbOutputPath)
             if brand != 'no-logo':
-                with open(os.path.join(datasetPath, 'classes', 'masks', brand, orig_file + '.bboxes.txt'), 'r') as bbFile:
+                with open(os.path.join(datasetPath, 'classes', 'masks', brand.lower(), orig_file + '.bboxes.txt'), 'r') as bbFile:
                     data = bbFile.read()
                 objs = re.findall('\d+ \d+ \d+ \d+', data)
                 with open(os.path.join(bbOutputPath, file + '.bboxes.txt'), 'w') as bb:

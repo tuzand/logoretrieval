@@ -31,25 +31,32 @@ import sys
 
 max_per_image = 0
 vis = False
-visualize_logo_detection = True
-thresh = 0.2
+visualize_logo_detection = False
+thresh = 0.1
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
 FRCNN = 'py_faster_rcnn'
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
-PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv_srf_ice/test.prototxt')
-PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/synmetu_ta_detection/vgg_cnn_m_1024_faster_rcnn_synmetuta_detection_iter_600000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+
+#PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/faster_rcnn_end2end/simple_detectionpath/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_detection_iter_50000.caffemodel')
+
+PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
+
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_sharedbase_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_allnet_sharedbase_iter_80000.caffemodel')
+
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/synmetu_ta_detection/vgg_cnn_m_1024_faster_rcnn_synmetuta_detection_iter_50000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
@@ -166,7 +173,16 @@ if __name__ == '__main__':
     print('Using config:')
     pprint.pprint(cfg)
 
+    cfg.TEST.HAS_RPN = True
+    cfg.TRAIN.HAS_RPN = True
+    cfg.TRAIN.IMS_PER_BATCH = 1
+    cfg.TRAIN.BBOX_NORMALIZE_TARGETS_PRECOMPUTED = True
+    cfg.TRAIN.RPN_POSITIVE_OVERLAP = 0.7
+    cfg.TRAIN.RPN_BATCHSIZE = 256
+    cfg.TRAIN.PROPOSAL_METHOD = 'gt'
+    cfg.TRAIN.BG_THRESH_LO = 0.0
 
+    cfg.TEST.BBOX_REG = True
     caffe.set_mode_gpu()
     caffe.set_device(args.gpu_id)
     net = caffe.Net(PROTO, MODEL, caffe.TEST)
@@ -193,8 +209,6 @@ if __name__ == '__main__':
         im = cv2.imread(imagepath)
         _t['im_detect'].tic()
         scores, boxes = im_detect(net, im, False, None)
-        #print scores
-        #boxes = boxes_det
         if visualize_logo_detection:
             s_det = scores[:, 1]
             inds = np.array(s_det).argsort()[::-1][:10]

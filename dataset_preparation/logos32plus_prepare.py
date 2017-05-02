@@ -25,7 +25,7 @@ for idx, values in enumerate(gt):
     filenamewoext = filename.split('.')[0]
     boxes = values[1]
 
-    im = cv2.imread(os.path.join(outputpath, 'Images', brand, filename))
+    im = cv2.imread(os.path.join(outputpath, 'images', brand, filename))
     height, width = im.shape[:2]
     for box in boxes:
         x1 = max(0, int(round(float(box[0]))))
@@ -50,7 +50,7 @@ for idx, values in enumerate(gt):
         imagelist.append(writebrand + '/' + filename.split('.')[0])
     if not os.path.exists(os.path.join(outputpath, 'detection', 'data', 'Images', writebrand)):
         os.makedirs(os.path.join(outputpath, 'detection', 'data', 'Images', writebrand))
-    copy2(os.path.join(outputpath, 'Images', brand, filename), os.path.join(outputpath, 'detection', 'data', 'Images', writebrand, filenamewoext + '_det.jpg'))
+    copy2(os.path.join(outputpath, 'images', brand, filename), os.path.join(outputpath, 'detection', 'data', 'Images', writebrand, filenamewoext + '_det.jpg'))
     #print str(idx) + '/' + str(len(gt))
 
 if not os.path.exists(os.path.join(outputpath, 'classification', 'data', 'ImageSets')):

@@ -28,10 +28,11 @@ from custom_imdb import get_custom_imdb
 from fast_rcnn.nms_wrapper import nms
 import cPickle
 import sys
+import Image
 
 max_per_image = 0
 logo_threshold = 0.1
-similarity_threshold = 0.9
+similarity_threshold = 0.6
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
@@ -45,12 +46,16 @@ FRCNN = 'py_faster_rcnn'
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedexceptlast/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/test.prototxt')
+
 PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_fl_test_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_fl_test_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
@@ -145,9 +150,6 @@ def test_net(net, imdb, onlymax, max_per_image=100):
         _t['misc'].tic()
         max_score = 0
         roi_bboxes = list()
-        roi_scores = list()
-        roi_classes = list()
-        roi_features = list()
         logo_inds = list()
         if onlymax:
             logo_inds.append(scores_det[:, 1].argmax())
@@ -157,17 +159,13 @@ def test_net(net, imdb, onlymax, max_per_image=100):
             s = scores[idx, 1:]
             max_score_idx = s.argmax()
             max_score = s.max()
-            feature = features[idx]
-            feature = feature.flatten()
-            norm = np.linalg.norm(feature)
-            feature = feature / norm
+            #feature = features[idx]
+            #feature = feature.flatten()
+            #norm = np.linalg.norm(feature)
+            #feature = feature / norm
             roi_bboxes.append(boxes[idx, 4*max_score_idx : 4*(max_score_idx + 1)])
-            roi_scores.append(max_score)
-            roi_classes.append('logo')
-            roi_features.append(feature)
 
-        #normed_features[imagename] = [imagepath, roi_features, boxes[logo_inds, :]]
-        normed_features[imagename] = [imagepath, roi_features, roi_bboxes]
+        normed_features[imagename] = [imagepath, None, roi_bboxes]
 
         _t['misc'].toc()
 
@@ -218,6 +216,8 @@ def parse_args():
     parser.add_argument('--num_dets', dest='max_per_image',
                         help='max number of detections per image',
                         default=100, type=int)
+    parser.add_argument('--fps', dest='fps', help='fps of the video',
+                        default=30, type=float)
 
     args = parser.parse_args()
     return args
@@ -229,12 +229,23 @@ def updateFeatures(net, boxes):
         roi_scores = list()
         roi_classes = list()
         filepath = value[0]
+        value[1] = list()
         features = value[1]
         bboxes = value[2]
         img = cv2.imread(filepath)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        for idx, box in enumerate(bboxes):
-            features[idx] = getClassificatorFeatures(net, img, box)
+        bs = np.array(bboxes)
+        
+        scores, bs, fs = im_detect(net, img, False, bs)
+        value[2] = list()
+        bboxes = value[2]
+        for idx, feature in enumerate(fs):
+            feature = feature.flatten()
+            norm = np.linalg.norm(feature)
+            feature = feature / norm
+            features.append(feature)
+            s = scores[idx, 1:]
+            max_score_idx = s.argmax()
+            bboxes.append(bs[idx, 4*max_score_idx : 4*(max_score_idx + 1)])
         i += 1
         print str(i) + "/" + str(len(boxes))
 
@@ -251,20 +262,32 @@ def getClassificatorFeatures(net, im, box):
     net.set_input_arrays(roi, dummy)
     net.forward()
 
-    feature = net.blobs['fc1000'].data
+    feature = net.blobs['fc7'].data
+    #feature = net.blobs['prob'].data
     feature = feature.flatten()
     norm = np.linalg.norm(feature)
     return feature / norm
 
 
-def search(net):
+def search(net, fps):
 
     #all_query_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
     all_search_features, imdb = get_features(net, args, SEARCHPATH, custom=False, onlymax=False)
 
-    PROTO = '/home/andras/data/models/resnet/ResNet-101-deploy.prototxt'
-    MODEL = '/home/andras/data/models/resnet/ResNet-101-model.caffemodel'
+    '''PROTO = '/home/andras/data/models/voc/deploy.prototxt'
+    MODEL = '/home/andras/data/models/voc/pascalvoc2012_train_simple2_iter_30000.caffemodel'
 
+    net = caffe.Net(PROTO, MODEL, caffe.TEST)
+    net.name = os.path.splitext(os.path.basename(MODEL))[0]'''
+
+    cfg.TEST.HAS_RPN = False
+    cfg.TEST.BBOX_REG = False
+
+    PROTO = '/home/andras/github/logoretrieval/py_faster_rcnn/models/pascal_voc/VGG16/test.prototxt'
+    MODEL = '/home/andras/github/logoretrieval/py_faster_rcnn/data/faster_rcnn_models/VGG16_faster_rcnn_final.caffemodel'
+
+    PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/fast_test.prototxt')
+    MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_fl_test_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
     net = caffe.Net(PROTO, MODEL, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(MODEL))[0]
     all_query_features = dict()
@@ -276,10 +299,17 @@ def search(net):
         im = cv2.imread(imagepath)
         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
         height, width, channels = im.shape
-        all_query_features[imagename] = getClassificatorFeatures(net, im, (0,0,width,height))
+        b = np.zeros((1,4))
+        b[0] = [0,0,width,height]
+        all_query_features[imagename] = [imagepath, None, b]
+    updateFeatures(net, all_query_features)
+
 
     print 'Update search features'
     updateFeatures(net, all_search_features)
+
+
+
     
     num_images = len(imdb.image_index)
     # all detections are collected into:
@@ -292,6 +322,10 @@ def search(net):
     output_dir = get_output_dir(imdb, net)
     _t = {'misc' : Timer()}
 
+    logotimes = list()
+    [logotimes.append(0) for i in range(imdb.num_classes)]
+    logoareas = list()
+    [logoareas.append(0) for i in range(imdb.num_classes)]
     i = 0
     for i in xrange(num_images):
         searchfilepath = imdb.image_path_at(i)
@@ -305,8 +339,8 @@ def search(net):
         scores = np.zeros((len(search_bboxes), imdb.num_classes))
         boxes = np.zeros((len(search_bboxes), imdb.num_classes * 4))
         for queryfilename, query_value in all_query_features.items():
-            #query_feature = query_value[1]
-            query_feature = query_value
+            query_feature = query_value[1][0]
+            #query_feature = query_value
 
             # Calculate similarity between logos
             for j in range(len(search_features)):
@@ -361,20 +395,18 @@ def search(net):
         print 'im_detect: {:d}/{:d} {:.3f}s' \
               .format(i + 1, num_images,
                       _t['misc'].average_time)
-
-        '''im = cv2.imread(searchfilepath)
-        drawboxes = list()
-        drawclasses = list()
-        drawscores = list()
-        for k in xrange(1, imdb.num_classes):
-            boxes = all_boxes[k][i]
-            for l in boxes:
-                drawclasses.append(imdb.classes[k])
-                drawboxes.append([l[0], l[1], l[2], l[3]])
-                drawscores.append(l[4])
-        #print drawboxes
-        #print drawclasses
-        write_bboxes(im, searchfilename, drawboxes, drawscores, drawclasses)'''
+        
+        im=Image.open(searchfilepath)
+        width, height = im.size
+        imagearea = width * height
+        for j in xrange(1, imdb.num_classes):
+            if all_boxes[j][i].size:
+                logotimes[j] += 1.0/float(fps)
+                logos = all_boxes[j][i]
+                for logo in logos:
+                    w = logo[2] - logo[0]
+                    h = logo[3] - logo[1]
+                    logoareas[j] += float(w*h) / float(imagearea)
 
         i += 1
 
@@ -382,6 +414,13 @@ def search(net):
     det_file = os.path.join(output_dir, 'detections.pkl')
     with open(det_file, 'wb') as f:
         cPickle.dump(all_boxes, f, cPickle.HIGHEST_PROTOCOL)
+
+    i = 0
+    print logoareas
+    print logotimes
+    for area, time in zip(logoareas, logotimes):
+        print imdb.classes[i] + ": " + "{:.2f}".format(logotimes[i]) + "s, " + "{:.2f}".format(logoareas[i]) + " full frames"
+        i += 1
 
     print 'Evaluating detections'
     return imdb.evaluate_detections(all_boxes, output_dir)
@@ -418,11 +457,9 @@ if __name__ == '__main__':
     caffe.set_device(args.gpu_id)
     net = caffe.Net(PROTO, MODEL, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(MODEL))[0]
-
-
     
 
-    search(net)
+    search(net, args.fps)
     sys.exit(0)
 
     maxMAP = 0.0
