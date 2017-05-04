@@ -51,7 +51,12 @@ FRCNN = 'py_faster_rcnn'
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_detection_iter_50000.caffemodel')
 
 PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
+MODEL = os.path.join(FRCNN, 'vgg16_faster_rcnn_detection_iter_80000.caffemodel')#'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
+
+PROTO = os.path.join(FRCNN, 'models/logo_detection/resnet50_gen/test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_resnet50_gen/resnet50_faster_rcnn_detection_iter_22000.caffemodel')
+
+
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
