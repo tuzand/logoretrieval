@@ -44,7 +44,6 @@
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
 \citation{NIPS2015_5638}
-\citation{DBLP:journals/corr/HeZRS15}
 \citation{NIPS2012_4824}
 \citation{Lowe:2004:DIF:993451.996342}
 \citation{Dalal:2005:HOG:1068507.1069007}
@@ -55,6 +54,8 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
+\newlabel{c:intro}{{1}{1}{Introduction}{chapter.1}{}}
+\newlabel{c:intro@cref}{{[chapter][1][]1}{1}}
 \FN@pp@footnotehinttrue 
 \citation{Lowe:2004:DIF:993451.996342}
 \citation{Sivic:2003:VGT:946247.946751}
@@ -64,8 +65,8 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\newlabel{c:c-relatedwork}{{2}{3}{Related Work}{chapter.2}{}}
-\newlabel{c:c-relatedwork@cref}{{[chapter][2][]2}{3}}
+\newlabel{c:relatedwork}{{2}{3}{Related Work}{chapter.2}{}}
+\newlabel{c:relatedwork@cref}{{[chapter][2][]2}{3}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Image Retrieval}{3}{section.2.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Object Detection}{3}{section.2.2}}
 \newlabel{s:c-objectdetection}{{2.2}{3}{Object Detection}{section.2.2}{}}
@@ -90,83 +91,127 @@
 \citation{NIPS2012_4824}
 \citation{Girshick:2016:RCN:2881668.2882239}
 \citation{journals/corr/SermanetEZMFL13}
-\citation{Girshick:2016:RCN:2881668.2882239}
-\citation{pascal-voc-2007}
-\citation{DBLP:journals/corr/GirshickDDM13}
-\citation{DBLP:journals/corr/HeZR014}
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Region Based Convolutional Neural Networks}{6}{section.3.3}}
 \newlabel{s:c-rcnn}{{3.3}{6}{Region Based Convolutional Neural Networks}{section.3.3}{}}
 \newlabel{s:c-rcnn@cref}{{[section][3][3]3.3}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Regions with Convolutional Neural Network Features}{6}{subsection.3.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\relax 3.1}{\ignorespaces R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally.\relax }}{6}{figure.caption.3}}
+\@cons\caption@pkg@list{{ragged2e}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:rcnn}{{\relax 3.1}{6}{R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally.\relax }{figure.caption.3}{}}
+\newlabel{fig:rcnn@cref}{{[figure][1][3]\relax 3.1}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Fast Region Based Convolutional Neural Network}{6}{subsection.3.3.2}}
 \newlabel{s:c-fastrcnn}{{3.3.2}{6}{Fast Region Based Convolutional Neural Network}{subsection.3.3.2}{}}
 \newlabel{s:c-fastrcnn@cref}{{[subsection][2][3,3]3.3.2}{6}}
-\citation{NIPS2015_5638}
+\citation{Girshick:2016:RCN:2881668.2882239}
+\citation{pascal-voc-2007}
+\citation{DBLP:journals/corr/GirshickDDM13}
+\citation{DBLP:journals/corr/HeZR014}
 \newlabel{eq:c-frcnn-loss}{{\relax 3.1}{7}{Fast Region Based Convolutional Neural Network}{equation.3.3.1}{}}
 \newlabel{eq:c-frcnn-loss@cref}{{[equation][1][3]\relax 3.1}{7}}
 \newlabel{eq:c-smoothl1loss}{{\relax 3.2}{7}{Fast Region Based Convolutional Neural Network}{equation.3.3.2}{}}
 \newlabel{eq:c-smoothl1loss@cref}{{[equation][2][3]\relax 3.2}{7}}
-\newlabel{eq:c-iou}{{\relax 3.4}{7}{Fast Region Based Convolutional Neural Network}{equation.3.3.4}{}}
-\newlabel{eq:c-iou@cref}{{[equation][4][3]\relax 3.4}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{7}{subsection.3.3.3}}
-\newlabel{s:c-fasterrcnn}{{3.3.3}{7}{Faster Region Based Convolutional Neural Network}{subsection.3.3.3}{}}
-\newlabel{s:c-fasterrcnn@cref}{{[subsection][3][3,3]3.3.3}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{Region Proposal Network}{7}{subsubsection*.3}}
-\@writefile{toc}{\contentsline {subsubsection}{Training}{8}{subsubsection*.4}}
+\citation{NIPS2015_5638}
+\newlabel{eq:c-iou}{{\relax 3.4}{8}{Fast Region Based Convolutional Neural Network}{equation.3.3.4}{}}
+\newlabel{eq:c-iou@cref}{{[equation][4][3]\relax 3.4}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\relax 3.2}{\ignorespaces Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. The proposals is then used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network.\relax }}{8}{figure.caption.4}}
+\newlabel{fig:rcnn}{{\relax 3.2}{8}{Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. The proposals is then used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network.\relax }{figure.caption.4}{}}
+\newlabel{fig:rcnn@cref}{{[figure][2][3]\relax 3.2}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{8}{subsection.3.3.3}}
+\newlabel{s:c-fasterrcnn}{{3.3.3}{8}{Faster Region Based Convolutional Neural Network}{subsection.3.3.3}{}}
+\newlabel{s:c-fasterrcnn@cref}{{[subsection][3][3,3]3.3.3}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{Region Proposal Network}{8}{subsubsection*.5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\relax 3.3}{\ignorespaces Faster R-CNN consists of a Fast R-CNN and a region proposal network (RPN). Fast R-CNN is responsible for the feature map extraction from the whole image, and classify regions from that. The RPN is an in-network implemented proposal system, for generating candidate object locations in a fast way.\relax }}{9}{figure.caption.6}}
+\newlabel{fig:faster-rcnn}{{\relax 3.3}{9}{Faster R-CNN consists of a Fast R-CNN and a region proposal network (RPN). Fast R-CNN is responsible for the feature map extraction from the whole image, and classify regions from that. The RPN is an in-network implemented proposal system, for generating candidate object locations in a fast way.\relax }{figure.caption.6}{}}
+\newlabel{fig:faster-rcnn@cref}{{[figure][3][3]\relax 3.3}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{Training}{9}{subsubsection*.7}}
 \FN@pp@footnotehinttrue 
-\citation{DBLP:journals/corr/TursunAK17}
+\FN@pp@footnotehinttrue 
 \citation{DBLP:journals/corr/GirshickDDM13}
+\citation{DBLP:journals/corr/TursunAK17}
+\citation{belgalogos09}
+\citation{letessier2012scalable}
+\citation{letessier2012scalable}
+\citation{619}
+\citation{RombergICMR2011}
+\citation{bianco2017deep}
+\citation{bianco2015logo}
+\citation{DBLP:journals/corr/SuZG16}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Logo Retrieval System}{11}{chapter.4}}
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lol}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Logo Datasets}{11}{section.4.1}}
+\citation{Hadsell06dimensionalityreduction}
+\citation{Hadsell06dimensionalityreduction}
+\citation{Simonyan13}
+\citation{ies_2016_herrmann_low_quality}
+\citation{DBLP:journals/corr/HeZRS15}
 \citation{DBLP:journals/corr/DonahueJVHZTD13}
+\@writefile{lot}{\contentsline {table}{\numberline {\relax 4.1}{\ignorespaces Publicly available logo datasets with with bounding box annotations\relax }}{12}{table.caption.8}}
+\newlabel{table:logodatasets}{{\relax 4.1}{12}{Publicly available logo datasets with with bounding box annotations\relax }{table.caption.8}{}}
+\newlabel{table:logodatasets@cref}{{[table][1][4]\relax 4.1}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Logo Detection}{12}{section.4.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Region Proposal Network}{12}{subsection.4.2.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Class Agnostic Faster R-CNN}{12}{subsection.4.2.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Jointly Trained Detector and Classifier}{12}{subsection.4.2.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Logo Comparison}{13}{section.4.3}}
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Logo Retrieval System}{9}{chapter.4}}
+\FN@pp@footnotehinttrue 
+\citation{Girshick2017}
+\citation{NIPS2015_5638}
+\citation{DBLP:journals/corr/TursunAK17}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Experiments}{15}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Logo Datasets}{9}{section.4.1}}
-\@writefile{lot}{\contentsline {table}{\numberline {\relax 4.1}{\ignorespaces Publicly available logo datasets with with bounding box annotations\relax }}{9}{table.caption.5}}
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{table:logodatasets}{{\relax 4.1}{9}{Publicly available logo datasets with with bounding box annotations\relax }{table.caption.5}{}}
-\newlabel{table:logodatasets@cref}{{[table][1][4]\relax 4.1}{9}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Logo Detection}{9}{section.4.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Logo Comparison}{9}{section.4.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Training with Synthetic Data}{15}{section.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}METU Trademark dataset}{15}{subsection.5.1.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces Generated synthetic logo images\relax }}{15}{figure.caption.9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}FlickrBelgaLogos dataset}{16}{subsection.5.1.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Logo Detection}{16}{section.5.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Logo Retrieval}{16}{section.5.3}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Evaluation}{11}{chapter.5}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{17}{chapter.6}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Logo Detection}{11}{section.5.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Logo Retrieval}{11}{section.5.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary}{17}{section.6.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Future Work}{17}{section.6.2}}
+\newlabel{Sec:1}{{6.2}{17}{Future Work}{section.6.2}{}}
+\newlabel{Sec:1@cref}{{[section][2][6]6.2}{17}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{13}{chapter.6}}
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lol}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary}{13}{section.6.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Future Work}{13}{section.6.2}}
-\newlabel{Sec:1}{{6.2}{13}{Future Work}{section.6.2}{}}
-\newlabel{Sec:1@cref}{{[section][2][6]6.2}{13}}
-\FN@pp@footnotehinttrue 
-\FN@pp@footnotehinttrue 
+\bibcite{bianco2015logo}{{Bia15}{}{{}}{{}}}
+\bibcite{bianco2017deep}{{Bia17}{}{{}}{{}}}
 \bibcite{Dalal:2005:HOG:1068507.1069007}{{Dal05}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/DonahueJVHZTD13}{{Don13}{}{{}}{{}}}
 \bibcite{pascal-voc-2007}{{Eve}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/GirshickDDM13}{{Gir13}{}{{}}{{}}}
 \bibcite{Girshick:2016:RCN:2881668.2882239}{{Gir16}{}{{}}{{}}}
+\bibcite{Girshick2017}{{Gir17}{}{{}}{{}}}
+\bibcite{Hadsell06dimensionalityreduction}{{Had06}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/HeZR014}{{He14}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/HeZRS15}{{He15}{}{{}}{{}}}
-\bibcite{NIPS2012_4824}{{Kri12}{}{{}}{{}}}
-\bibcite{DBLP:journals/corr/LongSD14}{{Lon14}{}{{}}{{}}}
-\bibcite{Lowe:2004:DIF:993451.996342}{{Low04}{}{{}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{\nonumberline Bibliography}{15}{chapter*.6}}
+\bibcite{ies_2016_herrmann_low_quality}{{Her16}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline Bibliography}{19}{chapter*.10}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
+\bibcite{belgalogos09}{{Jol09}{}{{}}{{}}}
+\bibcite{619}{{Kal11}{}{{}}{{}}}
+\bibcite{NIPS2012_4824}{{Kri12}{}{{}}{{}}}
+\bibcite{letessier2012scalable}{{Let12}{}{{}}{{}}}
+\bibcite{DBLP:journals/corr/LongSD14}{{Lon14}{}{{}}{{}}}
+\bibcite{Lowe:2004:DIF:993451.996342}{{Low04}{}{{}}{{}}}
 \bibcite{NIPS2015_5638}{{Ren15}{}{{}}{{}}}
+\bibcite{RombergICMR2011}{{Rom11}{}{{}}{{}}}
 \bibcite{ILSVRC15}{{Rus15}{}{{}}{{}}}
 \bibcite{journals/corr/SermanetEZMFL13}{{Ser13}{}{{}}{{}}}
+\bibcite{Simonyan13}{{Sim13}{}{{}}{{}}}
 \bibcite{Sivic:2003:VGT:946247.946751}{{Siv03}{}{{}}{{}}}
+\bibcite{DBLP:journals/corr/SuZG16}{{Su16}{}{{}}{{}}}
 \bibcite{DBLP:journals/corr/TursunAK17}{{Tur17}{}{{}}{{}}}
 \bibcite{Uijlings13}{{Uij13}{}{{}}{{}}}
 \bibcite{edge-boxes-locating-object-proposals-from-edges}{{Zit14}{}{{}}{{}}}
@@ -174,14 +219,14 @@
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Figures}{17}{chapter*.7}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Figures}{23}{chapter*.11}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
-\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Tables}{19}{chapter*.8}}
+\@writefile{toc}{\contentsline {chapter}{\nonumberline List of Tables}{25}{chapter*.12}}
 \FN@pp@footnotehinttrue 
 \FN@pp@footnotehinttrue 
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\csname bt@set@cnt\endcsname{17}
+\csname bt@set@cnt\endcsname{28}
 \global\@namedef{scr@dte@chapter@lastmaxnumwidth}{9.79901pt}
 \global\@namedef{scr@dte@section@lastmaxnumwidth}{17.21332pt}
 \global\@namedef{scr@dte@subsection@lastmaxnumwidth}{25.22871pt}

@@ -1,9 +1,21 @@
-\begin{thebibliography}{Low04}
+\begin{thebibliography}{Rom11}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 \input{babelbst.tex}
 \newcommand{\Capitalize}[1]{\uppercase{#1}}
 \newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[Bia15]{bianco2015logo}
+\textsc{Bianco}, Simone; \textsc{Buzzelli}, Marco; \textsc{Mazzini}, Davide
+  \bbland{} \textsc{Schettini}, Raimondo: Logo recognition using cnn features,
+  \bblin{}: \textit{International Conference on Image Analysis and Processing},
+  Springer, \bblpp{} 438--448
+
+\bibitem[Bia17]{bianco2017deep}
+\textsc{Bianco}, Simone; \textsc{Buzzelli}, Marco; \textsc{Mazzini}, Davide
+  \bbland{} \textsc{Schettini}, Raimondo: Deep learning for logo recognition.
+  \textit{Neurocomputing} (2017), \bblvol{} 245:\bblpp{} 23--30,
+  \urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0925231217305660}
 
 \bibitem[Dal05]{Dalal:2005:HOG:1068507.1069007}
 \textsc{Dalal}, Navneet \bbland{} \textsc{Triggs}, Bill: Histograms of Oriented
@@ -39,6 +51,16 @@
   Mach. Intell.} (2016), \bblvol{}~38(1):\bblpp{} 142--158,
   \urlprefix\url{http://dx.doi.org/10.1109/TPAMI.2015.2437384}
 
+\bibitem[Gir17]{Girshick2017}
+\textsc{Girshick}, Ross: py-faster-rcnn,
+  \url{https://github.com/rbgirshick/py-faster-rcnn} (2017)
+
+\bibitem[Had06]{Hadsell06dimensionalityreduction}
+\textsc{Hadsell}, Raia; \textsc{Chopra}, Sumit \bbland{} \textsc{Lecun}, Yann:
+  Dimensionality reduction by learning an invariant mapping, \bblin{}:
+  \textit{In Proc. Computer Vision and Pattern Recognition Conference
+  (CVPR?06}, IEEE Press
+
 \bibitem[He14]{DBLP:journals/corr/HeZR014}
 \textsc{He}, Kaiming; \textsc{Zhang}, Xiangyu; \textsc{Ren}, Shaoqing \bbland{}
   \textsc{Sun}, Jian: Spatial Pyramid Pooling in Deep Convolutional Networks
@@ -51,6 +73,24 @@
   \textit{CoRR} (2015), \bblvol{} abs/1512.03385,
   \urlprefix\url{http://arxiv.org/abs/1512.03385}
 
+\bibitem[Her16]{ies_2016_herrmann_low_quality}
+\textsc{Herrmann}, Christian; \textsc{Willersinn}, Dieter \bbland{}
+  \textsc{Beyerer}, Jürgen: Low-Quality Video Face Recognition with Deep
+  Networks and Polygonal Chain Distance, \bblin{}: \textit{Proceedings of the
+  2016 International Conference on Digital Image Computing: Techniques and
+  Applications (DICTA)}, IEEE, Gold Coast, Australia, \bblpp{} 244--250
+
+\bibitem[Jol09]{belgalogos09}
+\textsc{Joly}, Alexis \bbland{} \textsc{Buisson}, Olivier: Logo retrieval with
+  a contrario visual query expansion, \bblin{}: \textit{MM '09: Proceedings of
+  the seventeen ACM international conference on Multimedia}, \bblpp{} 581--584
+
+\bibitem[Kal11]{619}
+\textsc{Kalantidis}, Y.; \textsc{Pueyo}, LG.; \textsc{Trevisiol}, M.;
+  \textsc{van Zwol}, R. \bbland{} \textsc{Avrithis}, Y.: Scalable
+  Triangulation-based Logo Recognition, \bblin{}: \textit{in Proceedings of ACM
+  International Conference on Multimedia Retrieval (ICMR 2011)}, Trento, Italy
+
 \bibitem[Kri12]{NIPS2012_4824}
 \textsc{Krizhevsky}, Alex; \textsc{Sutskever}, Ilya \bbland{} \textsc{Hinton},
   Geoffrey~E: ImageNet Classification with Deep Convolutional Neural Networks,
@@ -58,6 +98,12 @@
   (\capitalize\bbleditors{}) \textit{Advances in Neural Information Processing
   Systems 25}, Curran Associates, Inc. (2012), \bblpp{} 1097--1105,
   \urlprefix\url{http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf}
+
+\bibitem[Let12]{letessier2012scalable}
+\textsc{Letessier}, Pierre; \textsc{Buisson}, Olivier \bbland{} \textsc{Joly},
+  Alexis: Scalable mining of small visual objects, \bblin{}:
+  \textit{Proceedings of the 20th ACM international conference on Multimedia},
+  ACM, \bblpp{} 599--608
 
 \bibitem[Lon14]{DBLP:journals/corr/LongSD14}
 \textsc{Long}, Jonathan; \textsc{Shelhamer}, Evan \bbland{} \textsc{Darrell},
@@ -79,6 +125,14 @@
   \bblpp{} 91--99,
   \urlprefix\url{http://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks.pdf}
 
+\bibitem[Rom11]{RombergICMR2011}
+\textsc{Romberg}, Stefan; \textsc{Pueyo}, Lluis~Garcia; \textsc{Lienhart},
+  Rainer \bbland{} \textsc{van Zwol}, Roelof: Scalable logo recognition in
+  real-world images, \bblin{}: \textit{Proceedings of the 1st ACM International
+  Conference on Multimedia Retrieval}, ICMR '11, ACM, New York, NY, USA,
+  \bblpp{} 25:1--25:8,
+  \urlprefix\url{http://www.multimedia-computing.de/flickrlogos/}
+
 \bibitem[Rus15]{ILSVRC15}
 \textsc{Russakovsky}, Olga; \textsc{Deng}, Jia; \textsc{Su}, Hao;
   \textsc{Krause}, Jonathan; \textsc{Satheesh}, Sanjeev; \textsc{Ma}, Sean;
@@ -95,6 +149,11 @@
   Convolutional Networks. \textit{CoRR} (2013), \bblvol{} abs/1312.6229,
   \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1312.html#SermanetEZMFL13}
 
+\bibitem[Sim13]{Simonyan13}
+\textsc{Simonyan}, K.; \textsc{Parkhi}, O.~M.; \textsc{Vedaldi}, A. \bbland{}
+  \textsc{Zisserman}, A.: {F}isher {V}ector {F}aces in the {W}ild, \bblin{}:
+  \textit{British Machine Vision Conference}
+
 \bibitem[Siv03]{Sivic:2003:VGT:946247.946751}
 \textsc{Sivic}, Josef \bbland{} \textsc{Zisserman}, Andrew: Video Google: A
   Text Retrieval Approach to Object Matching in Videos, \bblin{}:
@@ -102,6 +161,12 @@
   Vision - Volume 2}, ICCV '03, IEEE Computer Society, Washington, DC, USA,
   \bblpp{} 1470--,
   \urlprefix\url{http://dl.acm.org/citation.cfm?id=946247.946751}
+
+\bibitem[Su16]{DBLP:journals/corr/SuZG16}
+\textsc{Su}, Hang; \textsc{Zhu}, Xiatian \bbland{} \textsc{Gong}, Shaogang:
+  Deep Learning Logo Detection with Data Expansion by Synthesising Context.
+  \textit{CoRR} (2016), \bblvol{} abs/1612.09322,
+  \urlprefix\url{http://arxiv.org/abs/1612.09322}
 
 \bibitem[Tur17]{DBLP:journals/corr/TursunAK17}
 \textsc{Tursun}, Osman; \textsc{Aker}, Cemal \bbland{} \textsc{Kalkan}, Sinan:

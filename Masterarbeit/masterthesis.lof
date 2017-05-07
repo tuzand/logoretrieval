@@ -2,7 +2,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 3.1}{\ignorespaces R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally.\relax }}{6}{figure.caption.3}
+\contentsline {figure}{\numberline {\relax 3.2}{\ignorespaces Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. The proposals is then used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network.\relax }}{8}{figure.caption.4}
+\contentsline {figure}{\numberline {\relax 3.3}{\ignorespaces Faster R-CNN consists of a Fast R-CNN and a region proposal network (RPN). Fast R-CNN is responsible for the feature map extraction from the whole image, and classify regions from that. The RPN is an in-network implemented proposal system, for generating candidate object locations in a fast way.\relax }}{9}{figure.caption.6}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces Generated synthetic logo images\relax }}{15}{figure.caption.9}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

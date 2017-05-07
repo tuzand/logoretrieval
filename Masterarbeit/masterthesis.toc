@@ -10,19 +10,25 @@
 \contentsline {section}{\numberline {3.3}Region Based Convolutional Neural Networks}{6}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Regions with Convolutional Neural Network Features}{6}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Fast Region Based Convolutional Neural Network}{6}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{7}{subsection.3.3.3}
-\contentsline {subsubsection}{Region Proposal Network}{7}{subsubsection*.3}
-\contentsline {subsubsection}{Training}{8}{subsubsection*.4}
-\contentsline {chapter}{\numberline {4}Logo Retrieval System}{9}{chapter.4}
-\contentsline {section}{\numberline {4.1}Logo Datasets}{9}{section.4.1}
-\contentsline {section}{\numberline {4.2}Logo Detection}{9}{section.4.2}
-\contentsline {section}{\numberline {4.3}Logo Comparison}{9}{section.4.3}
-\contentsline {chapter}{\numberline {5}Evaluation}{11}{chapter.5}
-\contentsline {section}{\numberline {5.1}Logo Detection}{11}{section.5.1}
-\contentsline {section}{\numberline {5.2}Logo Retrieval}{11}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion}{13}{chapter.6}
-\contentsline {section}{\numberline {6.1}Summary}{13}{section.6.1}
-\contentsline {section}{\numberline {6.2}Future Work}{13}{section.6.2}
-\contentsline {chapter}{\nonumberline Bibliography}{15}{chapter*.6}
-\contentsline {chapter}{\nonumberline List of Figures}{17}{chapter*.7}
-\contentsline {chapter}{\nonumberline List of Tables}{19}{chapter*.8}
+\contentsline {subsection}{\numberline {3.3.3}Faster Region Based Convolutional Neural Network}{8}{subsection.3.3.3}
+\contentsline {subsubsection}{Region Proposal Network}{8}{subsubsection*.5}
+\contentsline {subsubsection}{Training}{9}{subsubsection*.7}
+\contentsline {chapter}{\numberline {4}Logo Retrieval System}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Logo Datasets}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}Logo Detection}{12}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Region Proposal Network}{12}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Class Agnostic Faster R-CNN}{12}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Jointly Trained Detector and Classifier}{12}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Logo Comparison}{13}{section.4.3}
+\contentsline {chapter}{\numberline {5}Experiments}{15}{chapter.5}
+\contentsline {section}{\numberline {5.1}Training with Synthetic Data}{15}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}METU Trademark dataset}{15}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}FlickrBelgaLogos dataset}{16}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Logo Detection}{16}{section.5.2}
+\contentsline {section}{\numberline {5.3}Logo Retrieval}{16}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{17}{chapter.6}
+\contentsline {section}{\numberline {6.1}Summary}{17}{section.6.1}
+\contentsline {section}{\numberline {6.2}Future Work}{17}{section.6.2}
+\contentsline {chapter}{\nonumberline Bibliography}{19}{chapter*.10}
+\contentsline {chapter}{\nonumberline List of Figures}{23}{chapter*.11}
+\contentsline {chapter}{\nonumberline List of Tables}{25}{chapter*.12}

@@ -1,34 +1,58 @@
 \chapter{Logo Retrieval System}
 
-\section{Logo Datasets}
-The hunger of deep learning method for training data is well-known. As the publicly available logo datasets are quite small, a better training result can be achieved if the datasets are merged. The different datasets with the number of brands, images and bounding box rois can be seen in table \ref{table:logodatasets}. The total number of brands means the number of different brands altogether.
+The difficultness of the problem logo retrieval was highlighted in the introduction, in chapter \ref{c:intro}. Nowadays, deep neural networks are utilized to solve such difficult computer vision problems. In this work, end to end neural network solutions will be used, to retrieve logos from videos. The set of logos to be searched is called the query set, the frames of videos, where the logos should be retrieved from, is called the search set.
 
-There are also trademark datasets available having a much greater cardinality \cite{DBLP:journals/corr/TursunAK17}. The images of this dataset contain however only the logo of a company, without any context of the logo. This dataset turned out to have no use for region based deep learning methods, since this approach needs to learn to distinguish between objects to be learned and the background. The network was trained with the fusion of FlickrLogos-32 and the trademark dataset, and tested with the evaluation method of FlickrLogos-32.
+supervised pre-training on a large auxiliary dataset (ILSVRC), followed by domain- specific fine-tuning on a small dataset (PASCAL), is an effective paradigm for learning high-capacity CNNs when data is scarce. RCNN paper 
+
+\section{Logo Datasets}
+The hunger of deep learning methods for training data is well-known. As the publicly available logo datasets are relatively small, a better training result can be achieved if the datasets are merged. The different logo datasets with the number of brands, images and bounding box RoIs can be seen in table \ref{table:logodatasets}. The total number of brands means the number of different brands altogether.
+
+This training data is insufficient to train a network from scratch (with randomly initialized weights). Girshick et. al. showed \cite{DBLP:journals/corr/GirshickDDM13}, that initializing the weights of the network from a CNN, which was trained on a not related dataset (e.g. ImageNet classification), and fine-tuning that on the target dataset, can boost on performance significantly. It is because of the hierarchical learning of shapes by the layers of the convolutional neural network. As a result the learning of the first several convolutional layers can be switched off during fine-tuning.
+
+There are also trademark datasets available having a much greater cardinality \cite{DBLP:journals/corr/TursunAK17}. The images of this dataset contain however only the logo of a company, without any context. This dataset turned out to have no use for region based deep learning methods, since this approach needs to learn to distinguish between objects to be learned and the background. The network was trained with the fusion of FlickrLogos-32 and the trademark dataset, and tested with the evaluation method of FlickrLogos-32.
 \begin{table}[ht!]
 \centering
 \caption{Publicly available logo datasets with with bounding box annotations}
 \label{table:logodatasets}
 \begin{tabular}{|l|l|l|l|}
-\hline & \textbf{Number of brands} & \textbf{Number of logo images} & \textbf{Number of ROIs} \\
+\hline & \textbf{Number of brands} & \textbf{Number of logo images} & \textbf{Number of RoIs} \\
 \hline
-\textbf{BelgaLogos} & 37 & 1321 & 2697 \\
+\textbf{BelgaLogos \cite{belgalogos09}, \cite{letessier2012scalable}} & 37 & 1321 & 2697 \\
 \hline
-\textbf{Flickr Logos 27} & 27 & 810 & 1261 \\
+\textbf{FlickrBelgaLogos \cite{letessier2012scalable}} & 37 & 2697 & 2697 \\
 \hline
-\textbf{FlickrLogos-32} & 32 & $70 \cdot 32 = 2240$ & 3404 \\
+\textbf{Flickr Logos 27 \cite{619}} & 27 & 810 & 1261 \\
 \hline
-\textbf{Logos-32plus} & 32 & 7830 & 12300 \\
+\textbf{FlickrLogos-32 \cite{RombergICMR2011}} & 32 & $70 \cdot 32 = 2240$ & 3404 \\
 \hline
-\textbf{TopLogo10} & 10 & $10 \cdot 70 = 700$ & 863 \\
+\textbf{Logos-32plus \cite{bianco2017deep}, \cite{bianco2015logo}} & 32 & 7830 & 12300 \\
+\hline
+\textbf{TopLogo10 \cite{DBLP:journals/corr/SuZG16}} & 10 & $10 \cdot 70 = 700$ & 863 \\
 \hline\hline
-\textbf{Total (union)} & \textbf{80} & 12 901 & 20 525 \\ \hline
+\textbf{Total} & \textbf{80 (union)} & 15 598 & 23 222 \\ \hline
 \end{tabular}
 \end{table}
 
 \section{Logo Detection}
+There are a lot of possibilities to search for objects in an image as explained in section \ref{}. Keypoint detectors and external proposal systems are translation and rotation invariant, but usually these systems cannot be trained on a specific dataset. Girshick et.al. proposed the Faster R-CNN neural network, detailed in section \ref{c:s-faster-rcnn}, for end to end learning to detect and classify objects on an image. This network has a bounding box regressor for each trained class, so it is capable to produce object type specific region proposals.
 
-supervised pre-training on a large auxiliary dataset (ILSVRC), followed by domain- specific fine-tuning on a small dataset (PASCAL), is an effective paradigm for learning high-capacity CNNs when data is scarce. RCNN paper \cite{DBLP:journals/corr/GirshickDDM13}
+In the following sections, different detectors will be introduced.
+
+\subsection{Region Proposal Network}
+During the training of a Faster R-CNN network, a region proposal network will be trained to detect the objects, which it was trained on.
+
+\subsection{Class Agnostic Faster R-CNN}
+Faster R-CNN can be trained for two classes: background and logo. For this purpose the classes of every annotation box will be neglected.
+
+\subsection{Jointly Trained Detector and Classifier}
+Both a classifier and a detector can be built together in a faster R-CNN network. For this purpose, the feature extraction and the region proposal network can be shared between the two tasks. The easiest way to train such a network is a siamese like faster rcnn.
+
+A siamese network \cite{Hadsell06dimensionalityreduction} is basically used for calculating the similarity score between two inputs. If it is combined with an appropriate loss function e.g. contrastive loss \cite{Hadsell06dimensionalityreduction} or max margin loss \cite{Simonyan13}\cite{ies_2016_herrmann_low_quality}, the network can be trained with an image pair and a label indicating if the objects on the images are from the same category or not. The network then learns to project objects from the same category with a low-, otherwise with a large distance to each other, according to a metric. This is achieved by the sharing of weights of the feature extraction layers.
+
+For faster RCNN, the parameters for region proposal network can also be shared. This setup has the advantage, that training of one task can also improve the performance of the other task, which is not currently trained. In particular for logo retrieval, the network can benefit from a bounding box annotated logo dataset, without specific brand indication. To annotate such a dataset needs much less human resources. A quantitative evaluation can be found in section \ref{}.
 
 \section{Logo Comparison}
 
+In order to retrieve as much objects from images as possible, the detectors should work with a high recall. Although, for difficult tasks, like open-set logo detection high recall value induces low precision, thus a lot of false positive possible object locations are produced. These examples should be eliminated by the classifier.
+RESNET: \cite{DBLP:journals/corr/HeZRS15}
 Krizhevsky?s CNN can be used (without fine- tuning) as a blackbox feature extractor, yielding excellent performance on several recognition tasks work by Donahue et al. \cite{DBLP:journals/corr/DonahueJVHZTD13}
