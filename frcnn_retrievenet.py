@@ -37,7 +37,7 @@ RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
 visualize_logo_recognition = False
-visualize_logo_detection = False
+visualize_logo_detection = True
 np.set_printoptions(threshold=np.nan)
 
 
@@ -52,11 +52,11 @@ PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/alln
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_fl_test_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/final/allnet_allnet_det_sharedconv_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
-QUERYPATH = '/home/andras/query_logos/cut'
+QUERYPATH = '/home/andras/audi'
 #SEARCHPATH = '/home/andras/audi'
 #SEARCHPATH = '/home/andras/data/datasets/LegalSamples'
 SEARCHPATH = 'srf_ski_good'
@@ -136,12 +136,13 @@ def test_net(net, imdb, onlymax, max_per_image=100):
         imagename = imagepath.split('/')[-1]
         im = cv2.imread(imagepath)
         _t['im_detect'].tic()
-        scores, boxes, features, scores_det, boxes_det = im_detect(net, im, True, None)
+        scores, boxes, features, scores_det, boxes_det = im_detect(net, im, None, True)
         if visualize_logo_detection:
             s_det = scores_det[:, 1]
-            inds = np.array(s_det).argsort()[::-1][:10]
+            inds = np.array(s_det).argsort()[::-1][:1]
             roi_classes = ['logo' for j in range(len(inds))]
-            write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)
+            draw_boxes(im, boxes[inds], imagename)
+            #write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)
         _t['im_detect'].toc()
 
         _t['misc'].tic()
@@ -163,12 +164,14 @@ def test_net(net, imdb, onlymax, max_per_image=100):
             feature = feature.flatten()
             norm = np.linalg.norm(feature)
             feature = feature / norm
+            print feature
             roi_bboxes.append(boxes[idx, 4*max_score_idx : 4*(max_score_idx + 1)])
             roi_scores.append(max_score)
             roi_classes.append('logo')
             roi_features.append(feature)
 
         #normed_features[imagename] = [imagepath, roi_features, boxes[logo_inds, :]]
+        print roi_bboxes
         normed_features[imagename] = [imagepath, roi_features, roi_bboxes]
 
         _t['misc'].toc()
@@ -264,7 +267,8 @@ def getClassificatorFeatures(net, im, box):
 
 def search(net, fps):
 
-    #all_query_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
+    all_query_features, imdb = get_features(net, args, QUERYPATH, custom=True, onlymax=True)
+    d
     all_search_features, imdb = get_features(net, args, SEARCHPATH, custom=False, onlymax=False)
 
     #PROTO = '/home/andras/data/models/resnet/ResNet-50-deploy.prototxt'

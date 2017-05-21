@@ -30,45 +30,49 @@ import cPickle
 import sys
 
 max_per_image = 0
-vis = False
-visualize_logo_detection = False
-thresh = 0.1
+vis = True
+rpndet = True
+threshold = 0.1
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
 FRCNN = 'py_faster_rcnn'
 
+PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn_m_1024_faster_rcnn_detection_iter_80000.caffemodel')
+#MODEL = os.path.join(FRCNN, \
+#'output/final/allnet_det_srf_det_vgg_cnn_m_lowerlr/vgg_cnn_m_1024_faster_rcnn_detection_iter_39000.caffemodel')
+
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_siamtest/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_120000.caffemodel')
+
+
+#!!!PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
+#!!!MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
+
+#PROTO = os.path.join(FRCNN, 'models/logo_detection/resnettest/test_agnostic.prototxt')
+#MODEL = os.path.join(FRCNN, 'resnet50_rfcn_iter_1000.caffemodel')#'output/final/allnet_detector_resnet50_gen/resnet50_faster_rcnn_detection_iter_22000.caffemodel')
+
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_simple_fl/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/fl_train_val_baseline_vgg16/vgg16_faster_rcnn_fl_iter_60000.caffemodel')
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_80000.caffemodel')
+
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_simple/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_vgg_cnn_m_single_all_for_fl_test/vgg_cnn_m_1024_faster_rcnn_allnet_simple_iter_120000.caffemodel')
+
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedconv_srf_ice/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/faster_rcnn_end2end/simple_detectionpath/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_detection_iter_50000.caffemodel')
-
-PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
-MODEL = os.path.join(FRCNN, 'vgg16_faster_rcnn_detection_iter_80000.caffemodel')#'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
-
-PROTO = os.path.join(FRCNN, 'models/logo_detection/resnet50_gen/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_resnet50_gen/resnet50_faster_rcnn_detection_iter_22000.caffemodel')
-
-
+#MODEL = os.path.join(FRCNN, 'output/final/fl_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_simple_fl_iter_80000.caffemodel')
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_sharedbase_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_allnet_sharedbase_iter_80000.caffemodel')
 
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/synmetu_ta_detection/vgg_cnn_m_1024_faster_rcnn_synmetuta_detection_iter_50000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/srf_ice_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_srf_ski_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
-EXAMPLEPATH = '/home/andras/logoexamples'
+
+PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
+
 #SEARCHPATH = '/home/andras/data/datasets/fussi'
+#SEARCH = 'srf_ski_good_logo'
+SEARCH = 'schalke'
+customdataset = False
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     im = im[:, :, (2, 1, 0)]
@@ -106,6 +110,7 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
         bbox = dets[i, :4]
         score = dets[i, -1]
         if score > thresh:
+            print i
             plt.cla()
             plt.imshow(im)
             plt.gca().add_patch(
@@ -114,13 +119,24 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
                               bbox[3] - bbox[1], fill=False,
                               edgecolor='g', linewidth=3)
                 )
-            plt.title('{}  {:.3f}'.format(class_name, score))
-            plt.axis('off')   
-            plt.tight_layout()
-            plt.draw()
-            plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename)
-            plt.close()
+    plt.axis('off')   
+    plt.tight_layout()
+    plt.draw()
+    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
+    plt.close()
 
+def draw_boxes(img, dets, imagename):
+    if dets.shape[0] == 0:
+        return
+    for i in xrange(dets.shape[0]):
+        bbox = dets[i, :4]
+        im = img.copy()
+        x = bbox[0]
+        y = bbox[1]
+        w = bbox[2] - bbox[0]
+        h = bbox[3] - bbox[1]
+        cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
+        cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + str(i) + '.jpg', im)
 
 def parse_args():
     """
@@ -161,6 +177,87 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+def search(net, score_list, box_list):
+    if customdataset:
+        imdb = get_custom_imdb(SEARCH)
+    else:
+        imdb = get_imdb(SEARCH)
+
+    #imdb.competition_mode(args.comp_mode)
+
+    num_images = len(imdb.image_index)
+    # all detections are collected into:
+    #    all_boxes[cls][image] = N x 5 array of detections in
+    #    (x1, y1, x2, y2, score)
+
+    all_boxes = [[[] for _ in xrange(num_images)]
+                 for _ in xrange(imdb.num_classes)]
+
+    output_dir = get_output_dir(imdb, net)
+    _t = {'im_detect' : Timer(), 'misc' : Timer()}
+    print threshold
+
+    i = 0
+    for i in xrange(num_images):
+        imagepath = imdb.image_path_at(i)
+        imagename = imagepath.split('/')[-1]
+        im = cv2.imread(imagepath)
+        _t['im_detect'].tic()
+        if len(score_list) < i+1:
+            scores, boxes = im_detect(net, im, rpndet, None)
+            score_list.append(np.copy(scores))
+            box_list.append(np.copy(boxes))
+        else:
+            scores = np.copy(score_list[i])
+            boxes = np.copy(box_list[i])
+        _t['im_detect'].toc()
+
+        _t['misc'].tic()
+
+        for j in xrange(1, imdb.num_classes):
+            if rpndet:
+                k = j-1
+            else:
+                k = j
+            inds = np.where(scores[:, k] > threshold)[0]
+            cls_scores = scores[inds, k]
+            cls_boxes = boxes[inds, k*4:(k+1)*4]
+            cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
+                .astype(np.float32, copy=False)
+            keep = nms(cls_dets, cfg.TEST.NMS)
+            cls_dets = cls_dets[keep, :]
+            if vis:
+                draw_boxes(im, cls_dets, imagepath.split('/')[-1].split('.')[0])
+                #vis_detections(im, imdb.classes[j], cls_dets, 0.3, imagepath.split('/')[-1].split('.')[0])
+            all_boxes[j][i] = cls_dets
+
+        # Limit to max_per_image detections *over all classes*
+        if max_per_image > 0:
+            image_scores = np.hstack([all_boxes[j][i][:, -1]
+                                      for j in xrange(1, imdb.num_classes)])
+            if len(image_scores) > max_per_image:
+                image_thresh = np.sort(image_scores)[-max_per_image]
+                for j in xrange(1, imdb.num_classes):
+                    keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
+                    all_boxes[j][i] = all_boxes[j][i][keep, :]
+        _t['misc'].toc()
+
+
+        print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
+              .format(i + 1, num_images, _t['im_detect'].average_time,
+                      _t['misc'].average_time)
+        i += 1
+
+    det_file = os.path.join(output_dir, 'detections.pkl')
+    with open(det_file, 'wb') as f:
+        cPickle.dump(all_boxes, f, cPickle.HIGHEST_PROTOCOL)
+
+    if not customdataset:
+        print 'Evaluating detections'
+        rec, prec, map, tp, fp = imdb.evaluate_detections(all_boxes, output_dir)
+        return rec, prec, map, tp, fp, num_images
+
+
 if __name__ == '__main__':
     args = parse_args()
 
@@ -187,75 +284,24 @@ if __name__ == '__main__':
     cfg.TRAIN.PROPOSAL_METHOD = 'gt'
     cfg.TRAIN.BG_THRESH_LO = 0.0
 
-    cfg.TEST.BBOX_REG = True
+    cfg.TEST.BBOX_REG = False
     caffe.set_mode_gpu()
     caffe.set_device(args.gpu_id)
     net = caffe.Net(PROTO, MODEL, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(MODEL))[0]
 
-    imdb = get_imdb('srf_ski_logo_good')
-    imdb.competition_mode(args.comp_mode)
-
-    num_images = len(imdb.image_index)
-    # all detections are collected into:
-    #    all_boxes[cls][image] = N x 5 array of detections in
-    #    (x1, y1, x2, y2, score)
-    all_boxes = [[[] for _ in xrange(num_images)]
-                 for _ in xrange(imdb.num_classes)]
-
-    output_dir = get_output_dir(imdb, net)
-    _t = {'im_detect' : Timer(), 'misc' : Timer()}
-
-
-    i = 0
-    for i in xrange(num_images):
-        imagepath = imdb.image_path_at(i)
-        imagename = imagepath.split('/')[-1]
-        im = cv2.imread(imagepath)
-        _t['im_detect'].tic()
-        scores, boxes = im_detect(net, im, False, None)
-        if visualize_logo_detection:
-            s_det = scores[:, 1]
-            inds = np.array(s_det).argsort()[::-1][:10]
-            roi_classes = ['logo' for j in range(len(inds))]
-            write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)
-        _t['im_detect'].toc()
-
-        _t['misc'].tic()
-
-        for j in xrange(1, imdb.num_classes):
-            inds = np.where(scores[:, j] > thresh)[0]
-            cls_scores = scores[inds, j]
-            cls_boxes = boxes[inds, j*4:(j+1)*4]
-            cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
-                .astype(np.float32, copy=False)
-            keep = nms(cls_dets, cfg.TEST.NMS)
-            cls_dets = cls_dets[keep, :]
-            if vis:
-                vis_detections(im, imdb.classes[j], cls_dets, 0.3, imagepath.split('/')[-1].split('.')[0])
-            all_boxes[j][i] = cls_dets
-
-        # Limit to max_per_image detections *over all classes*
-        if max_per_image > 0:
-            image_scores = np.hstack([all_boxes[j][i][:, -1]
-                                      for j in xrange(1, imdb.num_classes)])
-            if len(image_scores) > max_per_image:
-                image_thresh = np.sort(image_scores)[-max_per_image]
-                for j in xrange(1, imdb.num_classes):
-                    keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
-                    all_boxes[j][i] = all_boxes[j][i][keep, :]
-        _t['misc'].toc()
-
-
-        print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
-              .format(i + 1, num_images, _t['im_detect'].average_time,
-                      _t['misc'].average_time)
-        i += 1
-
-    det_file = os.path.join(output_dir, 'detections.pkl')
-    with open(det_file, 'wb') as f:
-        cPickle.dump(all_boxes, f, cPickle.HIGHEST_PROTOCOL)
-
-    print 'Evaluating detections'
-    imdb.evaluate_detections(all_boxes, output_dir)
-
+    score_list = list()
+    box_list = list()
+    if rpndet:
+        dettext = 'rpndet'
+    else:
+        dettext = 'det'
+    if customdataset:
+        search(net, score_list, box_list)
+    else:
+        with open('vgg_alllogo_' + dettext + '_' + SEARCH + '_results.txt', 'w') as f:
+            #for t in np.arange(0.99, 0.009, -0.01):
+                threshold = threshold #t
+                rec, prec, map, tp, fp, num_images = search(net, score_list, box_list)
+                f.write(str(threshold) + '\t' + str(fp/float(num_images)) + '\t' + str(rec[-1]) + '\t' + str(map) + '\n')
+        
