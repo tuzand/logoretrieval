@@ -5,28 +5,37 @@
 \BOOKMARK [1][]{section.2.2}{2.2 Object Detection}{chapter.2}% 5
 \BOOKMARK [1][]{section.2.3}{2.3 Logo Retrieval}{chapter.2}% 6
 \BOOKMARK [0][]{chapter.3}{3 Proposal Based Object Detection and Classification}{}% 7
-\BOOKMARK [1][]{section.3.1}{3.1 Fully Convolutional Neural Networks}{chapter.3}% 8
-\BOOKMARK [1][]{section.3.2}{3.2 Region proposal systems}{chapter.3}% 9
-\BOOKMARK [1][]{section.3.3}{3.3 Region Based Convolutional Neural Networks}{chapter.3}% 10
-\BOOKMARK [2][-]{subsection.3.3.1}{3.3.1 Regions with Convolutional Neural Network Features}{section.3.3}% 11
-\BOOKMARK [2][-]{subsection.3.3.2}{3.3.2 Fast Region Based Convolutional Neural Network}{section.3.3}% 12
-\BOOKMARK [2][-]{subsection.3.3.3}{3.3.3 Faster Region Based Convolutional Neural Network}{section.3.3}% 13
-\BOOKMARK [0][]{chapter.4}{4 Logo Retrieval System}{}% 14
-\BOOKMARK [1][]{section.4.1}{4.1 Logo Datasets}{chapter.4}% 15
-\BOOKMARK [1][]{section.4.2}{4.2 Logo Detection}{chapter.4}% 16
-\BOOKMARK [2][-]{subsection.4.2.1}{4.2.1 Region Proposal Network}{section.4.2}% 17
-\BOOKMARK [2][-]{subsection.4.2.2}{4.2.2 Class Agnostic Faster R-CNN}{section.4.2}% 18
-\BOOKMARK [2][-]{subsection.4.2.3}{4.2.3 Jointly Trained Detector and Classifier}{section.4.2}% 19
+\BOOKMARK [1][]{section.3.1}{3.1 Modern Convolutional Neural Networks}{chapter.3}% 8
+\BOOKMARK [1][]{section.3.2}{3.2 Fully Convolutional Neural Networks}{chapter.3}% 9
+\BOOKMARK [1][]{section.3.3}{3.3 Region proposal systems}{chapter.3}% 10
+\BOOKMARK [1][]{section.3.4}{3.4 Region Based Convolutional Neural Networks}{chapter.3}% 11
+\BOOKMARK [2][-]{subsection.3.4.1}{3.4.1 Regions with Convolutional Neural Network Features}{section.3.4}% 12
+\BOOKMARK [2][-]{subsection.3.4.2}{3.4.2 Fast Region Based Convolutional Neural Network}{section.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.4.3}{3.4.3 Faster Region Based Convolutional Neural Network}{section.3.4}% 14
+\BOOKMARK [0][]{chapter.4}{4 Logo Retrieval System}{}% 15
+\BOOKMARK [1][]{section.4.1}{4.1 Logo Datasets}{chapter.4}% 16
+\BOOKMARK [1][]{section.4.2}{4.2 Logo Detection}{chapter.4}% 17
+\BOOKMARK [2][-]{subsection.4.2.1}{4.2.1 Region Proposal Network}{section.4.2}% 18
+\BOOKMARK [2][-]{subsection.4.2.2}{4.2.2 Class Agnostic Faster R-CNN}{section.4.2}% 19
 \BOOKMARK [1][]{section.4.3}{4.3 Logo Comparison}{chapter.4}% 20
-\BOOKMARK [0][]{chapter.5}{5 Experiments}{}% 21
-\BOOKMARK [1][]{section.5.1}{5.1 Training with Synthetic Data}{chapter.5}% 22
-\BOOKMARK [2][-]{subsection.5.1.1}{5.1.1 METU Trademark dataset}{section.5.1}% 23
-\BOOKMARK [2][-]{subsection.5.1.2}{5.1.2 FlickrBelgaLogos dataset}{section.5.1}% 24
-\BOOKMARK [1][]{section.5.2}{5.2 Logo Detection}{chapter.5}% 25
-\BOOKMARK [1][]{section.5.3}{5.3 Logo Retrieval}{chapter.5}% 26
-\BOOKMARK [0][]{chapter.6}{6 Conclusion}{}% 27
-\BOOKMARK [1][]{section.6.1}{6.1 Summary}{chapter.6}% 28
-\BOOKMARK [1][]{section.6.2}{6.2 Future Work}{chapter.6}% 29
-\BOOKMARK [0][]{chapter*.10}{Bibliography}{}% 30
-\BOOKMARK [0][]{chapter*.11}{List of Figures}{}% 31
-\BOOKMARK [0][]{chapter*.12}{List of Tables}{}% 32
+\BOOKMARK [2][-]{subsection.4.3.1}{4.3.1 Faster R-CNN feature extraction}{section.4.3}% 21
+\BOOKMARK [2][-]{subsection.4.3.2}{4.3.2 Fast\(-er\) R-CNN feature extraction}{section.4.3}% 22
+\BOOKMARK [2][-]{subsection.4.3.3}{4.3.3 Logo Detector and Fast R-CNN feature extraction}{section.4.3}% 23
+\BOOKMARK [2][-]{subsection.4.3.4}{4.3.4 Logo Detector and General feature extraction networks}{section.4.3}% 24
+\BOOKMARK [1][]{section.4.4}{4.4 Jointly Trained Detector and Classifier}{chapter.4}% 25
+\BOOKMARK [0][]{chapter.5}{5 Experiments}{}% 26
+\BOOKMARK [1][]{section.5.1}{5.1 Training with Synthetic Data}{chapter.5}% 27
+\BOOKMARK [2][-]{subsection.5.1.1}{5.1.1 FlickrBelgaLogos dataset}{section.5.1}% 28
+\BOOKMARK [2][-]{subsection.5.1.2}{5.1.2 METU Trademark dataset}{section.5.1}% 29
+\BOOKMARK [2][-]{subsection.5.1.3}{5.1.3 Synthetic data with shape based logos}{section.5.1}% 30
+\BOOKMARK [1][]{section.5.2}{5.2 Logo Detection}{chapter.5}% 31
+\BOOKMARK [1][]{section.5.3}{5.3 Evaluation on FlickrLogos-32}{chapter.5}% 32
+\BOOKMARK [1][]{section.5.4}{5.4 Logo Retrieval}{chapter.5}% 33
+\BOOKMARK [1][]{section.5.5}{5.5 Retrieval times}{chapter.5}% 34
+\BOOKMARK [0][]{chapter.6}{6 Conclusion}{}% 35
+\BOOKMARK [1][]{section.6.1}{6.1 Summary}{chapter.6}% 36
+\BOOKMARK [1][]{section.6.2}{6.2 Future Work}{chapter.6}% 37
+\BOOKMARK [0][]{chapter*.26}{Bibliography}{}% 38
+\BOOKMARK [0][]{chapter*.27}{List of Figures}{}% 39
+\BOOKMARK [0][]{chapter*.28}{List of Tables}{}% 40
+\BOOKMARK [0][]{chapter*.29}{Glossary}{}% 41

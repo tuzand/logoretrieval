@@ -7,7 +7,8 @@ def createdirs(dir):
         shutil.rmtree(dir)
     os.makedirs(dir)
 
-path = "/Users/andrastuzko/Pictures/datasets/SportTestbilder/"
+#path = "/Users/andrastuzko/Pictures/datasets/SportTestbilder/"
+path = '/Volumes/WD/datasets/logos/SportBilder'
 
 #dataset = "srf_ice"
 #outpaths = ["good", "good_occlusion", "bad", "bad_occlusion"]
@@ -16,6 +17,11 @@ path = "/Users/andrastuzko/Pictures/datasets/SportTestbilder/"
 dataset = "srf_ski"
 outpaths = ["good"]
 vggfile = os.path.join(path, dataset + ".csv")
+
+dataset = "srf_football"
+outpaths = ["good"]
+vggfile = os.path.join(path, dataset + ".csv")
+postfix = '_det'
 
 annotationspaths = list()
 imagesetspaths = list()
@@ -63,6 +69,7 @@ for (idx, line) in list(enumerate(lines))[1:]:
 
     state = -1
     if len(tokenized) > 5:
+        print(tokenized)
         state = getdistortion(tokenized[5])
         if len(tokenized) > 6:
             state += getdistortion(tokenized[6])
@@ -79,13 +86,13 @@ for idx, annotations in enumerate(annotationsdicts):
     imagelist = list()
     for key, values in annotations.items():
         imagelist.append(key.split('.')[0])
-        with open(os.path.join(annotationspaths[idx], key + ".bboxes.txt"), "w") as annot:
+        with open(os.path.join(annotationspaths[idx], key.split('.')[0] + postfix + ".jpg.bboxes.txt"), "w") as annot:
             for value in values:
                 annot.write(value + "\n")
 
     with open(os.path.join(imagesetspaths[idx], dataset + "_" + imagesetname + ".txt"), "w") as f:
         for imagepath in set(imagelist):
-            f.write(imagepath + "\n")
+            f.write(imagepath + postfix + "\n")
 
 with open(os.path.join(path, dataset, 'brands.txt'), 'w') as bf:
     brands = sorted(set(brands))

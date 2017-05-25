@@ -2,11 +2,26 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {\relax 3.1}{\ignorespaces R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally.\relax }}{6}{figure.caption.3}
-\contentsline {figure}{\numberline {\relax 3.2}{\ignorespaces Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. The proposals is then used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network.\relax }}{8}{figure.caption.4}
-\contentsline {figure}{\numberline {\relax 3.3}{\ignorespaces Faster R-CNN consists of a Fast R-CNN and a region proposal network (RPN). Fast R-CNN is responsible for the feature map extraction from the whole image, and classify regions from that. The RPN is an in-network implemented proposal system, for generating candidate object locations in a fast way.\relax }}{9}{figure.caption.6}
+\contentsline {figure}{\numberline {\relax 3.1}{\ignorespaces R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally.\relax }}{8}{figure.caption.3}
+\contentsline {figure}{\numberline {\relax 3.2}{\ignorespaces Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. The proposals is then used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network.\relax }}{10}{figure.caption.4}
+\contentsline {figure}{\numberline {\relax 3.3}{\ignorespaces Faster Region Based Convolutional Neural Network consists of a Fast R-CNN and a region proposal network (RPN). Fast R-CNN is responsible for the feature map extraction from the whole image, and classify regions from that. The RPN is an in-network implemented proposal system, for generating candidate object locations in a fast way.\relax }}{11}{figure.caption.6}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 4.1}{\ignorespaces Misplaced logo detection, with maximum RPN score\relax }}{15}{figure.caption.10}
+\contentsline {figure}{\numberline {\relax 4.2}{\ignorespaces Faster R-CNN and Classifier based logo retrieval system\relax }}{17}{figure.caption.11}
+\contentsline {figure}{\numberline {\relax 4.3}{\ignorespaces Network setups in train and test phases for learning detection and classification jointly\relax }}{18}{figure.caption.12}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces Generated synthetic logo images\relax }}{15}{figure.caption.9}
+\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces FlickrBelgaLogos examples\relax }}{20}{figure.caption.13}
+\contentsline {figure}{\numberline {\relax 5.2}{\ignorespaces Logo recognition performance after training with real (BelgaLogos) and synthetic data (FlickrBelgaLogos)\relax }}{21}{figure.caption.14}
+\contentsline {figure}{\numberline {\relax 5.3}{\ignorespaces Logo detection performance\relax }}{21}{figure.caption.15}
+\contentsline {figure}{\numberline {\relax 5.4}{\ignorespaces Logo detection example\relax }}{21}{figure.caption.16}
+\contentsline {figure}{\numberline {\relax 5.5}{\ignorespaces Generated synthetic logo images\relax }}{22}{figure.caption.18}
+\contentsline {figure}{\numberline {\relax 5.6}{\ignorespaces Generated synthetic logo images\relax }}{23}{figure.caption.19}
+\contentsline {figure}{\numberline {\relax 5.7}{\ignorespaces Logo detection evaluation\relax }}{23}{figure.caption.20}
+\contentsline {figure}{\numberline {\relax 5.8}{\ignorespaces Logo detection under extreme light conditions\relax }}{24}{figure.caption.21}
+\contentsline {figure}{\numberline {\relax 5.9}{\ignorespaces FL-32 test evaluation with \texttt {VGG\_CNN\_M\_1024} base network\relax }}{25}{figure.caption.22}
+\contentsline {figure}{\numberline {\relax 5.10}{\ignorespaces \relax }}{26}{figure.caption.23}
+\contentsline {figure}{\numberline {\relax 5.11}{\ignorespaces \relax }}{26}{figure.caption.24}
+\contentsline {figure}{\numberline {\relax 5.12}{\ignorespaces Samples for intraclass variation in one sport video. Images from same columns have the same class.\relax }}{26}{figure.caption.25}
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

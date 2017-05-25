@@ -3,50 +3,53 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: masterthesis1.aux
 The style file: bib/bst/AlphaDINFirstName.bst
 Database file #1: bib/BibtexDatabase.bib
+Warning--to sort, need author or key in LogoClearbit
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Warning--empty pages in Chatfield14
+Warning--empty pages in imagenet_cvpr09
 Warning--empty pages in Hadsell06dimensionalityreduction
 Warning--empty pages in 619
 Warning--empty pages in Simonyan13
 Warning--empty pages in edge-boxes-locating-object-proposals-from-edges
-You've used 28 entries,
+You've used 45 entries,
             3052 wiz_defined-function locations,
-            1292 strings with 19861 characters,
-and the built_in function-call counts, 17437 in all, are:
-= -- 1215
-> -- 615
-< -- 53
-+ -- 223
-- -- 221
-* -- 1676
-:= -- 2066
-add.period$ -- 13
-call.type$ -- 28
-change.case$ -- 190
-chr.to.int$ -- 28
-cite$ -- 32
-duplicate$ -- 1573
-empty$ -- 1506
-format.name$ -- 411
-if$ -- 3512
+            1401 strings with 23596 characters,
+and the built_in function-call counts, 27671 in all, are:
+= -- 1931
+> -- 983
+< -- 86
++ -- 358
+- -- 355
+* -- 2681
+:= -- 3263
+add.period$ -- 24
+call.type$ -- 45
+change.case$ -- 309
+chr.to.int$ -- 45
+cite$ -- 53
+duplicate$ -- 2503
+empty$ -- 2371
+format.name$ -- 659
+if$ -- 5555
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 276
-newline$ -- 92
-num.names$ -- 60
-pop$ -- 535
+missing$ -- 442
+newline$ -- 143
+num.names$ -- 92
+pop$ -- 848
 preamble$ -- 1
-purify$ -- 246
+purify$ -- 398
 quote$ -- 0
-skip$ -- 589
+skip$ -- 933
 stack$ -- 0
-substring$ -- 597
-swap$ -- 969
-text.length$ -- 53
-text.prefix$ -- 28
+substring$ -- 916
+swap$ -- 1554
+text.length$ -- 86
+text.prefix$ -- 44
 top$ -- 0
-type$ -- 224
-warning$ -- 4
-while$ -- 95
-width$ -- 33
-write$ -- 272
-(There were 4 warnings)
+type$ -- 360
+warning$ -- 7
+while$ -- 144
+width$ -- 52
+write$ -- 429
+(There were 7 warnings)
