@@ -31,7 +31,7 @@ import sys
 
 max_per_image = 0
 vis = True
-rpndet = True
+rpndet = False
 threshold = 0.1
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
@@ -46,9 +46,9 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_siamtest/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_120000.caffemodel')
 
 
-#!!!PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
+PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
-#!!!MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
 
 #PROTO = os.path.join(FRCNN, 'models/logo_detection/resnettest/test_agnostic.prototxt')
 #MODEL = os.path.join(FRCNN, 'resnet50_rfcn_iter_1000.caffemodel')#'output/final/allnet_detector_resnet50_gen/resnet50_faster_rcnn_detection_iter_22000.caffemodel')
@@ -66,12 +66,12 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
 
 
-PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
 
 #SEARCHPATH = '/home/andras/data/datasets/fussi'
 #SEARCH = 'srf_ski_good_logo'
-SEARCH = 'schalke'
+SEARCH = 'schalke_det'
 customdataset = False
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
@@ -128,15 +128,15 @@ def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
 def draw_boxes(img, dets, imagename):
     if dets.shape[0] == 0:
         return
+    im = img.copy()
     for i in xrange(dets.shape[0]):
         bbox = dets[i, :4]
-        im = img.copy()
         x = bbox[0]
         y = bbox[1]
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
-        cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + str(i) + '.jpg', im)
+    cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
 
 def parse_args():
     """
