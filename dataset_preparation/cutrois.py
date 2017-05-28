@@ -5,13 +5,14 @@ import cv2
 from PIL import Image
 
 # Params
-path = '/Volumes/WD/datasets/logos/SportBilder/Schalke/raw'
+#path = '/home/andras/data/datasets/'
+
 ext = '.png'
 dstext = '.jpg'
 skip_occluded = False
-skip_small_rois = True
+skip_small_rois = False
 fuse_occluded = True
-outpath = os.path.join(path, '..', 'rois')
+outpath = '/home/andras/data/datasets/logorois'
 
 
 if os.path.exists(outpath):

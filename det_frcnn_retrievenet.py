@@ -30,8 +30,8 @@ import cPickle
 import sys
 
 max_per_image = 0
-vis = True
-rpndet = False
+vis = False
+rpndet = True
 threshold = 0.1
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
