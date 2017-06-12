@@ -30,14 +30,17 @@ from fast_rcnn.nms_wrapper import nms
 import cPickle
 import sys
 import Image
+import skimage as ski
+from skimage.transform import rescale, resize, downscale_local_mean
+
 
 max_per_image = 0
-logo_threshold = 0.1
-similarity_threshold = 0.1
+logo_threshold = 0.8
+similarity_threshold = 0.6
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
-recognition_score = True
+recognition_score = False
 cosinesimilarity = True
 
 detectionpathexists = False
@@ -57,7 +60,7 @@ featurelayer = 'fc7'
 #featurelayer = 'feat'
 
 visualize_logo_detection = False
-visualize_logo_recognition = False
+visualize_logo_recognition = True
 np.set_printoptions(threshold=np.nan)
 
 
@@ -69,17 +72,18 @@ PROPOSALMODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vg
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedexceptlast/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/test.prototxt')
 
-PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_fl_test_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
+FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_simple/fast_test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/final/allnet_allnet_det_sharedconv_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
+
+
+FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/test.prototxt')
+FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/fast_test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/final/alllogo_vgg16_sharedconv/vgg16_faster_rcnn_alllogo_sharedconv_iter_40000.caffemodel')
 
 #PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
 #PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_ignorelabel/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_ignorelabel_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_sharedconv_v2/vgg_cnn_m_1024_faster_rcnn_sharedconv_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_fl_test_sharedconv/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
 #MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
@@ -100,14 +104,14 @@ MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/allnet_logos32plus_fl_te
 #MODEL = os.path.join(FRCNN, 'output/final/fl_train_val_baseline_vgg16_0k_120k/vgg16_faster_rcnn_fl_iter_120000.caffemodel')
 
 #ALLNET simple VGG16
-FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_81/fast_test.prototxt')
-FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_81/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/allnet_simple_vgg16_for_fl_test/vgg16_faster_rcnn_allnet_iter_120000.caffemodel')
+#FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_81/fast_test.prototxt')
+#FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_81/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_simple_vgg16_for_fl_test/vgg16_faster_rcnn_allnet_iter_120000.caffemodel')
 
 #ALLLOGO simple
-FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/fast_test.prototxt')
-FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
+#FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/fast_test.prototxt')
+#FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
 
 
 FASTMODEL = MODEL
@@ -128,8 +132,8 @@ CLASSIFIERMODEL = os.path.join(FRCNN, 'data/imagenet/VGG_CNN_M_1024.v2.caffemode
 #CLASSIFIERMODEL = os.path.join(FRCNN, 'data/imagenet/VGG16.v2.caffemodel')
 
 # ResNet50
-#CLASSIFIERPROTO = ('/home/andras/data/models/resnet/ResNet-50-deploy.prototxt')
-#CLASSIFIERMODEL = ('/home/andras/data/models/resnet/ResNet-50-model.caffemodel')
+#CLASSIFIERPROTO = ('/home/andras/data/models/resnet/ResNet-101-deploy.prototxt')
+#CLASSIFIERMODEL = ('/home/andras/data/models/resnet/ResNet-101-model.caffemodel')
 
 # SqueezeNet
 #CLASSIFIERPROTO = ('/home/andras/data/models/squeezenet/test.prototxt')
@@ -143,10 +147,15 @@ CLASSIFIERMODEL = os.path.join(FRCNN, 'data/imagenet/VGG_CNN_M_1024.v2.caffemode
 #CLASSIFIERMODEL = ('/home/andras/data/models/eigenT/eigenT_32_iter_5000.caffemodel')
 
 
-#CLASSIFIERPROTO = ('/home/andras/data/models/resnet_112/deploy.prototxt')
-#CLASSIFIERMODEL = ('/home/andras/data/models/resnet_112/10k/resnet_50_iter_10000.caffemodel')
+CLASSIFIERPROTO = ('/home/andras/data/models/resnet_112/deploy.prototxt')
+CLASSIFIERMODEL = ('/home/andras/data/models/resnet_112/10k/resnet_50_iter_10000.caffemodel')
+
+CLASSIFIERPROTO = ('/home/andras/data/models/vgg_cnn_m_1024/test_219.prototxt')
+CLASSIFIERMODEL = ('/home/andras/data/models/vgg_cnn_m_1024/vgg_cnn_m_train_iter_7000.caffemodel')
 
 QUERYPATH = '/home/andras/data/misc/schalke_query_crop/'
+#QUERYPATH = '/home/andras/data/misc/schalke_query_highres/'
+#QUERYPATH = '/home/andras/shit/'
 
 SEARCHPATH = 'schalke'
 
@@ -233,19 +242,17 @@ def detect_net(net, imdb, onlymax, max_per_image=100):
         #scores, boxes, features, scores_det, boxes_det = im_detect(net, im, None, detectionpathexists)
         scores, boxes = im_detect_det(net, im, None, False) #detectionpathexists)
 
-        if visualize_logo_detection:
-            s_det = scores[:, 1]
-            inds = np.array(s_det).argsort()[::-1][:10]
-            roi_classes = ['logo' for j in range(len(inds))]
-            write_bboxes(im, imagename, boxes[inds], s_det[inds], roi_classes)
-        _t['im_detect'].toc()
-
         _t['misc'].tic()
         logo_inds = list()
         if onlymax:
             logo_inds.append(scores[:, 1].argmax())
         else:
             logo_inds = np.where(scores[:, 1] > logo_threshold)[0]
+        if visualize_logo_detection:
+            roi_classes = ['logo' for j in range(len(logo_inds))]
+            write_bboxes(im, imagename, boxes[logo_inds], scores[logo_inds, 1], roi_classes)
+        _t['im_detect'].toc()
+
         roi_bboxes = np.zeros((len(logo_inds),4))
         scores = scores[logo_inds, 1]
         for j, idx in enumerate(logo_inds):
@@ -300,7 +307,8 @@ def cls_net(imdb, faster = False, onlymax = False, rpndetection = False, max_per
             logo_inds = list(range(0, len(scores)))
         else:
             scores, boxes, features, scores_det, boxes_det = im_detect(net, im, boxes=None, customfeatures=True, detection = True, rpndet=rpndetection)
-            boxes_det = boxes_det[:, 1:]
+            if rpndetection:
+                boxes_det = boxes_det[:, 1:]
             for indx, s in enumerate(scores):
                 max_indx = s[1:].argmax()
                 boxes_det[indx] = boxes[indx, max_indx*4: (max_indx+1)*4]
@@ -425,7 +433,8 @@ def classify(net, imdb, boxes):
         if not boxes:
             box = np.zeros((1,4))
             box = [0,0,img.shape[1], img.shape[0]]
-            roi_features.append(getClassificatorFeatures(net, img, box))
+            feat = getClassificatorFeatures(net, img, box)
+            roi_features.append(feat)
         else:
             imgboxes = boxes[imagename]
             for idx in range(len(imgboxes)):
@@ -465,6 +474,7 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
                  for _ in xrange(imdb.num_classes)]
 
     output_dir = get_output_dir(imdb, net)
+    net = None
     _t = {'misc' : Timer()}
     logotimes = list()
     [logotimes.append(0) for i in range(imdb.num_classes)]
@@ -495,8 +505,10 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
                 # get the index of the classname
                 classindex = imdb.classes.index(queryfilename.split('.')[0].split('_')[0])
                 if recognition_score:
-                    scores[j, classindex] = similarity * bscores[j]
-                else:
+                    s = similarity * bscores[j]
+                    if scores[j, classindex] < s:
+                        scores[j, classindex] = s
+                elif scores[j, classindex] < similarity:
                     scores[j, classindex] = similarity
                 
                 boxes[j, classindex*4 : classindex*4+4] = search_bboxes[j]
@@ -533,20 +545,21 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
                     .astype(np.float32, copy=False)
         if visualize_logo_recognition:
             im = cv2.imread(searchfilepath)
+            print img_dets
             classArray = [imdb.classes[int(img_dets[l, 5])] for l in range(len(img_dets))]
             write_bboxes(im, searchfilename, img_dets[:, :4], img_dets[:, 4], classArray)
         for j in xrange(1, imdb.num_classes):
-            cls_dets = img_dets[img_dets[:, 5] == j]
+            cls_dets = img_dets[img_dets[:, 5] == j][:, :5]
             all_boxes[j][i] = cls_dets
         # Limit to max_per_image detections *over all classes*
-        if max_per_image > 0:
-            image_scores = np.hstack([all_boxes[j][i][:, -1]
-                                      for j in xrange(1, imdb.num_classes)])
-            if len(image_scores) > max_per_image:
-                image_thresh = np.sort(image_scores)[-max_per_image]
-                for j in xrange(1, imdb.num_classes):
-                    keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
-                    all_boxes[j][i] = all_boxes[j][i][keep, :]
+        #if max_per_image > 0:
+        #    image_scores = np.hstack([all_boxes[j][i][:, -1]
+        #                              for j in xrange(1, imdb.num_classes)])
+        #    if len(image_scores) > max_per_image:
+        #        image_thresh = np.sort(image_scores)[-max_per_image]
+        #        for j in xrange(1, imdb.num_classes):
+        #            keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
+        #            all_boxes[j][i] = all_boxes[j][i][keep, :]
 
         '''im=Image.open(searchfilepath)
         width, height = im.size
@@ -606,14 +619,19 @@ def search(fps):
         all_search_features = classify(net, imdb, dets)
         query_features = classify(net, queryimdb, None)
         timer.toc()
+    elif solution == 5:
+        timer.tic()
+        query_features, b, boxscores, net = cls_net(queryimdb, faster=False, onlymax=True, rpndetection=False)
+        all_search_features, dets, boxscores, net = cls_net(imdb, faster=True, onlymax=False, rpndetection=False)
+        timer.toc()
 
-    resfilename = 'sol4_vgg_cnn_m_' + SEARCHPATH + '_results.txt'
+    resfilename = 'sol4_resnet_112_' + SEARCHPATH + '_results.txt'
     if os.path.isfile(resfilename):
         os.remove(resfilename)
 
     with open(resfilename, 'a') as f:
-        for t in np.arange(0.99, 0.009, -0.01):
-            thres = t #similarity_threshold
+        #for t in np.arange(0.99, 0.009, -0.01):
+            thres = similarity_threshold
             rec, prec, map, tp, fp, num_images, npos = process(net, imdb, query_features, all_search_features, dets, boxscores, fps, thres)
             if len(rec) == 0:
                 rec = [0.0]

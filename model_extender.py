@@ -20,7 +20,7 @@ cfg.TRAIN.BG_THRESH_LO = 0.0
 PROTO = './py_faster_rcnn/models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/train.prototxt'
 MODEL = './py_faster_rcnn/data/imagenet/VGG_CNN_M_1024.v2.caffemodel'
 
-#PROTO = './py_faster_rcnn/models/logo/VGG16/train.prototxt'
+#PROTO = './py_faster_rcnn/models/logo/VGG16_219_sharedconv/train.prototxt'
 #MODEL = './py_faster_rcnn/data/imagenet/VGG16.v2.caffemodel'
 
 net = caffe.Net(PROTO, MODEL, caffe.TRAIN)
@@ -28,11 +28,16 @@ net = caffe.Net(PROTO, MODEL, caffe.TRAIN)
 srclayers = ['fc6', 'fc7']
 dstlayers = ['fc6_det', 'fc7_det']
 
+# List all layers
+#all_names = [n for n in net._layer_names]
+#for n in all_names:
+#    print n
+
 for i in range(len(srclayers)):
     net.params[dstlayers[i]][0].data[...] = net.params[srclayers[i]][0].data[...]
     net.params[dstlayers[i]][1].data[...] = net.params[srclayers[i]][1].data[...]
 
 #net.save('./py_faster_rcnn/data/imagenet_models/ext81_VGG16.v2.caffemodel')
-net.save('./py_faster_rcnn/data/imagenet_models/fixed_ext81_VGG_CNN_M.v2.caffemodel')
+#net.save('./py_faster_rcnn/data/imagenet_models/ext219_VGG16.v2.caffemodel')
 
 

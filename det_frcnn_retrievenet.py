@@ -31,7 +31,7 @@ import sys
 
 max_per_image = 0
 vis = False
-rpndet = True
+rpndet = False
 threshold = 0.1
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
@@ -68,6 +68,9 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_fast
 
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
+
+PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/test.prototxt')
+MODEL = os.path.join(FRCNN, 'output/final/alllogo_vgg16_sharedconv/vgg16_faster_rcnn_alllogo_sharedconv_iter_30000.caffemodel')
 
 #SEARCHPATH = '/home/andras/data/datasets/fussi'
 #SEARCH = 'srf_ski_good_logo'
