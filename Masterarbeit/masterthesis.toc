@@ -1,43 +1,52 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {chapter}{\numberline {2}Related Work}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Image Retrieval}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Object Detection}{3}{section.2.2}
-\contentsline {section}{\numberline {2.3}Logo Retrieval}{3}{section.2.3}
+\contentsline {section}{\numberline {2.1}Object Detection}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Image Retrieval}{3}{section.2.2}
+\contentsline {section}{\numberline {2.3}Open Set Classification}{4}{section.2.3}
+\contentsline {section}{\numberline {2.4}Logo Retrieval}{4}{section.2.4}
 \contentsline {chapter}{\numberline {3}Proposal Based Object Detection and Classification}{5}{chapter.3}
 \contentsline {section}{\numberline {3.1}Modern Convolutional Neural Networks}{5}{section.3.1}
 \contentsline {section}{\numberline {3.2}Fully Convolutional Neural Networks}{6}{section.3.2}
-\contentsline {section}{\numberline {3.3}Region proposal systems}{7}{section.3.3}
-\contentsline {section}{\numberline {3.4}Region Based Convolutional Neural Networks}{7}{section.3.4}
+\contentsline {section}{\numberline {3.3}Region Proposal Systems}{7}{section.3.3}
+\contentsline {section}{\numberline {3.4}Region-Based Convolutional Neural Networks}{7}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Regions with Convolutional Neural Network Features}{7}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Fast Region Based Convolutional Neural Network}{8}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Faster Region Based Convolutional Neural Network}{9}{subsection.3.4.3}
-\contentsline {subsubsection}{Region Proposal Network}{10}{subsubsection*.5}
-\contentsline {subsubsection}{Training}{10}{subsubsection*.7}
+\contentsline {subsection}{\numberline {3.4.2}Fast Region-Based Convolutional Neural Network}{8}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Faster Region-Based Convolutional Neural Network}{9}{subsection.3.4.3}
+\contentsline {subsubsection}{Region Proposal Network}{10}{subsubsection*.8}
+\contentsline {subsubsection}{Training}{10}{subsubsection*.10}
 \contentsline {chapter}{\numberline {4}Logo Retrieval System}{13}{chapter.4}
 \contentsline {section}{\numberline {4.1}Logo Datasets}{13}{section.4.1}
-\contentsline {section}{\numberline {4.2}Logo Detection}{14}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Region Proposal Network}{14}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Class Agnostic Faster R-CNN}{14}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}Logo Comparison}{15}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Faster R-CNN feature extraction}{15}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Fast(-er) R-CNN feature extraction}{15}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Logo Detector and Fast R-CNN feature extraction}{16}{subsection.4.3.3}
-\contentsline {subsection}{\numberline {4.3.4}Logo Detector and General feature extraction networks}{16}{subsection.4.3.4}
-\contentsline {section}{\numberline {4.4}Jointly Trained Detector and Classifier}{17}{section.4.4}
-\contentsline {chapter}{\numberline {5}Experiments}{19}{chapter.5}
-\contentsline {section}{\numberline {5.1}Training with Synthetic Data}{19}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}FlickrBelgaLogos dataset}{20}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}METU Trademark dataset}{22}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Synthetic data with shape based logos}{22}{subsection.5.1.3}
-\contentsline {section}{\numberline {5.2}Logo Detection}{23}{section.5.2}
-\contentsline {section}{\numberline {5.3}Evaluation on FlickrLogos-32}{24}{section.5.3}
-\contentsline {section}{\numberline {5.4}Logo Retrieval}{25}{section.5.4}
-\contentsline {section}{\numberline {5.5}Retrieval times}{27}{section.5.5}
-\contentsline {chapter}{\numberline {6}Conclusion}{29}{chapter.6}
-\contentsline {section}{\numberline {6.1}Summary}{29}{section.6.1}
-\contentsline {section}{\numberline {6.2}Future Work}{29}{section.6.2}
-\contentsline {chapter}{\nonumberline Bibliography}{31}{chapter*.26}
-\contentsline {chapter}{\nonumberline List of Figures}{35}{chapter*.27}
-\contentsline {chapter}{\nonumberline List of Tables}{37}{chapter*.28}
-\contentsline {chapter}{\nonumberline Glossary}{39}{chapter*.29}
+\contentsline {subsection}{\numberline {4.1.1}Public Datasets}{13}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Self Annotated Dataset - SportLogos}{14}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Dataset Fusion}{14}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Logo Detection}{15}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Region Proposal Network}{16}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Class Agnostic Faster R-CNN}{16}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Logo Comparison}{16}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Baseline: Faster-Logos}{17}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Fast\&Faster-Logos}{17}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Fast-Logos}{18}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}R-CNN-Logos}{18}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}Siam-Logos}{19}{subsection.4.3.5}
+\contentsline {chapter}{\numberline {5}Experiments}{23}{chapter.5}
+\contentsline {section}{\numberline {5.1}Evaluation Methods}{23}{section.5.1}
+\contentsline {section}{\numberline {5.2}Training with Synthetic Data}{24}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}FlickrBelgaLogos Dataset}{24}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}METU Trademark Dataset}{25}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Synthetic Data with Shape Based Logos}{26}{subsection.5.2.3}
+\contentsline {section}{\numberline {5.3}Evaluation on FlickrLogos-32}{27}{section.5.3}
+\contentsline {chapter}{\numberline {6}Logo Retrieval System Evaluation}{29}{chapter.6}
+\contentsline {section}{\numberline {6.1}Logo Detection}{29}{section.6.1}
+\contentsline {section}{\numberline {6.2}Logo Retrieval}{31}{section.6.2}
+\contentsline {section}{\numberline {6.3}Effect of Pretrained Classes}{34}{section.6.3}
+\contentsline {section}{\numberline {6.4}Perfomance evaluation}{35}{section.6.4}
+\contentsline {section}{\numberline {6.5}Retrieval times}{36}{section.6.5}
+\contentsline {chapter}{\numberline {7}Conclusion}{39}{chapter.7}
+\contentsline {section}{\numberline {7.1}Summary}{39}{section.7.1}
+\contentsline {section}{\numberline {7.2}Future Work}{39}{section.7.2}
+\contentsline {chapter}{\nonumberline Bibliography}{41}{chapter*.45}
+\contentsline {chapter}{\nonumberline List of Figures}{47}{chapter*.46}
+\contentsline {chapter}{\nonumberline List of Tables}{49}{chapter*.47}
+\contentsline {chapter}{\nonumberline Glossary}{51}{chapter*.48}
+\contentsline {chapter}{\nonumberline Appendix}{53}{chapter*.49}

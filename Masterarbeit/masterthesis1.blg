@@ -4,6 +4,7 @@ The top-level auxiliary file: masterthesis1.aux
 The style file: bib/bst/AlphaDINFirstName.bst
 Database file #1: bib/BibtexDatabase.bib
 Warning--to sort, need author or key in LogoClearbit
+Warning--to sort, need author or key in ILSVRC16
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty pages in Chatfield14
 Warning--empty pages in imagenet_cvpr09
@@ -11,45 +12,45 @@ Warning--empty pages in Hadsell06dimensionalityreduction
 Warning--empty pages in 619
 Warning--empty pages in Simonyan13
 Warning--empty pages in edge-boxes-locating-object-proposals-from-edges
-You've used 45 entries,
+You've used 72 entries,
             3052 wiz_defined-function locations,
-            1401 strings with 23596 characters,
-and the built_in function-call counts, 27671 in all, are:
-= -- 1931
-> -- 983
-< -- 86
-+ -- 358
-- -- 355
-* -- 2681
-:= -- 3263
-add.period$ -- 24
-call.type$ -- 45
-change.case$ -- 309
-chr.to.int$ -- 45
-cite$ -- 53
-duplicate$ -- 2503
-empty$ -- 2371
-format.name$ -- 659
-if$ -- 5555
-int.to.chr$ -- 1
+            1578 strings with 29969 characters,
+and the built_in function-call counts, 43588 in all, are:
+= -- 3098
+> -- 1507
+< -- 137
++ -- 551
+- -- 542
+* -- 4184
+:= -- 5143
+add.period$ -- 41
+call.type$ -- 72
+change.case$ -- 482
+chr.to.int$ -- 70
+cite$ -- 82
+duplicate$ -- 3948
+empty$ -- 3735
+format.name$ -- 1013
+if$ -- 8786
+int.to.chr$ -- 3
 int.to.str$ -- 0
-missing$ -- 442
-newline$ -- 143
-num.names$ -- 92
-pop$ -- 848
+missing$ -- 697
+newline$ -- 224
+num.names$ -- 146
+pop$ -- 1314
 preamble$ -- 1
-purify$ -- 398
+purify$ -- 624
 quote$ -- 0
-skip$ -- 933
+skip$ -- 1483
 stack$ -- 0
-substring$ -- 916
-swap$ -- 1554
-text.length$ -- 86
-text.prefix$ -- 44
+substring$ -- 1487
+swap$ -- 2430
+text.length$ -- 137
+text.prefix$ -- 70
 top$ -- 0
-type$ -- 360
-warning$ -- 7
-while$ -- 144
-width$ -- 52
-write$ -- 429
-(There were 7 warnings)
+type$ -- 576
+warning$ -- 8
+while$ -- 229
+width$ -- 77
+write$ -- 691
+(There were 8 warnings)

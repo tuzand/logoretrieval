@@ -114,7 +114,7 @@
 		}{%
 		%% Diplomarbeit
 			\ifthenelse{\boolean{iesenglishs}}{%
-				Main Advisor: \hfill \Reviewer\\Co-Advisor: \hfill \Supervisor\\
+				Advisors: \hfill \Advisor\\ \hfill \Reviewer\\ \hfill \Supervisor\\
 			}{%
 				Verantwortlicher Betreuer: \hfill \Reviewer\\Betreuender Mitarbeiter: \hfill \Supervisor\\
 			}%
@@ -156,9 +156,7 @@ Abänderung entnommen wurde.}
 %% Alternative
 %Hiermit versichere ich, die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt sowie die Zitate deutlich kenntlich gemacht zu haben.
 \vspace{4\baselineskip}\\
-\ifthenelse{\boolean{iesenglishs}}{%
-\Signplace, \Submissiondate \hfill \Authorname}{%
-\Signplace, den \Submissiondate} \hfill \Authorname%
+\Signplace, \Submissiondate \hfill \Authorname
 \vspace{4\baselineskip}\\
 \clearpage
 \mbox{}\thispagestyle{empty}

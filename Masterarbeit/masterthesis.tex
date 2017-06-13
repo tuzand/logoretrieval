@@ -107,9 +107,10 @@
 %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% HIER AUTOR, TITEL, NAME, DATUM, BETREUER USW. EINTRAGEN UND NIRGENDS SONST !!
 \newcommand{\Authorname}{Andras Tüzkö}  %% Taucht so im Titelblatt und in der Erkl?rung der Selbstst?ndigkeit auf
-\newcommand{\Worktitle}{Logo retrieval in mass data\linebreak using deep learning}
+\newcommand{\Worktitle}{Logo Retrieval in Mass Data\linebreak Using Deep Learning}
 \newcommand{\Submissiondate}{June 14, 2017}  %% Taucht so im Titelblatt und in der Erkl?rung der Selbstst?ndigkeit auf
 %% Im Englischen dann sowas wie February 35\textsuperscript{th}, 41\textsuperscript{st}, 42\textsuperscript{nd}, 43\textsuperscript{rd}
+\newcommand{\Advisor}{Prof. Dr.-Ing. habil. Jürgen Beyerer}
 \newcommand{\Reviewer}{Dipl.-Inform. Christian Herrmann}
 \newcommand{\Supervisor}{Dipl.-Inform. Daniel Manger}
 \newcommand{\Signplace}{Karlsruhe}  %% Ort der Erkl?rung der Selbstst?ndigkeit.
@@ -181,7 +182,7 @@
 \input{./content/Titel-A4}
 
 \frontmatter %\pagenumbering{Roman}%
-
+\input{./content/0-Abstract}
 \setcounter{page}{1}
 % Inhaltsverzeichnis in den PDF-Links eintragen
 \pdfbookmark[1]{Inhaltsverzeichnis}{toc}
@@ -218,7 +219,8 @@
 \input{./content/3-PBODC}
 \input{./content/4-LogoRetrievalSystem}
 \input{./content/5-Experiments}
-\input{./content/6-Conclusion}
+\input{./content/6-Evaluation}
+\input{./content/7-Conclusion}
 
 %% F?r die Verwendung mit includeonly s?he es so aus. Und falls man chapterbib verwenden will
 %%\include{content/0-Anleitung}
@@ -363,7 +365,8 @@
 %\addcontentsline{toc}{part}{Anhang}
 
 %%% Danksagung usw.
-\input{content/Z-Anhang}
+\input{content/Glossary}
+\input{content/Appendix}
 
 %%% Stichwortverzeichnis/Index
 \ifthenelse{\boolean{iesenglishs}}%
