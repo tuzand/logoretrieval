@@ -1,0 +1,25 @@
+\usepackage[english, ngerman]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[babel]{csquotes}
+
+\usepackage{multimedia}
+
+\usepackage[final]{pdfpages}	%final: Inserts pages. This is the default.
+										%draft: Does not insert pages, but prints a box and the filename instead.
+										%enable-survey: Activates survey functionalities.
+										%               (experimental, subject to change)
+
+\usepackage[open, openlevel=3]{bookmark}
+
+\usepackage{tikz}
+
+%Einbindung zu verwendender TikZ-Bibliotheken
+%(in diesem Beispiel werden eigentlich nur die Bibliotheken
+%shapes.misc und decorations.pathmorphing verwendet)
+\usetikzlibrary{calc,arrows,positioning,shadows,backgrounds,chains,topaths,matrix,scopes,decorations,decorations.pathmorphing,decorations.markings,fadings,shapes.geometric,shapes.multipart,shapes.misc,through,automata,fit}
+
+% Definition eines TikZ Objekt: sehr dicker, schwarzer Pfeil, mit Pfeilspitzentyp 'stealth'
+\tikzstyle{lblock}=[ultra thick, -stealth, black]

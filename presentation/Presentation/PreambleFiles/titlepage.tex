@@ -1,0 +1,41 @@
+%Gestaltung der Inhalte auf der Titelseite (nicht Hintergrund)
+%----------------------------------------------------------
+\setbeamertemplate{title page}{
+	\begin{minipage}{1\textwidth}
+	\begin{center}
+%hiermit vertikalen Abstand der Titelfolie ändern
+		\ifx\beamer@titlegraphic\relax%
+			\vspace{10ex}%6ex
+		\else%
+			\vspace{4ex}%6ex
+		\fi
+%   \LARGE%\Large
+    \large{\bf{\inserttitle}}\\[1.2ex]%\par\ %\par
+    %\vfill
+%
+		\ifx\beamer@titlegraphic\relax%
+			\vspace{4ex}%6ex
+		\else%
+			\vspace{1ex}%6ex
+			\inserttitlegraphic \par
+			\vspace{1ex}%6ex
+		\fi
+%
+		\vspace{1ex}%6ex
+		{\normalsize{\bf \insertauthor}} \par
+		\vspace{1ex}%6ex
+%
+    \ifx\beamer@subtitle\relax%\relax%
+		   	\vspace{3ex}%6ex
+		\else%
+    	{\normalsize{\bf \insertsubtitle}} \par
+			 \vspace{2ex}%6ex
+		\fi
+%
+    % \href{http://www.ies.uni-karlsrue.de}{
+    %\small{\bf\insertinstitute}
+    %\footnotesize{\bf\insertinstitute}
+    \tiny{\bf\insertinstitute}
+  \end{center}
+  \end{minipage}%
+}

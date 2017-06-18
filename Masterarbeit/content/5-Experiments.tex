@@ -85,20 +85,20 @@ The created dataset is then used to train a two class Faster R-CNN for logo dete
     \includegraphics[height=20mm]{images/mt/synmetu1.jpg} &   \includegraphics[height=20mm]{images/mt/synmetu2.jpg}  & \includegraphics[height=20mm]{images/mt/synmetu3.jpg} &   \includegraphics[height=20mm]{images/mt/synmetu4.jpg}\\
     \includegraphics[height=20mm]{images/mt/synmetu5.jpg} &   \includegraphics[height=20mm]{images/mt/synmetu6.jpg}  & \includegraphics[height=20mm]{images/mt/synmetu7.jpg} &   \includegraphics[height=20mm]{images/mt/synmetu8.jpg}
   \end{tabular}
-  \caption{Generated synthetic logo images}
+  \caption{Generated synthetic logo images based on the METU Trademark Dataset \cite{DBLP:journals/corr/TursunAK17}}
   \label{f:synmetu}
 \end{figure}
 
 \subsection{Synthetic Data with Shape Based Logos}
 
-As section \ref{ss:metu} shows, the most of the text based logos are incapable to train a model to detect real logos. In order to successfully extend the training dataset, logo images with more shape and color \cite{LogoClearbit} were collected. The logos were simply copied and pasted to the same Tripadvisor dataset, as in section \ref{ss:metu}. Unfortunately, also this dataset was not able to recognize any real logos. As a next trial, the white background of the logos was set to transparent, as suggested in \cite{DBLP:journals/corr/SuZG16}, but in the context of open-set logo detection, it does not appear to be useful either. The reason for the success of FlickrBelgaLogos, seen in section \ref{ss:flickrbelgalogos}, was most likely because the logos and their direct surroundings come from a real scene, and the logos were from the same closed-set of brands.
+As section \ref{ss:metu} shows, the most of the text based logos are incapable to train a model to detect real logos. In order to successfully extend the training dataset, logo images with more shape and color were collected from the Logo API of Clearbit \cite{LogoClearbit}. The logos were simply copied and pasted to the same Tripadvisor dataset, as in section \ref{ss:metu}. Unfortunately, also this dataset was not able to recognize any real logos. As a next trial, the white background of the logos was set to transparent, as suggested in \cite{DBLP:journals/corr/SuZG16}, but in the context of open-set logo detection, it does not appear to be useful either. The reason for the success of FlickrBelgaLogos, seen in section \ref{ss:flickrbelgalogos}, was most likely because the logos and their direct surroundings come from a real scene, and the logos were from the same closed-set of brands.
 \bigbreak
 \begin{figure}
   \centering
 \begin{tabular}{cccc}
   \includegraphics[height=20mm]{images/mt/clearbit1.jpg} &   \includegraphics[height=20mm]{images/mt/clearbit2.jpg}  & \includegraphics[height=20mm]{images/mt/clearbit3.jpg} &   \includegraphics[height=20mm]{images/mt/clearbit4.jpg}
 \end{tabular}
-\caption{Generated synthetic logo images}
+\caption{Generated synthetic logo images based on logo images collected from the Logo API of Clearbit \cite{LogoClearbit}}
 \label{f:synlogo}
 \end{figure}
 \bigbreak
@@ -106,27 +106,27 @@ As section \ref{ss:metu} shows, the most of the text based logos are incapable t
 The majority of logo retrieval research uses the test set of FlickrLogos-32 (FL-32) for evaluation. Therefore, the effect of additional data and different architectures to the performance was examined on this dataset. The trained networks are the following ones:
 \begin{enumerate}
     \item\label{i:first} A Faster R-CNN, with \texttt{VGG\_CNN\_M\_1024} as base network, trained on the training and validation set of FL-32.
-    \item\label{i:second} A jointly trained detector and classifier as introduced in section \ref{ss:solution4}, whereas the impact of further semi-labeled data is examined by training the classifier the same way as in point \ref{i:first}, and the detector on every other public dataset without specific brand label.
+    \item\label{i:second} A jointly trained detector and classifier, as introduced in section \ref{ss:solution4}, whereas the impact of further semi-labeled data is examined by training the classifier the same way, as in point \ref{i:first}, and the detector on every other public dataset without specific brand label.
     \item\label{i:third} A faster R-CNN is trained, based on \texttt{VGG\_CNN\_M\_1024}, on the same dataset as the detector and classifier together in point \ref{i:second}, but this time with complete brand specification.
     \item Point \ref{i:first} is repeated with VGG-16.
     \item Point \ref{i:second} is repeated with VGG-16.
     \item A Faster R-CNN, trained on all public datasets, and annotated sport videos.
 \end{enumerate}
 
-The test set of FL-32 is evaluated with the configurations from points \ref{i:first}, \ref{i:second} and \ref{i:third}, and compared in figure \ref{f:vggcnnmfltest}. The networks are evaluated based on the mAP. It can be seen, that additional logo dataset, even without brand indication, can be utilized, to detect and recognize known logos with better performance by using the Siamese-like architecture, proposed in \ref{ss:solution4}. The network, trained on complete class information, starts with a worse performance, which is due to the higher number of iterations needed to be able to distinguish the learned classes with much higher cardinality. Later on, it has obviously superior performance.
+The test set of FL-32 is evaluated with the configurations from points \ref{i:first}, \ref{i:second} and \ref{i:third}, and compared in figure \ref{f:vggcnnmfltest}. The networks are evaluated based on the mAP. It can be seen, that additional logo dataset, even without brand indication, can be utilized, to detect and recognize known logos with better performance by using the Siamese-like architecture, proposed in \ref{ss:solution4}. The network, trained on complete class information, begins with a worse performance due to the higher number of iterations required to distinguish in the set of learned classes with a significantly higher cardinality. Later on, it has obviously superior performance.
 
 \begin{figure}
   \centering
-  \includegraphics[width=120mm]{images/mt/vggcnnmfltest.png}
+  \includegraphics[width=150mm]{images/mt/vggcnnmfltest.png}
   \caption{FL-32 test evaluation with \texttt{VGG\_CNN\_M\_1024} base network}
   \label{f:vggcnnmfltest}
 \end{figure}
 
-The improvement of additional data on the performance is then tested with VGG16 base network, having more capacity. Due to more data, it achieves naturally state-of the-art performance on FL-32 test set with 94 mAP, whereas the best published result is 84.2 mAP, proposed by \cite{Bao:2016:RCL:3007669.3007728}. Figure \ref{f:vgg16fltest} shows the performance with VGG-16 base network, compared with the best system using \texttt{VGG\_CNN\_M\_1024} as base network.
+The improvement of additional data on the performance is then tested with VGG16 base network, having more capacity. Due to more data, it achieves naturally state-of the-art performance on FL-32 test set with 90.2 mAP, whereas the best published result is 84.2 mAP, proposed by \cite{Bao:2016:RCL:3007669.3007728}. Figure \ref{f:vgg16fltest} shows the performance with VGG-16 base network, compared with the best system using \texttt{VGG\_CNN\_M\_1024}, as base network.
 
 \begin{figure}
   \centering
-  \includegraphics[width=120mm]{images/mt/vgg16fltest.png}
-  \caption{FL-32 test evaluation with VGG-16 compared with the best \texttt{VGG\_CNN\_M\_1024} as base network}
+  \includegraphics[width=150mm]{images/mt/vgg16fltest.png}
+  \caption{FL-32 test evaluation with VGG-16 compared with the best \texttt{VGG\_CNN\_M\_1024}, as base network}
   \label{f:vgg16fltest}
 \end{figure}

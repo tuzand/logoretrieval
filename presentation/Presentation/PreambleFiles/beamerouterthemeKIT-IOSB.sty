@@ -1,0 +1,286 @@
+%%
+%% This is file `beamerouterthemeKIT-IOSB.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% KITbeamer.dtx  (with options: `outer,grid')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2008 by Klaus Braune <klaus.braune@kit.edu>
+%%
+%% Modified by Marco Huber <marco.huber@ira.uka.de>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{beamerouterthemeKIT-IOSB}
+    [2008/11/03 v0.1 outer part of the beamer theme IES]
+\RequirePackage{ifthen}
+\mode<presentation>
+\setbeamertemplate{navigation symbols}{}
+\newif\ifKIT@ins@warn
+\KIT@ins@warntrue
+%hier auch das dumme Offset?
+\setbeamertemplate{frametitle}{}
+%\setbeamertemplate{frametitle}{\vspace*{-1.80\K@mm}}
+\setbeamertemplate{framesubtitle}{}
+%
+% Geometry changes to be done elsewhere, e.g. at package 'beamerthemeKIT'
+%\newlength{\KIT@ptop}
+%%hier auch das dumme Offset?
+%%\setlength{\KIT@ptop}{20.00\K@mm}
+%\setlength{\KIT@ptop}{0.00\K@mm}
+%\geometry{top=0pt,head=20pt,headsep=0pt,bottom=18\K@mm}
+%\geometry{top=0pt,head=0pt,headsep=0pt,bottom=18\K@mm}
+%\geometry{top=\KIT@ptop,head=0pt,headsep=0pt,bottom=18\K@mm}
+
+\AtBeginDocument{
+  \addtobeamertemplate{background}{}{%
+%----------------------------------------------------------
+% Angaben zum Hintergund
+%----------------------------------------------------------
+%
+% Angaben zum Hintergrund für alle Seiten
+%
+    \begin{tikzpicture}
+%hier auch das dumme Offset?
+      \useasboundingbox (-\KIT@MIGhoffset,\KIT@ptop) rectangle (125.600mm,96.000mm-\KIT@ptop);
+      \KIT@MFrame[\KIT@MFbadd]
+%
+%----------------------------------------------------------
+% Lehrstuhl Logo
+%----------------------------------------------------------
+%
+% Rechtes Rand:
+%
+%      \pgftext[at=\pgfpoint{235\K@mm}{14.5\K@mm},left,top]
+%        {\pgfimage[interpolate=true,width=15\K@mm]{\IES@logo}}
+%
+%----------------------------------------------------------
+% KIT Logo
+%----------------------------------------------------------
+%
+% Alt: linkes Rand
+%
+      \pgftext[at=\pgfpoint{\KIT@Framewd}{1\K@mm},left,base]
+        {\pgfimage[interpolate=true,width=28\K@mm]{\KIT@logo}}
+% Neu: rechtes Rand
+%      \pgftext[at=\pgfpoint{228\K@mm}{1\K@mm},left,base]
+%        {\pgfimage[interpolate=true,width=28\K@mm]{\KIT@logo}}
+% Oder:
+%       \pgftext[at=\pgfpoint{228\K@mm}{14.5\K@mm},left,top]
+%        {\pgfimage[interpolate=true,width=28\K@mm]{\KIT@logo}}
+%
+%
+%----------------------------------------------------------
+% TODO: ASM Logo
+%----------------------------------------------------------
+%
+%      \pgftext[at=\pgfpoint{228\K@mm}{14.5\K@mm},left,top]
+%        {\pgfimage[interpolate=true,width=23\K@mm]{\ASM@logo}}
+%
+%----------------------------------------------------------
+% IOSB Logo
+%----------------------------------------------------------
+%
+% Linkes Rand:
+%      \pgftext[at=\pgfpoint{\KIT@Framewd}{1\K@mm},left,base]
+%        {\pgfimage[interpolate=true,width=40\K@mm]{\IOSB@logo}}
+% Rechtes Rand:
+      \pgftext[at=\pgfpoint{202\K@mm}{1\K@mm},left,base]
+        {\pgfimage[interpolate=true,width=48\K@mm]{\IOSB@logo}}
+%
+%
+%----------------------------------------------------------
+  \ifthenelse{\value{page}>1}{% then
+%----------------------------------------------------------
+%	Angaben zum Hintergrund für alle Seiten außer der Titelseite
+%----------------------------------------------------------
+      
+      % Frame für 2. Unterschrift, wenn vorhanden
+      \if\insertframesubtitle
+      \else
+      %\fill[KITblue] (15\K@mm,168\K@mm) -- (170\K@mm,168\K@mm) -- (170\K@mm,169\K@mm) -- (15\K@mm,169\K@mm) -- cycle;
+      \fill[BlockBlue!40] (\KIT@Framewd,168\K@mm-\KIT@Framewd)
+      	arc( 180:  90:\KIT@Framewd)
+      	-- (\KIT@MFurx-2\KIT@Framewd,168\K@mm)
+      	arc( 90:  0:\KIT@Framewd)
+      	-- (\KIT@MFurx-\KIT@Framewd,\KIT@MFury-\KIT@Headwd-\KIT@Framewd) 
+      	arc( 0:  90:\KIT@Framewd)
+      	-- (2\KIT@Framewd,\KIT@MFury-\KIT@Headwd) 
+      	arc( 90:  180:\KIT@Framewd)
+      	-- cycle;
+      \fi
+%----------------------------------------------------------
+% 		Folienüberschrift und evtl. Subunterschrift
+%----------------------------------------------------------
+      \pgftext[at=\pgfpoint{15\K@mm}{180\K@mm},left,base]
+        {\parbox[t]{225\K@mm}{\raggedright%
+           \fontsize{26\K@pt}{36\K@pt}\bfseries
+           \insertframetitle%\rule{0pt}{0pt}
+           \if\insertframesubtitle
+      		 \else
+           \\[5.5\K@pt]
+           \fontsize{18.1\K@pt}{21.6\K@pt}\bfseries
+           \insertframesubtitle
+           \fi
+           }
+         }
+%----------------------------------------------------------
+% 		Foliennummer
+%----------------------------------------------------------
+%
+% Version 1: no Logo at the right side
+%      \pgftext[at=\pgfpoint{240\K@mm}{9\K@mm},left,top]
+%        {\fontsize{18\K@pt}{18\K@pt}\bfseries\vphantom{0}\insertframenumber}
+% Version 2: leaving space for the KIT logo
+%      \pgftext[at=\pgfpoint{212\K@mm}{9\K@mm},left,top]
+%        {\fontsize{18\K@pt}{18\K@pt}\bfseries\vphantom{0}\insertframenumber}
+% Version 3: Leaving space for the IES logo:
+%      \pgftext[at=\pgfpoint{222\K@mm}{9\K@mm},left,top]
+%        {\fontsize{18\K@pt}{18\K@pt}\bfseries\vphantom{0}\insertframenumber}
+% Version 4, leaving space for the (bigger) IOSB logo
+      \pgftext[at=\pgfpoint{190\K@mm}{9\K@mm},left,top]
+        {\fontsize{18\K@pt}{18\K@pt}\bfseries\vphantom{0}\insertframenumber}
+% Version 5, frame number at the right top corner
+%      \pgftext[at=\pgfpoint{240\K@mm}{185\K@mm},left,top]
+%        {\fontsize{18\K@pt}{18\K@pt}\bfseries\vphantom{0}\insertframenumber}%
+%
+%----------------------------------------------------------
+% 		Datum
+%----------------------------------------------------------
+%      \pgftext[at=\pgfpoint{17\K@mm}{12\K@mm},left,top]
+%        {\fontsize{7\K@pt}{8.5\K@pt}\selectfont\vphantom{0}\insertdate}
+%
+%----------------------------------------------------------
+% 		Name des Vortragenden
+%----------------------------------------------------------
+      \pgftext[at=\pgfpoint{40\K@mm}{9\K@mm},left,top]
+        {\fontsize{18\K@pt}{18\K@pt}\bfseries\selectfont\vphantom{0}%
+        	\parbox[t]{160\K@mm}{
+        		\centering{%
+        		\mbox{%
+						~~~~~~~% Ausgleich für etwas längere IOSB-Logo links
+						\ifx\beamer@shortauthor%
+%							Falls keine Kurzversion des Autornamen vorhanden, 
+%							soll in der Fusszeile der Author nicht angezeigt werden soll						
+							\relax\relax%
+						\else%
+							\insertshortauthor%
+						\fi%
+%
+%
+						\ifx\beamer@shorttitle%
+%							Falls keine Kurzversion des Titels angegeben ist, 
+%							soll in der Fusszeile kein Titel angezeigt werden.						
+							\relax\relax%
+						\else%
+%							Falls sowohl der Author als auch der Titel sollen angezeit werden:
+%							Füge einen Bindestrich dazwischen
+							  {\ifx\beamer@shortauthor\relax\relax\else \ --\ \fi%
+									\insertshorttitle}%
+							\fi%
+						}}
+   %\ifx\beamer@shortinstitute\relax\relax\else
+    %         \ -- \ \insertshortinstitute\fi\\
+     %      \insertshorttitle
+          }
+        }
+% 
+%----------------------------------------------------------
+% 		Navigationsleiste
+%----------------------------------------------------------
+%
+      \ifx\KIT@nav@syms\relax \relax
+      \else
+        \pgftext[at=\pgfpoint{251\K@mm}{15\K@mm},bottom,right]
+          {\color{KITblack50}%
+           \setbeamercolor*{navigation symbols}{fg=KITblack50}%
+           \setbeamercolor*{navigation symbols dimmed}{fg=KITblack30}%
+           \expandafter\KIT@ins@nav\KIT@nav@syms
+          }
+      \fi
+%    \end{tikzpicture}%
+%
+    }%
+%----------------------------------------------------------
+%		Ende Angaben für alle Seiten außer Titelseite 
+%----------------------------------------------------------
+    {% else:
+%----------------------------------------------------------
+%		nun Angaben für die Titelseite
+%----------------------------------------------------------
+%
+%    \begin{tikzpicture}
+%      \useasboundingbox (-2.400mm,\KIT@ptop) rectangle (125.600mm,96.000mm-\KIT@ptop);
+%      \KIT@MFrame[\KIT@MFbadd]
+%    \end{tikzpicture}%
+%
+%----------------------------------------------------------
+% 		Logo auf der Titelseite
+%----------------------------------------------------------
+%    	\hspace{-7mm}
+%    	\begin{minipage}{\textwidth}
+%    		\vspace{-2cm}
+%    		\includegraphics[angle=30, width=1.3\linewidth]{\IES@logo} %{title}
+%    	\end{minipage}
+    }%
+%----------------------------------------------------------
+% Ende Angaben zum Hintergrund für Titelseite
+%----------------------------------------------------------
+    \end{tikzpicture}%
+  }%
+%----------------------------------------------------------
+% Ende Angaben zum Hintergrund
+%----------------------------------------------------------
+  \def\KIT@ins@nav#1{%
+    \if#1!\let\@next=\relax\else
+    \if#1s\hbox{\insertslidenavigationsymbol}%
+          \let\@next=\KIT@ins@nav\else
+    \if#1f\hbox{\insertframenavigationsymbol}%
+          \let\@next=\KIT@ins@nav\else
+    \if#1H\hbox{\insertsectionnavigationsymbol}%
+          \let\@next=\KIT@ins@nav\else
+    \if#1h\hbox{\insertsubsectionnavigationsymbol}%
+          \let\@next=\KIT@ins@nav\else
+    \if#1d\hbox{\insertdocnavigationsymbol}%
+          \let\@next=\KIT@ins@nav\else
+    \if#1b\hbox{\insertbackfindforwardnavigationsymbol}%
+          \let\@next=\KIT@ins@nav\else
+          \ifKIT@ins@warn
+            \PackageWarning{beamerKIT}{Invalid navigation symbol key `#1' has been ignored}%
+            \message{To avoid the warning use only the keys^^J
+              \@spaces `s' to insert the slide navigation symbol^^J
+              \@spaces `f' to insert the frame navigation symbol^^J
+              \@spaces `H' to insert the section navigation symbol^^J
+              \@spaces `h' to insert the subsection navigation symbol^^J
+              \@spaces `d' to insert the doc navigation symbol and^^J
+              \@spaces `b' to insert the backward - find - forward symbols.^^J}%
+            \global\KIT@ins@warnfalse
+          \fi
+          \let\@next=\KIT@ins@nav
+    \fi\fi\fi\fi\fi\fi\fi
+    \@next
+  }
+}
+%
+%----------------------------------------------------------
+%Gestaltung des Inhaltes auf der Titelfolie:
+%----------------------------------------------------------
+\input{PreambleFiles/titlepage}
+%
+\mode
+<all>
+\endinput
+%%
+%% End of file `beamerouterthemeKIT.sty'.

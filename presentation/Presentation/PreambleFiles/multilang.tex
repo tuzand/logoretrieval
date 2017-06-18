@@ -1,0 +1,49 @@
+%%
+%% This file enables creation of several versions
+%% of a document with different lanuages
+%% Copyright (C) 2008 by Michael Grinberg <mig@ira.uka.de>
+%% 
+%% Usage:
+%%
+%% 1. include this file with
+%%      input{multilang}
+%%
+%% 2. Define your default language (first or second) with
+%%      \setboolean{UseTranslation}{false} %use first language (=original)
+%%    or
+%%      \setboolean{UseTranslation}{true} %use second language (=translation)
+%%    (!) You may reset this value if needed inside of your document
+%%
+%% 3. Whenever you need to have too versions of a text use
+%%    \transl{Text in first language}{Text in zweiter Sprache}
+%%
+
+
+\usepackage{ifthen}
+
+
+% boolean for defining translation use
+%      true:  use the second language (= Translation)
+%      false: use the first language
+\newboolean{UseTranslation}
+\setboolean{UseTranslation}{false}%Default: false. can be redefined in the text.
+
+
+
+
+%\newcommand{\transl}[2][\relax]{%
+%  \ifx#1\relax
+%    #2
+%  \else
+%    \ifthenelse{\boolean{UseTranslation}}{#2}{#1}
+%  \fi}
+
+
+
+% Command dealing with several versions of text
+\DeclareRobustCommand\transl[2]{\ifthenelse{\boolean{UseTranslation}}{#2}{#1}}
+
+% Für die Verwendung im Zwei-Bildschirme-Modus
+% (s.PDF-Anleitung für Beamer-Class von Till Tantau)
+% http://www.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf
+%\DeclareRobustCommand\transl[2]{\alt<second>{#2}{#1}}

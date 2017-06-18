@@ -27,24 +27,25 @@
 \BOOKMARK [2][-]{subsection.4.3.3}{4.3.3 Fast-Logos}{section.4.3}% 27
 \BOOKMARK [2][-]{subsection.4.3.4}{4.3.4 R-CNN-Logos}{section.4.3}% 28
 \BOOKMARK [2][-]{subsection.4.3.5}{4.3.5 Siam-Logos}{section.4.3}% 29
-\BOOKMARK [0][]{chapter.5}{5 Experiments}{}% 30
-\BOOKMARK [1][]{section.5.1}{5.1 Evaluation Methods}{chapter.5}% 31
-\BOOKMARK [1][]{section.5.2}{5.2 Training with Synthetic Data}{chapter.5}% 32
-\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 FlickrBelgaLogos Dataset}{section.5.2}% 33
-\BOOKMARK [2][-]{subsection.5.2.2}{5.2.2 METU Trademark Dataset}{section.5.2}% 34
-\BOOKMARK [2][-]{subsection.5.2.3}{5.2.3 Synthetic Data with Shape Based Logos}{section.5.2}% 35
-\BOOKMARK [1][]{section.5.3}{5.3 Evaluation on FlickrLogos-32}{chapter.5}% 36
-\BOOKMARK [0][]{chapter.6}{6 Logo Retrieval System Evaluation}{}% 37
-\BOOKMARK [1][]{section.6.1}{6.1 Logo Detection}{chapter.6}% 38
-\BOOKMARK [1][]{section.6.2}{6.2 Logo Retrieval}{chapter.6}% 39
-\BOOKMARK [1][]{section.6.3}{6.3 Effect of Pretrained Classes}{chapter.6}% 40
-\BOOKMARK [1][]{section.6.4}{6.4 Perfomance evaluation}{chapter.6}% 41
-\BOOKMARK [1][]{section.6.5}{6.5 Retrieval times}{chapter.6}% 42
-\BOOKMARK [0][]{chapter.7}{7 Conclusion}{}% 43
-\BOOKMARK [1][]{section.7.1}{7.1 Summary}{chapter.7}% 44
-\BOOKMARK [1][]{section.7.2}{7.2 Future Work}{chapter.7}% 45
-\BOOKMARK [0][]{chapter*.45}{Bibliography}{}% 46
-\BOOKMARK [0][]{chapter*.46}{List of Figures}{}% 47
-\BOOKMARK [0][]{chapter*.47}{List of Tables}{}% 48
-\BOOKMARK [0][]{chapter*.48}{Glossary}{}% 49
-\BOOKMARK [0][]{chapter*.49}{Appendix}{}% 50
+\BOOKMARK [1][]{section.4.4}{4.4 Video Processing}{chapter.4}% 30
+\BOOKMARK [0][]{chapter.5}{5 Experiments}{}% 31
+\BOOKMARK [1][]{section.5.1}{5.1 Evaluation Methods}{chapter.5}% 32
+\BOOKMARK [1][]{section.5.2}{5.2 Training with Synthetic Data}{chapter.5}% 33
+\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 FlickrBelgaLogos Dataset}{section.5.2}% 34
+\BOOKMARK [2][-]{subsection.5.2.2}{5.2.2 METU Trademark Dataset}{section.5.2}% 35
+\BOOKMARK [2][-]{subsection.5.2.3}{5.2.3 Synthetic Data with Shape Based Logos}{section.5.2}% 36
+\BOOKMARK [1][]{section.5.3}{5.3 Evaluation on FlickrLogos-32}{chapter.5}% 37
+\BOOKMARK [0][]{chapter.6}{6 Logo Retrieval System Evaluation}{}% 38
+\BOOKMARK [1][]{section.6.1}{6.1 Logo Detection}{chapter.6}% 39
+\BOOKMARK [1][]{section.6.2}{6.2 Logo Retrieval}{chapter.6}% 40
+\BOOKMARK [1][]{section.6.3}{6.3 Effect of Pretrained Classes}{chapter.6}% 41
+\BOOKMARK [1][]{section.6.4}{6.4 Perfomance evaluation}{chapter.6}% 42
+\BOOKMARK [1][]{section.6.5}{6.5 Retrieval times}{chapter.6}% 43
+\BOOKMARK [0][]{chapter.7}{7 Conclusion}{}% 44
+\BOOKMARK [1][]{section.7.1}{7.1 Summary}{chapter.7}% 45
+\BOOKMARK [1][]{section.7.2}{7.2 Future Work}{chapter.7}% 46
+\BOOKMARK [0][]{chapter*.45}{Bibliography}{}% 47
+\BOOKMARK [0][]{chapter*.46}{List of Figures}{}% 48
+\BOOKMARK [0][]{chapter*.47}{List of Tables}{}% 49
+\BOOKMARK [0][]{chapter*.48}{Glossary}{}% 50
+\BOOKMARK [0][]{chapter*.49}{Appendix}{}% 51

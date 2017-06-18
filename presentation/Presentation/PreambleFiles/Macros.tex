@@ -1,0 +1,49 @@
+% -- new commands by MiG---
+
+%Achtung! Diese Datei verwendet Hilfsmakros aus der Datei AuxiliaryMacros.tex!
+
+
+%1.) Befehle zum Rumspielen mit Layout:
+
+%Optionale Herleitungen, die bei Bedarf ausgelassen werden können:
+%\newcommand{\reduce}[1]{\relax} % --> Optionale Herleitungen reduzieren
+\newcommand{\reduce}[1]{#1} % --> Optionale Herleitungen nicht reduzieren
+
+\newcommand{\code}[1]{\textsf{#1}}
+
+%Befehl zum Hervorheben wichtiger Begriffe
+%\newcommand{\mydef}[1]{\emph{#1}} %kursiv
+%\newcommand{\mydef}[1]{\textbf{#1}} % fett
+\newcommand{\mydef}[1]{\emph{\textbf{#1}}} %fett und kursiv
+
+\newcommand{\rem}[1]{}  %Zum einfügen von Kommentaren mitten in einer Zeile
+%\newenvironment{rem}[1]{}{} %Blockkommentare funktionieren nicht, falls } mittendrin. 
+% Verwende Umgebung {comment} aus dem entsprechendem Packet
+
+%TODO-Befehle für den Textmodus
+\newcommand{\todo}[1]{\myTodo{#1}} %\addToTodoList{#1}}
+\newcommand{\ToDo}[1]{\todo{#1}}
+\newcommand{\Todo}[1]{\todo{#1}}
+\newcommand{\TODO}[1]{\todo{#1}}
+
+%TODO-Befehle für den Mathe-Modus
+\newcommand{\mathtodo}[1]{\myMathTodo{#1}} %\addToTodoList{$#1$}}
+\newcommand{\mathToDo}[1]{\mathtodo{#1}}
+\newcommand{\mathTodo}[1]{\mathtodo{#1}}
+\newcommand{\mathTODO}[1]{\mathtodo{#1}}
+
+%Erzeugen eines TODO-Bildes:
+%[#1]: optional: Pfad zu einem bereits vorhandenen Bild, das überarbeitet werden soll (in eckigen Klammern)
+%{#2}: TODO-Beschreibung
+\newcommand{\imgtodo}[2][]{\myImgTodo[#1]{#2}}
+\newcommand{\imgToDo}[2][]{\myImgTodo[#1]{#2}}
+\newcommand{\imgTodo}[2][]{\myImgTodo[#1]{#2}}
+\newcommand{\imgTODO}[2][]{\myImgTodo[#1]{#2}}
+
+
+%Add a ToDo without showing the TODO text in the document
+\newcommand{\remtodo}[1]{\textcolor{red}{\textbf{ToDo!}}} %\addToTodoList{ToDo!}}
+
+
+\newcommand<>{\mathred}[1]{{\color#2{red}#1}}
+\newcommand<>{\mathblue}[1]{{\color#2{blue}#1}}

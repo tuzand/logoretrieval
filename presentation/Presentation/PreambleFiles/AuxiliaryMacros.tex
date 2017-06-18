@@ -1,0 +1,50 @@
+%Hilfsmakros (Werden von Hauptmakros in Macros.tex verwendet):
+
+
+%TODO-Gestaltungsmakro für Textmodus mit einer Unterscheidung, ob etwas übergeben worden ist oder nicht
+\newcommand{\myTodo}[1]{%
+		\ifx\relax#1\relax% Falls Argument #1 leer:
+			\textcolor{red}{\textbf{ToDo!}}%
+		\else% Falls #1 mit Inhalt:
+			\textcolor{red}{\textbf{ToDo:} #1}%
+		\fi%
+}
+
+%TODO-Gestaltungsmakro für Mathe-Modus mit einer Unterscheidung, ob etwas übergeben worden ist oder nicht
+\newcommand{\myMathTodo}[1]{%
+		\ifx\relax#1\relax% Falls Argument #1 leer:
+			\textcolor{red}{\mathbf{\textnormal{ ToDo! }}}%
+		\else% Falls #1 mit Inhalt:
+			\textcolor{red}{#1}%
+			%\textcolor{red}{\mathbf{\textnormal{ ToDo: }}{#1}}%
+		\fi%
+}
+
+
+
+%[#1]: optional: Pfad zu einem bereits vorhandenem Bild, das überarbeitet werden soll (in eckigen Klammern)
+%{#2}: TODO-Beschreibung
+\newcommand{\myImgTodo}[2][]
+{
+ % new figure floating environment
+ \begin{figure}[!htb]
+  \centering
+  % TODO-image
+		\ifx\relax#1\relax%
+			\begin{tikzpicture}
+				\draw[
+					use as bounding box,
+					black,
+					thick,
+					double, 
+					double distance = 4pt, 
+					rounded corners = 6pt] 
+					(-4,-3)rectangle(4,3);
+					\node[rotate=45,scale = 5,opacity = 0.5] at (0,0) {TODO!};
+			\end{tikzpicture}
+		\else%
+			\includegraphics[width = 0.8\textwidth]{#1}\relax
+		\fi
+	\caption{\myTodo{#2}}
+ \end{figure}
+}

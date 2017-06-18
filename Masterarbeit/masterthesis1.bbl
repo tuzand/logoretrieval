@@ -26,7 +26,7 @@
   \urlprefix\url{http://doi.acm.org/10.1145/3007669.3007728}
 
 \bibitem[Ben09]{Bengio_curriculumlearning}
-\textsc{Bengio}, Yoshua; \textsc{Louradour}, J?r?me; \textsc{Collobert}, Ronan
+\textsc{Bengio}, Yoshua; \textsc{Louradour}, Jérôme; \textsc{Collobert}, Ronan
   \bbland{} \textsc{Weston}, Jason: Curriculum Learning (2009)
 
 \bibitem[Ben15]{DBLP:journals/corr/BendaleB15}
@@ -152,12 +152,19 @@
   \bbland{} \textsc{Girshick}, Ross: {Mask R-CNN}. \textit{arXiv preprint
   arXiv:1703.06870} (2017)
 
-\bibitem[Her16]{ies_2016_herrmann_low_quality}
+\bibitem[Her16a]{ies_2016_herrmann_low_quality}
 \textsc{Herrmann}, Christian; \textsc{Willersinn}, Dieter \bbland{}
-  \textsc{Beyerer}, J?rgen: Low-Quality Video Face Recognition with Deep
+  \textsc{Beyerer}, Jürgen: Low-Quality Video Face Recognition with Deep
   Networks and Polygonal Chain Distance, \bblin{}: \textit{Proceedings of the
   2016 International Conference on Digital Image Computing: Techniques and
   Applications (DICTA)}, IEEE, Gold Coast, Australia, \bblpp{} 244--250
+
+\bibitem[Her16b]{ies_2016_herrmann_video_face_recognition}
+\textsc{Herrmann}, Christian; \textsc{Willersinn}, Dieter \bbland{}
+  \textsc{Beyerer}, Jürgen: Low-Resolution Convolutional Neural Networks for
+  Video Face Recognition, \bblin{}: \textit{Proceedings of the 13th IEEE
+  International Conference on Advanced Video and Signal Based Surveillance,
+  IEEE, 2016.}, IEEE, Colorado Springs, USA
 
 \bibitem[Hin12]{journals/corr/abs-1207-0580}
 \textsc{Hinton}, Geoffrey~E.; \textsc{Srivastava}, Nitish; \textsc{Krizhevsky},
@@ -254,8 +261,9 @@ ImageNet Large Scale Vision Recognition Challenge - Ordered by classification
   Shot MultiBox Detector. \textit{CoRR} (2015), \bblvol{} abs/1512.02325,
   \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1512.html#LiuAESR15}
 
-\bibitem[Log]{LogoClearbit}
-Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
+\bibitem[Log17]{LogoClearbit}
+Clearbit - Free logo API, \url{https://clearbit.com/logo} (2017), accessed:
+  2017-02-17
 
 \bibitem[Lon14]{DBLP:journals/corr/LongSD14}
 \textsc{Long}, Jonathan; \textsc{Shelhamer}, Evan \bbland{} \textsc{Darrell},
@@ -368,9 +376,10 @@ Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
 
 \bibitem[Ser13]{journals/corr/SermanetEZMFL13}
 \textsc{Sermanet}, Pierre; \textsc{Eigen}, David; \textsc{Zhang}, Xiang;
-  \textsc{Mathieu}, Micha?l; \textsc{Fergus}, Rob \bbland{} \textsc{LeCun},
-  Yann: OverFeat: Integrated Recognition, Localization and Detection using
-  Convolutional Networks. \textit{CoRR} (2013), \bblvol{} abs/1312.6229,
+  \textsc{Mathieu}, Micha{\"{e}}l; \textsc{Fergus}, Rob \bbland{}
+  \textsc{LeCun}, Yann: OverFeat: Integrated Recognition, Localization and
+  Detection using Convolutional Networks. \textit{CoRR} (2013), \bblvol{}
+  abs/1312.6229,
   \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1312.html#SermanetEZMFL13}
 
 \bibitem[Sim13]{Simonyan13}

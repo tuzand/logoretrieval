@@ -9,48 +9,49 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty pages in Chatfield14
 Warning--empty pages in imagenet_cvpr09
 Warning--empty pages in Hadsell06dimensionalityreduction
+Warning--empty pages in ies_2016_herrmann_video_face_recognition
 Warning--empty pages in 619
 Warning--empty pages in Simonyan13
 Warning--empty pages in edge-boxes-locating-object-proposals-from-edges
-You've used 72 entries,
+You've used 73 entries,
             3052 wiz_defined-function locations,
-            1578 strings with 29969 characters,
-and the built_in function-call counts, 43588 in all, are:
-= -- 3098
-> -- 1507
-< -- 137
-+ -- 551
-- -- 542
-* -- 4184
-:= -- 5143
+            1582 strings with 30221 characters,
+and the built_in function-call counts, 44090 in all, are:
+= -- 3128
+> -- 1524
+< -- 138
++ -- 558
+- -- 548
+* -- 4235
+:= -- 5204
 add.period$ -- 41
-call.type$ -- 72
-change.case$ -- 482
+call.type$ -- 73
+change.case$ -- 488
 chr.to.int$ -- 70
-cite$ -- 82
-duplicate$ -- 3948
-empty$ -- 3735
-format.name$ -- 1013
-if$ -- 8786
-int.to.chr$ -- 3
+cite$ -- 84
+duplicate$ -- 3997
+empty$ -- 3785
+format.name$ -- 1025
+if$ -- 8885
+int.to.chr$ -- 4
 int.to.str$ -- 0
-missing$ -- 697
-newline$ -- 224
-num.names$ -- 146
-pop$ -- 1314
+missing$ -- 706
+newline$ -- 227
+num.names$ -- 148
+pop$ -- 1331
 preamble$ -- 1
-purify$ -- 624
+purify$ -- 632
 quote$ -- 0
-skip$ -- 1483
+skip$ -- 1497
 stack$ -- 0
-substring$ -- 1487
-swap$ -- 2430
-text.length$ -- 137
-text.prefix$ -- 70
+substring$ -- 1494
+swap$ -- 2456
+text.length$ -- 138
+text.prefix$ -- 71
 top$ -- 0
-type$ -- 576
-warning$ -- 8
-while$ -- 229
-width$ -- 77
-write$ -- 691
-(There were 8 warnings)
+type$ -- 584
+warning$ -- 9
+while$ -- 231
+width$ -- 78
+write$ -- 700
+(There were 9 warnings)

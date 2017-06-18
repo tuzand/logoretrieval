@@ -1,0 +1,214 @@
+%%
+%% This is file `example.tex',
+%% generated with the docstrip utility.
+%%
+%% This is a file for illustrating the possibilities of LaTeX Beamer and the 
+%% new IES beamer layout
+%% 
+%% Copyright (C) 2008 by Marco Huber <marco.huber@ira.uka.de>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%%
+%
+%
+%\documentclass[english, 10pt,
+%	final, %
+%	% draft, % Grafische Elemente durch graue Boxen ersetzen (beschleunigt Kompilieren)
+%	% 8pt, % Zu klein, erfordert Paket extsize
+%	% 9pt, % Zu klein, erfordert Paket extsize
+%	% 10pt, % für Folien mit sehr viel Text
+%	% 11pt, % Standardschriftgröße
+%	% 12pt, % etwas größer und daher besser zu lesen
+%	% 14pt, % deutlich größer, erfordert Paket extsize
+%	% 17pt, % PowerPoint Standardschriftgröße, erfordert Paket extsize
+%	% 20pt, % sehr groß, erfordert Paket extsize
+%	% trans,% Zum Erstellen von Overhead Folien
+%	% handout, % Erstellen eines Handouts (!)
+%	% article,% Erstellen eines Artikels
+% 	% compress, % Die Navigation in der Kopfzeile wird komprimiert dargestellt
+%	%t, % Place text of slides at the (vertical) top of the slides
+%	% c, % Place text of slides at the (vertical) center of the slides
+%	% color={}, % list of options for color
+%	%xcolor={table,dvipsnames}, % Optionen für xcolor übergeben
+%	% hyperref={bookmarksopenlevel=4}, % list of options for hyperref
+% % %%%for bookmarks, the package bookmark can be used now!
+%	% envcountsect, % Causes theorems, definitions, and so on to be numbered locally to each section.
+%	% notheorems, % Switches off the definition of default blocks like theorem
+%	% noamsthm, % Does not load amsthm and also not amsmath
+%	% ucs, % lÃ¤dt ucs Paket
+%	% utf8, % lÃ¤dt utf8x Paket von ucs (utf8 enconding)
+%	% dvips, % erzwingt das Laden des dvips Treibers - idR nicht nÃ¶tig!
+%	% usepdftitle=false, % Suppresses the automatic generation of title and author entries in the pdf document information.
+%	% ignorenonframetext, % suppresses content created for the article mode ??
+%	%show notes, % enables Notes
+%	% leqno,
+%	% fleqn,
+%]{beamer}
+\documentclass[english, 10pt]{beamer}
+%\documentclass[english, 10pt, draft]{beamer}
+%\documentclass[english, 10pt, show notes]{beamer}
+%\documentclass[english, 10pt, trans]{beamer}
+%\documentclass[english, 10pt, handout]{beamer}
+
+% Aktiviere die Sprachunterstützung und evtl. auch die Sprache:
+% Die Sprache kann auch später mit Hilfe der Variable
+% UseTranslation neu gesetzt werden
+\input{PreambleFiles/multilang}
+
+% Setze Sprache:
+% (Diese Variable kann je nach bedarf später neu gesetzt werden):
+\setboolean{UseTranslation}{true}%Deutsch
+%\setboolean{UseTranslation}{false}%Englisch
+
+
+%for using two screens:
+%\usepackage{pgfpages}
+%
+%\setbeameroption{second mode text on second screen=<location>}
+%The <location> of the second screen can be left, right, bottom, or top.
+%\setbeameroption{second mode text on second screen=right}
+
+\newcommand{\hmmax}{0}
+\newcommand{\bmmax}{1}
+
+% Set depth of the Table of Content (=>depth of the PDFbookmarks)
+% for better navigation
+\setcounter{tocdepth}{4} 
+% So tut es irgendwie nicht:
+
+% Hier werden die verwendeten Pakete definiert
+\input{PreambleFiles/UsePackages}
+
+% Pfade für Videos und Bilder setzen
+% Dies ist dafür gemacht
+\input{PreambleFiles/paths}
+
+
+% Das zu verwendete Design-Schema:
+%\usepackage{PreambleFiles/KITdefs}
+\usepackage{PreambleFiles/beamerthemeKIT}
+%alter Aufruf:
+%\usetheme{KIT}
+
+% Please choose the correct outer theme for your slides:
+% Die "outer theme", wo u.a. Logo-Platzierung und
+% Gestaltung der Titelseite passiert, kann in der
+% Datei beamerouterthemeXXXX.sty gesetzt werden
+%
+%\usepackage{PreambleFiles/beamerouterthemeIOSB}
+%\usepackage{PreambleFiles/beamerouterthemeKIT-IES}
+%\usepackage{PreambleFiles/beamerouterthemeIES-KIT}
+%\usepackage{PreambleFiles/beamerouterthemeKIT-IOSB}
+%\usepackage{PreambleFiles/beamerouterthemeIOSB-KIT}
+\usepackage{PreambleFiles/beamerouterthemeIOSB-IES}
+%\usepackage{PreambleFiles/beamerouterthemeIES-IOSB}
+%
+
+
+%\setbeamercovered{transparent}
+%\setbeamercovered{invisible}
+\setbeamercovered{
+	still covered={\opaqueness<1->{0}},
+%{	\opaqueness<1>{60}
+%	\opaqueness<2->{30}},
+	again covered={\opaqueness<1->{15}}
+}
+
+%possible templates are triangle, circle, square, ball.
+%\setbeamertemplate{enumerate items}[ball]
+\setbeamertemplate{itemize item}[ball]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}[triangle]%[square]%
+\setbeamertemplate{subsection in toc}[ball]%[ball unnumbered]%[circle]%[triangle]%[square]%
+%\setbeamertemplate{subsection in toc}[subsections numbered]
+
+
+
+
+%\usenavigationsymbols
+%\usenavigationsymbols[sfHhdb]
+%\usenavigationsymbols[sfhHb]
+
+\input{PreambleFiles/AuthorAndTitle}
+
+
+\input{PreambleFiles/AuxiliaryMacros}
+\input{PreambleFiles/Macros}
+
+
+%-------------------------------------------------------
+\begin{document}
+
+
+%\setlength\textheight{71mm}
+%\setlength\textheight{60mm}%{81mm}%{7cm}				% required for correct vertical alignment, if [t] is not used as documentclass parameter
+%\setlength\textwidth{125mm}
+%\setlength\textwidth{112mm}
+
+%reset the inner spacing of the fbox
+\setlength{\fboxsep}{0pt}
+
+
+
+
+%-------------------------------------------------------
+% Title Frame
+%-------------------------------------------------------
+%Only for the pdf bookmarks (for better navigation)
+\transl{%
+\part{Main Content}}{
+\part{Hauptinhalt}}
+%
+\label{Titelfolie}
+\transl{
+\bookmark[level=2, dest=Titelfolie]{Title slide}}{
+\bookmark[level=2, dest=Titelfolie]{Titelfolie}}
+%------------------------------
+\begin{frame}[c]
+  \maketitle
+\end{frame}
+%------------------------------
+
+
+%-------------------------------------------------------
+
+\label{Motivation}
+
+%Lesezeichen, die nicht in dem Inhaltsverzeichnis vorkommen sollen:
+\bookmark[level=2, dest=Motivation]{Motivation}
+
+%\input{Frames/Motivationsbild}
+
+%-------------------------------------------------------
+% Automatic Outline
+%-------------------------------------------------------
+%Only for the pdf bookmarks (for better navigation)
+%
+\transl{%
+\bookmark[level=2, dest=Outline]{Outline}}{%
+\bookmark[level=2, dest=Outline]{Gliederung}%
+}
+\label{sec:Outline}
+%------------------------------
+\begin{frame}[c]
+	\frametitle{\transl{Outline}{Gliederung}}
+	\tableofcontents
+	[hideallsubsections]
+%	[pausesections]
+\hypertarget<.>{Outline}{}
+\end{frame}
+%------------------------------
+
+\input{Frames/01-RequirementsDefinition}
+\input{Frames/06-End}
+\input{Frames/appendix}
+
+\end{document}

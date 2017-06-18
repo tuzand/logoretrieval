@@ -1,0 +1,14 @@
+\newcommand\pasteifnotempty[1]{%
+  \edef\w@test{#1}      % Makro, dessen Inhalt gleich #1 ist
+  \ifx\w@test\@empty	% Anweisungen, falls #1 unbesetzt ist nichts machen
+  \else  	 	% Anweisungen, falls #1 nicht unbesetzt ist
+     \cleardoublepage
+     \vspace*{2em}
+     \pagestyle{empty}
+     \begin{center}
+     \widmung
+     \end{center}
+     \clearpage
+   \fi}
+
+\ifundefined{\subtitle}{ Yap! }

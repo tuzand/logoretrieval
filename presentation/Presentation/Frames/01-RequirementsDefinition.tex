@@ -1,0 +1,375 @@
+% intro
+\section{Motivation und Aufgabenstellung}
+\begin{frame}
+	\frametitle{Motivation}
+	%\framesubtitle{Motivation}
+
+	\heading{Statische Werbungen sind einer der wichtigsten Werbemethoden im Sport Bereich}
+	\begin{itemize}
+		\item Sponsoring von Teams
+		\item Kauf von Werbeflächen
+	\end{itemize}
+
+	\bigskip
+
+	\heading{Die Werbeflächen bedeuten große Ausgaben für die Firmen.}
+    	  
+	\bigskip
+  
+	\heading{Messung der Effektivität ist gewünscht:}
+	\begin{itemize}
+		\item Die Gesamtfläche eines Logos von einer Firma während einer Sendung,
+		\item Zeit, das Logo zu sehen ist.
+	\end{itemize}
+	
+
+	
+	\heading{Verwendung der gemessenen Daten um die Kosteneffizienz zu beurteilen.}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Aufgabenstellung}
+	\bigskip
+	\bigskip
+     	\heading{Anfragebilder in den Einzelbildern von Sport Videos zu suchen}
+	\begin{figure}
+        \centering
+        \includegraphics[width=90mm]{querysearch} 
+	 \label{f:querysearch}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Herausforderungen}
+	\bigskip
+     	\heading{Logos haben oft schlechtes Aussehen}
+	\begin{itemize}
+		\item Teilsichtbarkeit
+		\item Unschärfe
+		\item Perspektivische Transformation, Rotation
+		\item Unschärfe
+	\end{itemize}
+	\heading{Aussehenvielfalt innerhalb Firmen}
+	\begin{figure}
+        \centering
+        \includegraphics[width=90mm]{challenges} 
+	 \label{f:querysearch}
+	\end{figure}
+	\heading{Die Herausforderungen umwandeln das Problem in einer Open-Set Wiedererkennungsproblem}
+\end{frame}
+
+\section{Logo Retrieval}
+
+\begin{frame}
+	\frametitle{Logo Retrieval}
+	\framesubtitle{Lösungsalternativen}
+     	\heading{Sliding window method}
+	\begin{itemize}
+		\item Langsam
+		\item Nicht skalierungsinvariant
+	\end{itemize}
+	\bigskip	
+     	\heading{SIFT oder HOG Feature Extraktion}
+	\begin{itemize}
+		\item Keine Detektion von unbekannten Logos nur Wiedererkennung
+	\end{itemize}
+	\bigskip
+	\heading{CNN-basierter globaler Deskriptor}
+	\begin{itemize}
+		\item Von dem ganzen Bild z.B. Szene Wiedererkennung
+		\item Ungeeignet für kleinere Objekte
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval}
+	\framesubtitle{Gewählte Lösung}
+     	\heading{Entwicklung der Proposal-basierten CNNs}
+	\begin{itemize}
+		\item Regionen mit CNN
+		\begin{itemize}
+			\item Vorschläge für Objektpositionen von externen Systemen
+			\item Berechnung der Deskriptoren von Regionen mit CNN individuell voneinander
+		\end{itemize}
+		\item Fast R-CNN
+		\begin{itemize}
+			\item Berechnung der Deskriptoren von Regionen gemeinsam mit Fully Convolutional Netzwerk
+			\item Ausschneiden von Regionen aus dem Feature-Map mit RoIPooling Schicht
+		\end{itemize}
+		\item Faster R-CNN
+		\begin{itemize}
+			\item Vorschläge für Objektpositionen von netzinternen Mini-Netz (RPN)
+			\item Das ganze System kann End-to-End trainiert werden
+		\end{itemize}
+	\end{itemize}
+     	\heading{State-of-the-Art Lösungen verwenden Proposal-basierten CNN Systeme für Closed-Set Logo Retrieval}	
+\end{frame}
+
+\section{Das vorgestellte Logo Retrieval System}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+     	\heading{Die Lösung ist in zwei Teilen aufgeteilt}
+	\begin{itemize}
+		\item Logo Detektion
+		\begin{itemize}
+			\item Der Detektor is trainiert alle Arten von Logo-Bilder zu erkennen
+			\item Funktioniert ohne Anfragebilder
+		\end{itemize}
+		\item Logo Vergleich
+		\begin{itemize}
+			\item Die Feature Vektoren von Reigonen werden extrahiert
+			\item Vergleich miteinander
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}
+        \centering
+        \includegraphics[width=90mm]{outline} 
+	 \label{f:outline}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+	\framesubtitle{Logo Detektion}
+	\begin{columns}
+    		\column{0.6\textwidth}
+		\heading{RPN Logo Detektion}
+		\begin{itemize}
+			\item Wird gleichzeitig mit dem Faster R-CNN Netz trainiert
+			\item Aus einem schon trainierten Netz extrahierbar
+			\item Sucht auf dem Feature Map wie die Sliding-Window-Methode
+			\item Vordefiniere Anzahl von Anchor-Boxen
+			\item Die sind mit Regression finegetuned
+		\end{itemize}
+	    	\column{0.4\textwidth}
+		\begin{figure}
+		        \centering
+		        \includegraphics[height=60mm]{rpndetektion} 
+		        \label{f:rpndetektion}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+	\framesubtitle{Logo Detektion}
+	\begin{columns}
+    		\column{0.6\textwidth}
+		\heading{Klassenagnostischer Logo Detektor}
+		\begin{itemize}
+			\item Faster R-CNN, trainiert für zwei Klassen
+			\item RPN Teil kann als schwacher Klassifikator betrachtet werden
+			\item Zusammen ergeben eine Kaskade von Detektoren
+		\end{itemize}
+    		\column{0.4\textwidth}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=70mm]{classagnosticdetektion} 
+		 \label{f:classagnosticdetektion}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+	\framesubtitle{Logo Vergleich}
+	\begin{columns}
+    		\column{0.47\textwidth}
+		\heading{Faster-Logos - Baseline}
+		\begin{itemize}
+			\item Faster R-CNN Feature Extraktion sowohl von der Anfrage- als auch von der Suchbildern
+			\item Klassen-wahrscheinlichkeiten werden nur für Features benutzt
+			\item Die Wahrscheinlichkeiten sind nicht geeignet um Logo auszusuchen
+			\item Die Score Ausgabe von RPN wird dafür benutzt
+			\item Für Anfragebild der Bounding-Box mit der höchsten Wahrscheinlichkeit
+		\end{itemize}
+    		\column{0.53\textwidth}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=70mm]{sol1_arch} 
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+	\framesubtitle{Logo Vergleich}
+	\begin{columns}
+    		\column{0.47\textwidth}
+		\heading{Fast\&Faster-Logos}
+		\begin{itemize}
+			\item Oft falsche Bounding-Box-Vorhersage von Anfragebild
+			\item Fast R-CNN Inferenz auf das gesamte Anfragebild
+		\end{itemize}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=20mm]{missdet} 
+		\end{figure}
+    		\column{0.53\textwidth}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=70mm]{sol2_arch} 
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+	\framesubtitle{Logo Vergleich}
+	\begin{columns}
+    		\column{0.47\textwidth}
+		\heading{Fast-Logos}
+		\begin{itemize}
+			\item Vorherige Lösungen benutzten nur RPN Logo Detektor
+			\item Verwenden des besten vorgeschlagenen Logo-Detektors für externe Generierung von Objektpositionsvorschlägen
+		\end{itemize}
+    		\column{0.53\textwidth}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=70mm]{sol3_arch} 
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+	\framesubtitle{Logo Vergleich}
+	\begin{columns}
+    		\column{0.47\textwidth}
+		\heading{Siam-Logos}
+		\begin{itemize}
+			\item Siamesisches Netz, trainiert gemeinsam sowohl für Detektion als auch für Klassifikation
+			\item Gewichte von FCN und RPN sind geteilt zwischen die Äste des Netzes
+			\item Die Ausgabe des Detektors ist für Objektness Score benutzt
+			\item Das Netz kann weitertrainiert werden, wenn es noch zusätzliche Logo-Daten ohne spezifische Brand Label gibt
+		\end{itemize}
+    		\column{0.53\textwidth}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=40mm]{sol5_arch_test} 
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logo Retrieval System}
+	\framesubtitle{Logo Vergleich}
+	\begin{columns}
+    		\column{0.47\textwidth}
+		\heading{R-CNN-Logos}
+		\begin{itemize}
+			\item Feature Extraktion mit Klassifikator Netzwerk
+			\item Alle Arten von CNNs einsetzbar
+		\end{itemize}
+    		\column{0.53\textwidth}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=40mm]{sol4_arch} 
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\section{Logo Datensätze}
+
+\begin{frame}
+	\frametitle{Logo Datensätze}
+	\begin{columns}
+    		\column{0.40\textwidth}
+		\heading{Öffentliche Datensätze}
+		\begin{itemize}
+			\item BelgaLogos-32, FlickrBelgaLogos, Flickr Logos 27, FlickrLogos-32, Logos-32Plus, TopLogo-10
+		\end{itemize}
+		\heading{Selbst-annotierte Datensätze - SportLogos}
+		\begin{itemize}
+			\item Football-1, Football-2, Ski, IceHockey
+		\end{itemize}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=30mm]{numberofgroundtruths} 
+		\end{figure}
+    		\column{0.60\textwidth}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=32mm]{branddistribution} 
+		\end{figure}
+		\begin{figure}
+	        \centering
+        		\includegraphics[height=32mm]{brandintersections} 
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\section{Evaluation}
+
+\begin{frame}
+	\frametitle{Evaluation}
+	\heading{Verwendeter Test Set}
+	\begin{itemize}
+		\item SportLogos: Football-2
+	\end{itemize}
+	\bigskip
+	\heading{Anfragebilder}
+	\begin{itemize}
+		\item Von dem Video ausgeschnitten
+	\end{itemize}
+	\heading{Detektion und Identifikation Rate Kurve}
+	\begin{itemize}
+		\item Gibt einen holistischen Überblick über Leistung des gesamten Retrieval-Systems
+		\item Dargestellt über die Durchschnittsanzahl von falschen Klassifikationen
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluation}
+	\heading{Lösungen vs. Baseline}
+	\begin{figure}
+	        \centering
+       		\includegraphics[height=55mm]{eval1} 
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluation}
+	\heading{R-CNN-Logos vs. Baseline}
+	\begin{figure}
+	        \centering
+       		\includegraphics[height=55mm]{eval2} 
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluation}
+	\heading{Verarbeitungszeit pro Bilder und beste DIR Werte}
+	\begin{figure}
+	        \centering
+       		\includegraphics[height=55mm]{eval2} 
+	\end{figure}
+\end{frame}
+
+\section{Ausblick}
+
+\begin{frame}
+	\frametitle{Ausblick}
+	\heading{Textbasierte Logos}
+	\begin{itemize}
+		\item Überwiegende Mehrheit der Logos ist textbasiert
+		\item Erweiterung des Systems mit Texterkennung Subsystem
+	\end{itemize}
+	\heading{Logo Tracking}
+	\begin{itemize}
+		\item Ergänzung bei fehlender Detektion 
+		\item Reduzierung einmaliger Fehlklassifikation der getrackten Objekte
+	\end{itemize}
+	\heading{Mehr Daten}
+	\begin{itemize}
+		\item Die Größe der fusionierten Logo Datensätzen zu klein für Deep Learning
+	\end{itemize}
+	\heading{MAC - Maximum Activation of Convolutions}
+	\begin{itemize}
+		\item Gängige Feature Extraction Methode für Objekt- und Szene Retrieval
+		\item Gesucht wird der maximum Wert von allen Channels, der Vektor wird als Feature benutzt
+	\end{itemize}
+\end{frame}

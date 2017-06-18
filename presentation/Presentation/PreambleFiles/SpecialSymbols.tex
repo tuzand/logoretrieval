@@ -1,0 +1,244 @@
+%  Sondersymbole:
+%
+%-------------------------------------------------------------------------------
+%
+%Objektbezogene Darstelung
+%
+% Beobachtbar:
+\newcommand{\obs}{\supset\relax\relax}%
+%
+% Nicht beobachtbar:
+\newcommand{\nobs}{\not\supset\relax\relax}%
+%
+%Phantom-Objekt:
+%\newcommand{\phantomobj}{\mathrm{P}}%
+\newcommand{\phantomobj}{\mathsf{P}}%
+%
+% Clutter:
+\newcommand{\clutter}{\copyright}%
+%\newcommand\clutter{\textcircled{c}}%
+%
+% Clutter source:
+\newcommand{\cluttersource}{\copyright}%{\mathbf{x}_{\copyright}}%
+\newcommand{\xc}{\mathbf{x}_{\copyright}}%
+%
+% New object
+\newcommand{\birthsource}{\mathbf{x}_{B}}%
+\newcommand{\xB}{\mathbf{x}_{B}}%
+%
+%
+%
+%
+%-------------------------------------------------------------------------------
+%
+%Messung-bezogene Darstellung:
+%
+% Keine Messung
+\newcommand{\nodet}{\varnothing}%\emptyset
+\newcommand{\zMissing}{\mathbf{z}_{\varnothing}}%\emptyset
+%
+% Messung nicht sichtbar
+\newcommand{\nobsmes}{\nobs}%
+\newcommand{\zNobs}{\mathbf{z}_{\nobs}}%
+%
+% Messung nicht existent
+\newcommand{\nexistsmes}{\nexists}%
+\newcommand{\zNexists}{\mathbf{z}_{\nexists}}%
+%
+% Zusammenfassung von Verdeckungen und Sensorfehler in z_0:
+% (Zusammenfassung der Nichtbeobachtbarkeit und Nicht-Sichtbarkeit)
+% (Zusammenfassung der Nichtbeobachtbarkeit, Nicht-Sichtbarkeit und Nich-Existenz)
+\newcommand{\nomes}{\mathbf{z}_{0}}
+%
+%
+%-------------------------------------------------------------------------------
+%
+%Erwartungswert:
+%
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Erw}[1]{ \E[#1] }
+\newcommand{\ERW}[1]{ \E\bigl[#1\bigr] } %Mit großen Klammern
+%
+%
+%-------------------------------------------------------------------------------
+%
+%Gauss-Verteilung an einer Stelle:
+%
+%\newcommand{\gauss}[3]{N({#1}; {#2}, {#3})}
+\newcommand{\gauss}[3]{\N({#1}; {#2}, {#3})}
+%Alte Schreibweise
+%\newcommand{\gauss}[3]{\varphi_{{#2}, {#3}}({#1})}
+%
+%
+%-------------------------------------------------------------------------------
+%
+\newcommand{\gate}{\Gamma}
+%
+%-------------------------------------------------------------------------------
+%
+%Zustand und Messung: Fettes x und z:
+%
+%(Realisationen):
+\newcommand{\state}{\mathbf{x}}
+\newcommand{\meas}{\mathbf{z}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\xk}{\mathbf{x}_k}
+\newcommand{\zk}{\mathbf{z}_k}
+\newcommand{\xii}{\mathbf{x}_i}
+\newcommand{\zj}{\mathbf{z}_j}
+\newcommand{\uk}{\mathbf{u}_k}
+\newcommand{\xki}{\mathbf{x}_{k,i}}
+\newcommand{\zkj}{\mathbf{z}_{k,j}}
+%
+%(Zufallsvariablen):
+\newcommand{\Xk}{\mathbf{X}_k}
+\newcommand{\Zk}{\mathbf{Z}_k}
+\newcommand{\Uk}{\mathbf{U}_k}
+\newcommand{\Wk}{\mathbf{W}_k}
+\newcommand{\Vk}{\mathbf{V}_k}
+\newcommand{\Xki}{\mathbf{X}_{k,i}}
+\newcommand{\Zkj}{\mathbf{Z}_{k,j}}
+%
+%
+%-------------------------------------------------------------------------------
+%
+%Punkt p_q, p_l
+%
+\newcommand{\pq}{\mathbf{p}_q} 
+\newcommand{\pl}{\mathbf{p}_l}
+%
+%-------------------------------------------------------------------------------
+%
+%Measurement dimension:
+%
+\newcommand{\nz}{n_{\mathbf{z}}}
+%
+%------------------------------------------------------------------------------
+%
+%Beobachtung (Menge der Messungen) zum Zeitpunkt k
+%Alle Beobachtungen (Gesamtheit der Mengen der Messungen) bis zum Zeitpunkt k
+%
+%ZB: \mathcal{Z}_{k}, \mathcal{Z}_{1:k-1}
+\newcommand{\Zset}[1]{\mathcal{Z}_{#1}}
+%
+%-------------------------------------------------------------------------------
+%
+%Konstellation zum Zeitpunkt k:
+%
+\newcommand{\Const}[1]{\mathcal{T}_{#1}}
+%
+%-------------------------------------------------------------------------------
+%
+%probability density function of the measurement z at some time step (given as parameter)
+%
+\newcommand{\fApriZ}[1]{f_{\mathbf{Z}^{\mathbf{x}}_{#1}}}
+\newcommand{\fApriZkxi}[2]{f_{\mathbf{Z}^{\mathbf{x}_{#2}}_{#1}}}
+%
+%-------------------------------------------------------------------------------
+%
+%Innovation: z Schlange:
+%
+% \innovation = \tilde{\mathbf{z}}
+\newcommand{\innovation}{\tilde{\mathbf{z}}}
+\newcommand{\Innovation}{\tilde{\mathbf{Z}}}
+%
+%-------------------------------------------------------------------------------
+%
+%Schätzungen für Zustand und Messung:
+%
+%
+%Erwartungswert des Zustandes (entspricht der a-posteriori-Schätzung)
+%
+%Usage: \xExp{k} = \hat{\mathbf{x}}_{k}
+\newcommand{\xExp}[1]{\hat{\mathbf{x}}_{#1}}
+%
+%
+%a-priori schätzung des Zustandes zu einem bel. Zeitpunkt
+%
+\newcommand{\xApri}[1]{\hat{\mathbf{x}}_{#1}^-}
+%
+%
+%a-posteriori schätzung des Zustandes zu einem bel. Zeitpunkt
+\newcommand{\xApost}[1]{\hat{\mathbf{x}}_{#1}}
+%
+%
+%Erwartungswert der Messung zu einem bel. Zeitpunkt
+%
+\newcommand{\zEst}[1]{\hat{\mathbf{z}}_{#1}}
+%
+%
+%
+%-------------------------------------------------------------------------------
+%
+%Assoziationen und Joint Events:
+%
+%\assoXZ = \theta^{\xii \rightarrow \zj}
+\newcommand{\assoXZ}{\theta^{\xii \rightarrow \zj}}
+%
+%\asso{i}{j} = \theta^{\x_{i} \rightarrow \z_{j}}
+\newcommand{\asso}[2]{\theta^{\x_{#1} \rightarrow \z_{#2}}}
+%
+%Joint Event:
+\newcommand{\JE}{\Theta}
+%
+%
+%
+%-------------------------------------------------------------------------------
+%
+%Kovarianzen:
+%
+\newcommand{\Cov}{\textnormal{Cov}} 
+%
+%
+%A-priori Zustandskovarianz zum bel. Zeitpunkt:
+%
+%Usage: PxApri{k} = \mathbf{P}_{\mathbf{x}_{k}^- \mathbf{x}^-_{k}}
+\newcommand{\PxApri}[1]{\mathbf{P}_{\mathbf{X}_{#1}^- \mathbf{X}_{#1}^-}}
+% Weitere mögliche Schreibweisen: P^-_{k} = P_{x^-_k x^-_k} = P_{k | k-1}
+%
+%
+%A-posteriori Zustandskovarianz zum Zeitpunkt {k}:
+%
+%Usage: PxApost{k}
+\newcommand{\PxApost}[1]{\mathbf{P}_{\mathbf{X}_{#1} \mathbf{X}_{#1}}}
+\newcommand{\PxApostC}[1]{\mathbf{P}^{c}_{\mathbf{X}_{#1} \mathbf{X}_{#1}}}
+% Weitere mögliche Schreibweisen: P^+_{k} = P_{x^+_k x^+_k} = P_{k | k}
+%
+%
+%Zustandskovarianz
+%
+\newcommand{\Px}[1]{\mathbf{P}_{\mathbf{X}_{#1} \mathbf{X}_{#1}}}
+%
+%
+%Innovations-Kovarianz:
+%
+\newcommand{\InnCov}[1]{\mathbf{P}_{\tilde{\mathbf{Z}}_{#1} \tilde{\mathbf{Z}}_{#1}}}
+\newcommand{\Ptilde}[1]{\mathbf{\tilde{P}}_{#1}}%_{\mathbf{z}_{#1} \mathbf{z}_{#1}}}
+%
+%
+%Schätzung der Mess-Kovarianz: (= Innovations-Kovarianz?)
+\newcommand{\Pz}[1]{\mathbf{P}_{\mathbf{Z}_{#1} \mathbf{Z}_{#1}}}
+%
+%
+%
+%-------------------------------------------------------------------------------
+%
+%Probabilities:
+%
+%
+%a-priori Probability with some index, (e.g. "FB" for "feature-based")
+% P_{k|k-1}^{FB} oder P^{-}_{FB, k}
+%
+%Nutzung: \PaPri{FB}{k}
+\newcommand{\PaPri}[2]{P_{#2|#2 - 1}^{#1}}
+%\newcomand{\PaPri}[2]{P_{#1, #2}^{-}}
+
+%a-posteriori Probability with some index, (e.g. "FB" for "feature-based")
+% P_{k|k}^{FB} oder P_{FB, k}
+%
+%Nutzung: \PaPost{FB}{k}
+\newcommand{\PaPost}[2]{P_{#2|#2}^{#1}}
+%\newcomand{\PaPost}[2]{P_{#1, #2}}
+%
+%

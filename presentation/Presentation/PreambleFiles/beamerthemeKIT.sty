@@ -1,0 +1,217 @@
+%%
+%% This is file `beamerthemeKIT.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% KITbeamer.dtx  (with options: `base,grid')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2008 by Klaus Braune <klaus.braune@kit.edu>
+%%
+%% Modified by Marco Huber <marco.huber@ira.uka.de>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{beamerthemeKIT}
+    [2008/11/03 v0.1 base part of the beamer theme KIT/IES/IOSB]
+\RequirePackage{mathpazo}
+\RequirePackage{tikz}
+
+\newif\ifKIT@grid
+\KIT@gridfalse
+\mode<presentation>
+
+
+% KIT farben
+\definecolor{KITgreen}{RGB}{    0,150,130} % 100% green
+\definecolor{KITgreen70}{RGB}{ 76,181,167} %  70% green
+\definecolor{KITgreen50}{RGB}{127,202,192} %  50% green
+\definecolor{KITgreen30}{RGB}{178,223,217} %  30% green
+\definecolor{KITgreen15}{RGB}{217,239,236} %  15% green
+\colorlet{KITblack}{black} % 100% black
+\definecolor{KITblack70}{RGB}{ 77, 77, 77} %  70% black
+\definecolor{KITblack50}{RGB}{128,128,128} %  50% black
+\definecolor{KITblack30}{RGB}{179,179,179} %  30% black
+\definecolor{KITblack15}{RGB}{217,217,217} %  15% black
+\definecolor{KITblue}{RGB}{    70,100,170} % 100% blue
+\definecolor{KITblue70}{RGB}{ 125,146,195} %  70% blue
+\definecolor{KITblue50}{RGB}{ 162,177,212} %  50% blue
+\definecolor{KITblue30}{RGB}{ 199,208,229} %  30% blue
+\definecolor{KITblue15}{RGB}{ 227,232,242} %  15% blue
+\definecolor{KITred}{RGB}  { 154,   0,  82}
+\definecolor{KITred70}{RGB}{ 184,  76, 134}
+\definecolor{KITred50}{RGB}{ 205, 127, 169}
+\definecolor{KITred30}{RGB}{ 225, 178, 203}
+\definecolor{KITred15}{RGB}{ 240, 217, 229}
+% ISAS Farben:
+\definecolor{ISASblue}{rgb}{0.396,0.384,0.675} % 101/255 98/255 172/255
+\definecolor{ISASLogoblue}{rgb}{0.557,0.589,0.757} % 142/255 150/255 193/255
+\definecolor{ISASLblue}{rgb}{0.61961,0.61961,0.675} % 158/255 158/255 172/255 
+% Blockfarben
+\definecolor{BlockYellow}{rgb}{1,0.8,0.33}
+\definecolor{BlockRed}{rgb}{0.925,0.5,0.5}
+\definecolor{BlockBlue}{rgb}{.86,.86,.925}
+\definecolor{BlockGreen}{rgb}{0.5,0.8,0.5}
+\definecolor{Black}{rgb}{0,0,0}
+\definecolor{DarkBlue}{rgb}{0,0,0.4}
+\definecolor{DarkRed}{rgb}{0.6,0,0}
+\definecolor{DarkGreen}{rgb}{0.2,0.5,0.2}
+
+\definecolor{BlockBlueBack}{rgb}{.941,.941,.941}
+
+\definecolor{HilightRed}{rgb}{.74,.07,.13}
+\definecolor{HilightGreen}{rgb}{0.2,0.5,0.2}
+\definecolor{HilightBlue}{rgb}{0.2,0.2,0.5}
+
+\newcommand<>{\galert}[1]{{\color#2{KITgreen}#1}}
+\newcommand<>{\balert}[1]{{\color#2{KITblue}#1}}
+\setbeamercolor{alerted text}{fg=KITred}
+
+%%% BLOCKS
+% use rounded boxes
+\setbeamertemplate{blocks}[rounded][shadow]
+
+% Normal Block
+\setbeamerfont{block title}{series=\bfseries, size=\normalsize}
+\setbeamercolor{block title}{use=structure,bg=BlockBlue,fg=Black}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!40!bg}
+% Alert Block
+\setbeamercolor{block title alerted}{use=structure,bg=BlockRed,fg=Black}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted, bg=block title alerted.bg!40!bg}
+% Example Block
+\setbeamercolor{block title example}{use=structure,bg=BlockGreen,fg=Black}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!40!bg}
+
+\setbeamercolor{dark blue}{fg=black, bg=block title.bg}
+\setbeamercolor{block body grayed}{fg=black!70, bg=block body.bg}
+
+% Formelm mit Serifen
+\usefonttheme[onlymath]{serif}
+
+
+\newif\ifKIT@bw\KIT@bwfalse
+\RequirePackage{KITdefs}
+\newlength{\K@mm}
+\setlength{\K@mm}{.50393700787402truemm}
+\newlength{\K@pt}
+%%\setlength{\K@pt}{.5333333333333333333pt}
+\setlength{\K@pt}{.50393700787402truept}
+
+
+%\setlength{\textwidth}{225.0\K@mm}
+%Testweise (aus der tex-Hauptdatei):
+\setlength{\textwidth}{112.0mm}
+\setlength\textheight{77mm}
+%
+%MIG: Hierherverschoben aus outertheme:
+\newlength{\KIT@ptop}
+%hier auch das dumme Offset?
+%\setlength{\KIT@ptop}{20.00\K@mm}
+\setlength{\KIT@ptop}{0.00\K@mm}
+%
+%selbstdefiniert by MiG:
+\newlength{\KIT@MIGhoffset}
+%\setlength{\KIT@MIGhoffset}{2.4mm}
+\setlength{\KIT@MIGhoffset}{0mm}
+%
+%Das ist der eine blöde Offset! Wo ist der zweite???!
+\addtolength{\hoffset}{-\KIT@MIGhoffset}
+%den zweiten finde ich nicht. Stattdessen test:
+\addtolength{\voffset}{-\KIT@ptop}%{-20\K@mm}%{20\K@mm}
+
+%MiG: Verschoben aus outertheme:
+%\geometry{top=0pt,head=20pt,headsep=0pt,bottom=18\K@mm}
+%\geometry{top=0pt,head=0pt,headsep=0pt,bottom=18\K@mm}
+%\geometry{top=\KIT@ptop,head=0pt,headsep=0pt,bottom=18\K@mm}
+%\geometry{top=-0.25pt,head=0pt,headsep=0pt,bottom=18\K@mm}
+
+
+\setlength{\KIT@titimgwd}{248\K@mm}
+\let\titleimagewd=\KIT@titimgwd
+\newlength{\titleimageht}\setlength{\titleimageht}{77.5\K@mm}
+\setlength{\KIT@Framewd}{3\K@mm}
+\setlength{\KIT@Headwd}{14\K@mm}%Ursprünglich 13
+\setlength{\KIT@RFramewd}{.5\K@mm}
+\setlength{\KIT@Linewd}{.5\K@pt}
+\setlength{\KIT@MFllx}{0\K@mm}
+\setlength{\KIT@MFlly}{0\K@mm}
+\setlength{\KIT@MFurx}{254.5\K@mm}%ursprünglich 254
+\setlength{\KIT@MFury}{191\K@mm}%ursprünglich 190
+\newcommand{\KIT@MFodd}{10\K@mm}
+\newcommand{\KIT@MFHdh}{0\K@mm}
+\newcommand{\KIT@MFbadd}{12\K@mm}
+\setlength{\leftmargini}{13.93329pt}
+\setlength{\leftmarginii}{16.06725pt}
+\setlength{\leftmarginiii}{16.06725pt}
+\setlength{\leftmarginiv}{6.40mm}
+\setlength{\leftmarginv}{6.40mm}
+\setlength{\leftmarginvi}{0.00mm}
+\newlength{\labelsep@itemi}
+\setlength{\labelsep@itemi}{6.89763pt}
+\newlength{\labelsep@itemii}
+\setlength{\labelsep@itemii}{5.475pt}
+\newlength{\labelsep@itemiii}
+\setlength{\labelsep@itemiii}{3.76784pt}
+\newlength{\labelsep@itemiv}
+\setlength{\labelsep@itemiv}{4.33688pt}
+\let\labelsep@itemv=\labelsep@itemiv
+\let\labelsep@itemvi=\labelsep@itemv
+\newlength{\labelsep@enumi}
+\setlength{\labelsep@enumi}{3.0pt}
+\newlength{\labelsep@enumii}
+\setlength{\labelsep@enumii}{3.0pt}
+\newlength{\labelsep@enumiii}
+\setlength{\labelsep@enumiii}{3.0pt}
+\newlength{\labelsep@enumiv}
+\setlength{\labelsep@enumiv}{3.0pt}
+\let\labelsep@enumv=\labelsep@enumiv
+\let\labelsep@enumvi=\labelsep@enumv
+\newlength{\item@indenti}
+\setlength{\item@indenti}{0pt}
+\let\item@indentii=\item@indenti
+\let\item@indentiii=\item@indenti
+\let\item@indentiv=\item@indenti
+\let\item@indentv=\item@indenti
+\newlength{\item@indentvi}
+%test:
+%\setlength{\item@indentvi}{\labelsep@itemiv}
+\setlength{\item@indentvi}{-\labelsep@itemiv}
+\let\enum@indenti=\item@indenti
+\let\enum@indentii=\item@indentii
+\let\enum@indentiii=\item@indentiii
+\let\enum@indentiv=\item@indentiv
+\let\enum@indentv=\item@indentv
+\let\enum@indentvi=\item@indentvi
+\usefonttheme{default}
+\usecolortheme{default}
+\useinnertheme{circles}
+%----------------------------------------
+% Outer theme definition is done in the main file and not here
+% \useoutertheme{KIT-IOSB}
+%----------------------------------------
+\setbeamercolor{structure}{fg=HilightBlue}
+\newcommand{\heading}[1]{%
+%Hier auch irgendein dummes Offset?
+%\vspace{4.9\K@pt}%
+\par{\fontsize{20\K@pt}{22\K@pt}\bfseries#1}
+}
+\newcommand{\usenavigationsymbols}[1][fHb]{\xdef\KIT@nav@syms{#1!}}
+\let\KIT@nav@syms=\relax
+\AtBeginDocument{\normalsize\raggedbottom}
+%raggedbottom sorgt dafür, dass daß kein Ausgleich des unteren Seitenrandes durch Dehnung der Absatzabstände durchgeführt wird.
+\mode
+<all>
+\endinput
+%%
+%% End of file `beamerthemeKIT.sty'.
