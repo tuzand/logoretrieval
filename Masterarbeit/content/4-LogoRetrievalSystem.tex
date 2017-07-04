@@ -60,7 +60,7 @@ For dataset extension and evaluation purposes, there were four additional datase
 Figure \ref{f:branddistribution} summarizes the distribution of the number of logo brands in the fusion of the public and the SportLogos dataset. The latter introduces a large number of classes with low number of examples. Although, these classes are valuable for the training of a logo detector, their usefulness to train a classifier is doubtful.
 \begin{figure}
   \centering
-  \includegraphics[width=100mm]{images/mt/branddistribution.png}
+  \includegraphics[height=60mm]{images/mt/branddistribution.pdf}
   \caption{Cardinality of different brands in the public and SportLogos datasets}
   \label{f:branddistribution}
 \end{figure}
@@ -68,7 +68,7 @@ The SportLogos dataset contains some brands, which are already in the set of pub
 \begin{figure}
   \centering
 \begin{tabular}{cc}
-  \includegraphics[height=40mm]{images/mt/brandintersections.jpg} &   \includegraphics[height=60mm]{images/mt/commonbrands.png}
+  \includegraphics[height=40mm]{images/mt/brandintersections.pdf} &   \includegraphics[height=60mm]{images/mt/commonbrands.pdf}
 \end{tabular}
 \caption{Left: Number of classes within the different datasets, and their size of intersections. Right: Brands contained by both the training and the test dataset and their cardinality}
 \label{f:commonbrands}
@@ -87,7 +87,7 @@ During the training of a Faster R-CNN, a Region Proposal Network will be trained
 Faster R-CNN can be trained for two classes: background and logo. For this purpose the classes of every annotation box will be neglected. This solution is expected to yield better performance than the RPN detector. Firstly, because of the fully connected layers preceding the final classifier and the bounding box regression layers. Secondly, it is a cascade of two detectors (RPN and FC), similarly as in \cite{Viola:2004:RRF:966432.966458}, where the RPN is a weaker classifier, which is faster, allowing more false positives. For the combination it is expected to have a lower false positive rate.
 \begin{figure}
   \centering
-  \includegraphics[width=100mm]{images/mt/detectors.jpg}
+  \includegraphics[width=100mm]{images/mt/detectors.pdf}
   \caption{Left: Object detection with Region Proposal Network. Right: Object detection with Faster R-CNN. It can be considered as cascade of a weak and a stronger classifier}
   \label{f:detectors}
 \end{figure}
@@ -107,7 +107,7 @@ The features of both the query and the search set can be extracted by running a 
 The Region Proposal Network outputs several hundred possible object locations (default is 300 in test phase) for every input image. Processing so many query features would immensely increase the computational burden. Thus, it is advantageous to filter the detection list. Although, this cannot be done with the classification scores, because the images contain logos from unknown brands, so the descriptors are rather a collection of different brands. For this purpose, the score output of the RPN can be used, which is an objectness indicator. This score can be adopted for the detections of the search images too. Therefore, one can take the RoI with the greatest score for query images, and set a low threshold for images of the search set. The proposed regions are then adjusted with the bounding box regression of the class with the highest probability score. Figure \ref{f:sol1arch} shows the outline of this solution. This solution is chosen for baseline, because it is prevalent in recent research of closed-set logo retrieval in \cite{Bao:2016:RCL:3007669.3007728}, \cite{DBLP:journals/corr/OliveiraFPR16}, \cite{DBLP:journals/spl/QiSWX17}. It is evaluated in section \ref{s:fleval}, and shown that it has almost state-of the-art performance in closed-set logo retrieval.
 \begin{figure}
   \centering
-  \includegraphics[width=90mm]{images/mt/sol1_arch.jpg}
+  \includegraphics[width=90mm]{images/mt/sol1_arch.pdf}
   \caption{Baseline logo retrieval system applies Faster-R-CNN both on the images of the query and the search set, then compares the features}
   \label{f:sol1arch}
 \end{figure}
@@ -122,7 +122,7 @@ A next issue, which discourages from applying this method for open-set retrieval
 The drawbacks of the solution in section \ref{ss:solution1} imply, that the RPN should be turned off for the examples of the query set. This means, that the network is applied in fast R-CNN mode. For external region proposal, one region is applied, which includes the complete query image. However, it may yield worse descriptors, because of the loosely fitting bounding box. On the other hand, the logo positions and their features of the search set can be inferred with Faster R-CNN, and filtered with a threshold as described in section \ref{ss:solution1}.
 \begin{figure}
   \centering
-  \includegraphics[width=90mm]{images/mt/sol2_arch.jpg}
+  \includegraphics[width=90mm]{images/mt/sol2_arch.pdf}
   \caption{Fast\&Faster-Logos solution. It computes the query feature from the complete query image (i.e. Fast-R-CNN mode), the features of the search image is collected by Faster-R-CNN}
   \label{f:sol2arch}
 \end{figure}
@@ -130,7 +130,7 @@ The drawbacks of the solution in section \ref{ss:solution1} imply, that the RPN 
 The system in section \ref{ss:solution1} may suffer from the inability of the RPN to localize unknown logos. The solution can be further improved by using the best logo detector from the section \ref{s:logodetection}.  The output of the detector is then treated as external proposals, and thus the system runs in fast R-CNN mode for the images of the search set. This setup is very similar to the one of fast R-CNN, detailed in section \ref{s:fastrcnn}, but utilizes neural networks instead of selective search as external region proposal system to collect object locations.
 \begin{figure}
   \centering
-  \includegraphics[width=90mm]{images/mt/sol3_arch.jpg}
+  \includegraphics[width=90mm]{images/mt/sol3_arch.pdf}
   \caption{Fast-Logos solution. It computes the features both from the query and the search set in Fast-R-CNN mode, whereas the query region is the complete query image and the locations for the search set come from an external Faster-R-CNN logo detector. The dashed lines indicate an indirect connection between the networks.}
   \label{f:sol3arch}
 \end{figure}
@@ -138,7 +138,7 @@ The system in section \ref{ss:solution1} may suffer from the inability of the RP
 Section \ref{s:convnets} details the evolution of convolutional networks by going through the most important ones of today. Donahue et al. proposed \cite{DBLP:journals/corr/DonahueJVHZTD13}, that convolutional networks can produce excellent descriptors of the input image, regardless of the absence of fine-tuning to the specific context of the image. For this purpose, a network is pretrained on very large datasets, after which it can be deployed for a broad set of computer vision problems. But it cannot localize objects on an image. For region proposal purpose, a trained logo detector can be utilized from section \ref{s:logodetection}. This setup of networks is very similar to the R-CNN, detailed in section \ref{s:rcnn}, but omits the use of selective search as external region proposal system. As such,it has the disadvantage of retrieving features of the regions separately from each other by not sharing the computed feature maps. Thus, it needs much more time, to infer a complete image. On the other hand, it is beneficial for the performance, because the complete network is only focused on a specific region. This part of the system can be easily swapped to reach the desired performance and time constraints, since all the kind of networks, explained in section \ref{s:convnets} can be utilized for feature extraction. Figure \ref{f:sol4arch} outlines this solution.
 \begin{figure}
   \centering
-  \includegraphics[width=90mm]{images/mt/sol4_arch.jpg}
+  \includegraphics[width=90mm]{images/mt/sol4_arch.pdf}
   \caption{R-CNN-Logos solution. Query region is the complete query image, the search region proposals are generated from and external Faster-R-CNN logo detector. The features are extracted with a general purpose convolutional network. The dashed lines indicate an indirect connection between the networks.}
   \label{f:sol4arch}
 \end{figure}
@@ -151,7 +151,7 @@ Siamese networks \cite{Hadsell06dimensionalityreduction} are basically used for 
 For Faster R-CNN, the parameters for Region Proposal Network can also be shared. This setup has the advantage, that training of one task can also improve the performance of the other task, which is not currently trained. In particular for logo retrieval, the network can benefit from a bounding box annotated logo dataset, without specific brand indication. To annotate such a dataset much less human resource is needed. A quantitative evaluation can be found in section \ref{s:explogodetection}.
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/sol5_arch.jpg}
+  \includegraphics[height=60mm]{images/mt/sol5_arch.pdf}
 \caption{Siam-Logos. Network setups in train and test phases for learning detection and classification jointly.}
 \label{f:jointlearning}
 \end{figure}

@@ -2,6 +2,6 @@
 \beamer@sectionintoc {1}{Motivation und Aufgabenstellung}{3}{1}{1}
 \beamer@sectionintoc {2}{Logo Retrieval}{6}{1}{2}
 \beamer@sectionintoc {3}{Das vorgestellte Logo Retrieval System}{8}{1}{3}
-\beamer@sectionintoc {4}{Logo Datens\"atze}{16}{1}{4}
-\beamer@sectionintoc {5}{Evaluation}{17}{1}{5}
-\beamer@sectionintoc {6}{Ausblick}{21}{1}{6}
+\beamer@sectionintoc {4}{Logo Datens\"atze}{17}{1}{4}
+\beamer@sectionintoc {5}{Evaluation}{19}{1}{5}
+\beamer@sectionintoc {6}{Zusammenfassung und Ausblick}{24}{1}{6}

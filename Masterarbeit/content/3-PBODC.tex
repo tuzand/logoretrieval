@@ -41,7 +41,7 @@ Although this network is already historical, it is worth mentioning it, because 
 \bigbreak
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=12cm]{images/mt/rcnn.png}
+	\includegraphics[width=12cm]{images/mt/rcnn.pdf}
 	\caption{R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally. Source: \cite{Girshick16}}
 	\label{fig:rcnn}
 \end{figure}
@@ -91,7 +91,7 @@ Figure \ref{fig:fastrcnn} shows the main components of the network.
 \bigbreak
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=12cm]{images/mt/fast-rcnn.png}
+	\includegraphics[width=12cm]{images/mt/fast-rcnn.pdf}
 	\caption{Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. Afterwards, the proposals is used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network. Source: \cite{Girshick16}}
 	\label{fig:fastrcnn}
 \end{figure}

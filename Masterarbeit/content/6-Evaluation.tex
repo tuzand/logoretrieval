@@ -14,7 +14,7 @@ Next, a class agnostic Faster R-CNN is trained again on all public datasets, but
 
 \begin{figure}
   \centering
-  \includegraphics[width=120mm]{images/mt/logodetection.png}
+  \includegraphics[width=120mm]{images/mt/logodetection.pdf}
   \caption{Logo detection evaluation}
   \label{f:detectioneval}
 \end{figure}
@@ -51,14 +51,14 @@ The logos fill out the majority of the images, as figure \ref{f:confusion} shows
 
 \begin{figure}
   \centering
-  \includegraphics[height=40mm]{images/mt/confusion.jpg}
+  \includegraphics[height=40mm]{images/mt/confusion.pdf}
   \caption{Misclassification due to the small number of trained classes and data}
   \label{f:confusion}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/faster_confusion.jpg}
+  \includegraphics[height=60mm]{images/mt/faster_confusion.pdf}
   \caption{Feature vectors of the two query images and one cropped image from a video}
   \label{f:fasterconfusion}
 \end{figure}
@@ -79,7 +79,7 @@ Occluded images are not included in the test set, because perhaps none of the TV
 The similarities between the extracted feature vectors were calculated by cosine distance, and the output of the second last layer appeared to perform best as feature. The system is trained on all publicly available datasets. The low performance of the system is primarily induced by the classifier, which is weak in feature extraction from images with unknown classes. Thus, the network was additionally trained on the SportLogos dataset. This self annotated dataset induces a lot of new classes with very few ground truths, as shown in section \ref{ss:sportlogos}. Their instances may not be enough to completely train the classifier for those classes. Thus, it was questionable, whether the performance of the network enhances, if it is trained additionally also on the sport dataset. As figure \ref{f:sol2} shows, it yields better quality. It will be examined in the next paragraph, whether it is only due to the improvement of the RPN, or the classifier extracting better features. The performance of a random classifier is also indicated. This classifier assumed to work similarly as a real one, by outputting a class and a probability score for every region. Since it gets the ground truth regions as detections, it has a lower number of false positive classifications at the maximum of its recall, which is 2.5\% (there are 40 classes in the test set).
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/sol2.png}
+  \includegraphics[height=60mm]{images/mt/sol2.pdf}
   \caption{Performance of Fast\&Faster-Logos compared with the Baseline and a Random Classifier}
   \label{f:sol2}
 \end{figure}
@@ -87,14 +87,14 @@ The similarities between the extracted feature vectors were calculated by cosine
 The jointly trained classifier and detector, introduced in section \ref{ss:solution5}, did not seem to be useful for the case, if the ground truths are completely labeled with brand indication. Both branches were trained with the entire logo datasets, with and without brand label respectively. It achieved lower performance than the Baseline solution, which is trained on the same dataset. Figure \ref{f:sol5} shows the performance of this solution.
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/sol5.png}
+  \includegraphics[height=60mm]{images/mt/sol5.pdf}
   \caption{Performance of Siam-Logos solution compared with the Baseline and a Random Classifier}
   \label{f:sol5}
 \end{figure}
  As shown in section \ref{s:explogodetection}, a region proposal network may have inferior performance in logo detection compared to a class agnostic solution. Thus, the best performing FC logo detector can be applied, to ease the task of the classifier by yielding much fewer false positive detections. The features from the detections were then extracted with the same two networks as in the last paragraph, but now applied in fast R-CNN mode. Figure \ref{f:sol3} shows, that the system has a slightly better performance, but the classification power of the two networks is the same. This means, that the SportLogos dataset helped only in the detection task.
  \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/sol3.png}
+  \includegraphics[height=60mm]{images/mt/sol3.pdf}
   \caption{Performance of Fast-Logos, i.e. replacing the RPN of a Faster R-CNN with a logo detector Faster R-CNN}
   \label{f:sol3}
 \end{figure}
@@ -106,7 +106,7 @@ In order to achieve better classification performance, a feature extractor neura
 \end{itemize}
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/sol4.png}
+  \includegraphics[height=60mm]{images/mt/sol4.pdf}
   \caption{Performance of the R-CNN-Logos solution by applying Faster R-CNN as region proposal system}
   \label{f:sol4}
 \end{figure}
@@ -126,7 +126,7 @@ Since the training dataset already contains some classes, which are part of the 
 \end{itemize}
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/commonbrandseffect.png}
+  \includegraphics[height=60mm]{images/mt/commonbrandseffect.pdf}
   \caption{Effect of pretrained classes. The performance of a network, trained with and without the two classes, occurring in the test set, and the average performance of the networks.}
   \label{f:commonbrandseffect}
 \end{figure}
@@ -135,7 +135,7 @@ Since the training dataset already contains some classes, which are part of the 
 To evaluate the feature extraction performance of the best system the output of the system is examined in detail. For this purpose, the output of the feature extractor network (the output of the last layer before softmax layer) is calculated for a crop image from the search set, which was misclassified, the query images of the real class, and the query image of the class, which was inferred incorrectly. The crop region was emitted by the detector network. The figure \ref{f:misclass} shows the crop from the query image in the middle, and the other query images around them. The similarity scores are indicated on the lines between the images, which was calculated with cosine distance. It can be seen, that the wrong query image has the greatest similarity score.
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/misclass.jpg}
+  \includegraphics[height=60mm]{images/mt/misclass.pdf}
   \caption{Similarity scores between query images of two classes and a crop image from the search set (middle).}
   \label{f:misclass}
 \end{figure}
@@ -144,14 +144,14 @@ To evaluate the feature extraction performance of the best system the output of 
 For the retrieval system not only the performance should be taken into account, but also the time needed to retrieve images. The average retrieval time per search image of every solution is measured and outlined in figure \ref{f:timebestdir} together with the achieved highest DIR value.
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/timebestdir.jpg}
+  \includegraphics[height=60mm]{images/mt/timebestdir.pdf}
   \caption{Average processing time per image and the best achieved DIR value}
   \label{f:timebestdir}
 \end{figure}
 However, these data may not necessarily help to select the right system, according to the performance and time requirements. In order to combine the performance of the network and the average retrieval time, it was calculated, how much DIR value can be retrieved in one second with the different solutions. This evaluation was only accomplished for the R-CNN-Logos solutions, since these outperformed the other proposed systems with a large margin. The figure \ref{f:dirpertime} shows the result of this evaluation.
 \begin{figure}
   \centering
-  \includegraphics[height=60mm]{images/mt/dirpertime.png}
+  \includegraphics[height=60mm]{images/mt/dirpertime.pdf}
   \caption{Incorporating retrieval time and performance of the different networks of the solution R-CNN-Logos}
   \label{f:dirpertime}
 \end{figure}

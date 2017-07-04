@@ -36,7 +36,7 @@ This dataset was evaluated for training purposes. Therefore a small subset of Be
 The synthetic dataset alone could achieve moderate results, the obvious advantage of a real dataset can be seen in figure \ref{f:flbltrain}. Unfortunately, the fusion of datasets does not yield extra performance, neither with a simple fusion, nor with Curriculum Learning. The latter has the advantage of achieving convergence much earlier, compared to other training scenarios. In \cite{DBLP:journals/corr/SuZG16}, 10\% relative extra performance was achieved by training with CL, to recognize a restricted number of classes. In case of FlickrBelgaLogos, this expected to be unsuccessful, because the same logos of BelgaLogos are reused in FlickrBelgaLogos. This means, while trying to achieve better performance, the transfer of logos to another context does not give additional information. As base network the \texttt{VGG\_CNN\_M} \cite{Chatfield14} was chosen, pretrained on ImageNet \cite{imagenet_cvpr09}, because of its much shorter training times, compared to VGG-16 (about a quarter as much time), still having a performance good enough for the experiments.
 \begin{figure}
   \centering
-  \includegraphics[width=80mm]{images/mt/bltest.png}
+  \includegraphics[width=80mm]{images/mt/bltest.pdf}
   \caption{Logo recognition performance after training with real (BelgaLogos) and synthetic data (FlickrBelgaLogos)}
   \label{f:flbltrain}
 \end{figure}
@@ -46,7 +46,7 @@ After that, the open-set logo detection capability of the model, trained only on
 \begin{figure}
   \centering
   \begin{tabular}{cc}
-    \includegraphics[width=80mm]{images/mt/flbl_det_map.png} & \includegraphics[width=80mm]{images/mt/flbl_det_froc.png}
+    \includegraphics[width=80mm]{images/mt/flbl_det_map.pdf} & \includegraphics[width=80mm]{images/mt/flbl_det_froc.pdf}
   \end{tabular}
   \caption{Logo detection performance while training purely with synthetic data}
   \label{f:flbldeteval}
@@ -117,7 +117,7 @@ The test set of FL-32 is evaluated with the configurations from points \ref{i:fi
 
 \begin{figure}
   \centering
-  \includegraphics[width=150mm]{images/mt/vggcnnmfltest.png}
+  \includegraphics[width=150mm]{images/mt/vggcnnmfltest.pdf}
   \caption{FL-32 test evaluation with \texttt{VGG\_CNN\_M\_1024} base network}
   \label{f:vggcnnmfltest}
 \end{figure}
@@ -126,7 +126,7 @@ The improvement of additional data on the performance is then tested with VGG16 
 
 \begin{figure}
   \centering
-  \includegraphics[width=150mm]{images/mt/vgg16fltest.png}
+  \includegraphics[width=150mm]{images/mt/vgg16fltest.pdf}
   \caption{FL-32 test evaluation with VGG-16 compared with the best \texttt{VGG\_CNN\_M\_1024}, as base network}
   \label{f:vgg16fltest}
 \end{figure}
