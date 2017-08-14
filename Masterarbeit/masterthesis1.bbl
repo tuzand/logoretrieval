@@ -1,9 +1,22 @@
-\begin{thebibliography}{Rom11}
+\begin{thebibliography}{Rom11b}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 \input{babelbst.tex}
 \newcommand{\Capitalize}[1]{\uppercase{#1}}
 \newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[Azi14]{DBLP:journals/corr/AzizpourRSMC14}
+\textsc{Azizpour}, Hossein; \textsc{Razavian}, Ali~Sharif; \textsc{Sullivan},
+  Josephine; \textsc{Maki}, Atsuto \bbland{} \textsc{Carlsson}, Stefan: From
+  Generic to Specific Deep Representations for Visual Recognition.
+  \textit{CoRR} (2014), \bblvol{} abs/1406.5774,
+  \urlprefix\url{http://arxiv.org/abs/1406.5774}
+
+\bibitem[Bab14]{DBLP:journals/corr/BabenkoSCL14}
+\textsc{Babenko}, Artem; \textsc{Slesarev}, Anton; \textsc{Chigorin}, Alexander
+  \bbland{} \textsc{Lempitsky}, Victor~S.: Neural Codes for Image Retrieval.
+  \textit{CoRR} (2014), \bblvol{} abs/1404.1777,
+  \urlprefix\url{http://arxiv.org/abs/1404.1777}
 
 \bibitem[Bao16]{Bao:2016:RCL:3007669.3007728}
 \textsc{Bao}, Yu; \textsc{Li}, Haojie; \textsc{Fan}, Xin; \textsc{Liu}, Risheng
@@ -12,9 +25,14 @@
   Computing and Service}, ICIMCS'16, ACM, New York, NY, USA, \bblpp{} 319--322,
   \urlprefix\url{http://doi.acm.org/10.1145/3007669.3007728}
 
-\bibitem[Ben]{Bengio_curriculumlearning}
+\bibitem[Ben09]{Bengio_curriculumlearning}
 \textsc{Bengio}, Yoshua; \textsc{Louradour}, Jérôme; \textsc{Collobert}, Ronan
-  \bbland{} \textsc{Weston}, Jason: Curriculum Learning
+  \bbland{} \textsc{Weston}, Jason: Curriculum Learning (2009)
+
+\bibitem[Ben15]{DBLP:journals/corr/BendaleB15}
+\textsc{Bendale}, Abhijit \bbland{} \textsc{Boult}, Terrance~E.: Towards Open
+  Set Deep Networks. \textit{CoRR} (2015), \bblvol{} abs/1511.06233,
+  \urlprefix\url{http://arxiv.org/abs/1511.06233}
 
 \bibitem[Bia15]{bianco2015logo}
 \textsc{Bianco}, Simone; \textsc{Buzzelli}, Marco; \textsc{Mazzini}, Davide
@@ -38,6 +56,12 @@
   Networks. \textit{Mach. Learn.} (1995), \bblvol{}~20(3):\bblpp{} 273--297,
   \urlprefix\url{http://dx.doi.org/10.1023/A:1022627411411}
 
+\bibitem[Dai16]{DBLP:journals/corr/DaiLHS16}
+\textsc{Dai}, Jifeng; \textsc{Li}, Yi; \textsc{He}, Kaiming \bbland{}
+  \textsc{Sun}, Jian: {R-FCN:} Object Detection via Region-based Fully
+  Convolutional Networks. \textit{CoRR} (2016), \bblvol{} abs/1605.06409,
+  \urlprefix\url{http://arxiv.org/abs/1605.06409}
+
 \bibitem[Dal05]{Dalal:2005:HOG:1068507.1069007}
 \textsc{Dalal}, Navneet \bbland{} \textsc{Triggs}, Bill: Histograms of Oriented
   Gradients for Human Detection, \bblin{}: \textit{Proceedings of the 2005 IEEE
@@ -58,11 +82,19 @@
   for Generic Visual Recognition. \textit{CoRR} (2013), \bblvol{}
   abs/1310.1531, \urlprefix\url{http://arxiv.org/abs/1310.1531}
 
-\bibitem[Eve]{pascal-voc-2007}
+\bibitem[Egg15]{Eggert:2015:BSD:2733373.2806407}
+\textsc{Eggert}, Christian; \textsc{Winschel}, Anton \bbland{}
+  \textsc{Lienhart}, Rainer: On the Benefit of Synthetic Data for Company Logo
+  Detection, \bblin{}: \textit{Proceedings of the 23rd ACM International
+  Conference on Multimedia}, MM '15, ACM, New York, NY, USA, \bblpp{}
+  1283--1286, \urlprefix\url{http://doi.acm.org/10.1145/2733373.2806407}
+
+\bibitem[Eve07]{pascal-voc-2007}
 \textsc{Everingham}, M.; \textsc{Van~Gool}, L.; \textsc{Williams}, C.~K.~I.;
   \textsc{Winn}, J. \bbland{} \textsc{Zisserman}, A.: The {PASCAL} {V}isual
   {O}bject {C}lasses {C}hallenge 2007 {(VOC2007)} {R}esults,
   http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html
+  (2007)
 
 \bibitem[Gir13]{DBLP:journals/corr/GirshickDDM13}
 \textsc{Girshick}, Ross~B.; \textsc{Donahue}, Jeff; \textsc{Darrell}, Trevor
@@ -70,7 +102,12 @@
   object detection and semantic segmentation. \textit{CoRR} (2013), \bblvol{}
   abs/1311.2524, \urlprefix\url{http://arxiv.org/abs/1311.2524}
 
-\bibitem[Gir16]{Girshick:2016:RCN:2881668.2882239}
+\bibitem[Gir16a]{Girshick16}
+\textsc{Girshick}, Ross: Fast R-CNN,
+  \url{http://www.robots.ox.ac.uk/~tvg/publications/talks/fast-rcnn-slides.pdf}
+  (2016)
+
+\bibitem[Gir16b]{Girshick:2016:RCN:2881668.2882239}
 \textsc{Girshick}, Ross; \textsc{Donahue}, Jeff; \textsc{Darrell}, Trevor
   \bbland{} \textsc{Malik}, Jitendra: Region-Based Convolutional Networks for
   Accurate Object Detection and Segmentation. \textit{IEEE Trans. Pattern Anal.
@@ -81,11 +118,22 @@
 \textsc{Girshick}, Ross: py-faster-rcnn,
   \url{https://github.com/rbgirshick/py-faster-rcnn} (2017)
 
+\bibitem[Gor16]{DBLP:journals/corr/GordoARL16}
+\textsc{Gordo}, Albert; \textsc{Almaz{\'{a}}n}, Jon; \textsc{Revaud},
+  J{\'{e}}r{\^{o}}me \bbland{} \textsc{Larlus}, Diane: Deep Image Retrieval:
+  Learning global representations for image search. \textit{CoRR} (2016),
+  \bblvol{} abs/1604.01325, \urlprefix\url{http://arxiv.org/abs/1604.01325}
+
 \bibitem[Had06]{Hadsell06dimensionalityreduction}
 \textsc{Hadsell}, Raia; \textsc{Chopra}, Sumit \bbland{} \textsc{Lecun}, Yann:
   Dimensionality reduction by learning an invariant mapping, \bblin{}:
   \textit{In Proc. Computer Vision and Pattern Recognition Conference
   (CVPR?06}, IEEE Press
+
+\bibitem[Har88]{Harris}
+\textsc{Harris}, Chris \bbland{} \textsc{Stephens}, Mike: A combined corner and
+  edge detector, \bblin{}: \textit{In Proc. of Fourth Alvey Vision Conference},
+  \bblpp{} 147--151
 
 \bibitem[He14]{DBLP:journals/corr/HeZR014}
 \textsc{He}, Kaiming; \textsc{Zhang}, Xiangyu; \textsc{Ren}, Shaoqing \bbland{}
@@ -99,12 +147,24 @@
   \textit{CoRR} (2015), \bblvol{} abs/1512.03385,
   \urlprefix\url{http://arxiv.org/abs/1512.03385}
 
-\bibitem[Her16]{ies_2016_herrmann_low_quality}
+\bibitem[He17]{he2017maskrcnn}
+\textsc{He}, Kaiming; \textsc{Gkioxari}, Georgia; \textsc{Doll\'{a}r}, Piotr
+  \bbland{} \textsc{Girshick}, Ross: {Mask R-CNN}. \textit{arXiv preprint
+  arXiv:1703.06870} (2017)
+
+\bibitem[Her16a]{ies_2016_herrmann_low_quality}
 \textsc{Herrmann}, Christian; \textsc{Willersinn}, Dieter \bbland{}
   \textsc{Beyerer}, Jürgen: Low-Quality Video Face Recognition with Deep
   Networks and Polygonal Chain Distance, \bblin{}: \textit{Proceedings of the
   2016 International Conference on Digital Image Computing: Techniques and
   Applications (DICTA)}, IEEE, Gold Coast, Australia, \bblpp{} 244--250
+
+\bibitem[Her16b]{ies_2016_herrmann_video_face_recognition}
+\textsc{Herrmann}, Christian; \textsc{Willersinn}, Dieter \bbland{}
+  \textsc{Beyerer}, Jürgen: Low-Resolution Convolutional Neural Networks for
+  Video Face Recognition, \bblin{}: \textit{Proceedings of the 13th IEEE
+  International Conference on Advanced Video and Signal Based Surveillance,
+  IEEE, 2016.}, IEEE, Colorado Springs, USA
 
 \bibitem[Hin12]{journals/corr/abs-1207-0580}
 \textsc{Hinton}, Geoffrey~E.; \textsc{Srivastava}, Nitish; \textsc{Krizhevsky},
@@ -113,16 +173,46 @@
   \textit{CoRR} (2012), \bblvol{} abs/1207.0580,
   \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1207.html#abs-1207-0580}
 
+\bibitem[Hoi15]{DBLP:journals/corr/HoiWLWWXW15}
+\textsc{Hoi}, Steven C.~H.; \textsc{Wu}, Xiongwei; \textsc{Liu}, Hantang;
+  \textsc{Wu}, Yue; \textsc{Wang}, Huiqiong; \textsc{Xue}, Hui \bbland{}
+  \textsc{Wu}, Qiang: LOGO-Net: Large-scale Deep Logo Detection and Brand
+  Recognition with Deep Region-based Convolutional Networks. \textit{CoRR}
+  (2015), \bblvol{} abs/1511.02462,
+  \urlprefix\url{http://arxiv.org/abs/1511.02462}
+
+\bibitem[Hu13]{Hu:2013:PEG:2479988.2480107}
+\textsc{Hu}, Rui \bbland{} \textsc{Collomosse}, John: A Performance Evaluation
+  of Gradient Field HOG Descriptor for Sketch Based Image Retrieval.
+  \textit{Comput. Vis. Image Underst.} (2013), \bblvol{} 117(7):\bblpp{}
+  790--806, \urlprefix\url{http://dx.doi.org/10.1016/j.cviu.2013.02.005}
+
 \bibitem[Hua16]{DBLP:journals/corr/HuangLW16a}
 \textsc{Huang}, Gao; \textsc{Liu}, Zhuang \bbland{} \textsc{Weinberger},
   Kilian~Q.: Densely Connected Convolutional Networks. \textit{CoRR} (2016),
   \bblvol{} abs/1608.06993, \urlprefix\url{http://arxiv.org/abs/1608.06993}
+
+\bibitem[Ian15]{DBLP:journals/corr/IandolaSGK15}
+\textsc{Iandola}, Forrest~N.; \textsc{Shen}, Anting; \textsc{Gao}, Peter
+  \bbland{} \textsc{Keutzer}, Kurt: DeepLogo: Hitting Logo Recognition with the
+  Deep Neural Network Hammer. \textit{CoRR} (2015), \bblvol{} abs/1510.02131,
+  \urlprefix\url{http://arxiv.org/abs/1510.02131}
+
+\bibitem[ILS16]{ILSVRC16}
+ImageNet Large Scale Vision Recognition Challenge - Ordered by classification
+  error, \url{http://image-net.org/challenges/LSVRC/2016/results} (2016),
+  accessed: 2017-06-11
 
 \bibitem[Iof15]{DBLP:journals/corr/IoffeS15}
 \textsc{Ioffe}, Sergey \bbland{} \textsc{Szegedy}, Christian: Batch
   Normalization: Accelerating Deep Network Training by Reducing Internal
   Covariate Shift. \textit{CoRR} (2015), \bblvol{} abs/1502.03167,
   \urlprefix\url{http://arxiv.org/abs/1502.03167}
+
+\bibitem[Jad14]{Jaderberg14d}
+\textsc{Jaderberg}, M.; \textsc{Simonyan}, K.; \textsc{Vedaldi}, A. \bbland{}
+  \textsc{Zisserman}, A.: Reading Text in the Wild with Convolutional Neural
+  Networks. \textit{arXiv preprint arXiv:1412.1842} (2014)
 
 \bibitem[Jia14]{Jia:2014:CCA:2647868.2654889}
 \textsc{Jia}, Yangqing; \textsc{Shelhamer}, Evan; \textsc{Donahue}, Jeff;
@@ -165,8 +255,15 @@
   \textit{Proceedings of the 20th ACM international conference on Multimedia},
   ACM, \bblpp{} 599--608
 
-\bibitem[Log]{LogoClearbit}
-Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
+\bibitem[Liu15]{journals/corr/LiuAESR15}
+\textsc{Liu}, Wei; \textsc{Anguelov}, Dragomir; \textsc{Erhan}, Dumitru;
+  \textsc{Szegedy}, Christian \bbland{} \textsc{Reed}, Scott~E.: SSD: Single
+  Shot MultiBox Detector. \textit{CoRR} (2015), \bblvol{} abs/1512.02325,
+  \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1512.html#LiuAESR15}
+
+\bibitem[Log17]{LogoClearbit}
+Clearbit - Free logo API, \url{https://clearbit.com/logo} (2017), accessed:
+  2017-02-17
 
 \bibitem[Lon14]{DBLP:journals/corr/LongSD14}
 \textsc{Long}, Jonathan; \textsc{Shelhamer}, Evan \bbland{} \textsc{Darrell},
@@ -179,10 +276,50 @@ Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
   Keypoints. \textit{Int. J. Comput. Vision} (2004), \bblvol{}~60(2):\bblpp{}
   91--110, \urlprefix\url{http://dx.doi.org/10.1023/B:VISI.0000029664.99615.94}
 
+\bibitem[Mat92]{Matan92multi-digitrecognition}
+\textsc{Matan}, Ofer; \textsc{Burges}, Christopher~J.C.; \textsc{Cun}, Yann~Le
+  \bbland{} \textsc{Denker}, John~S.: Multi-Digit Recognition Using A Space
+  Displacement Neural Network, \bblin{}: \textit{Neural Information Processing
+  Systems}, Morgan Kaufmann, \bblpp{} 488--495
+
 \bibitem[Mil69]{MillerTheFROC1969}
 \textsc{Miller}, Harold: The FROC Curve: a Representation of the Observer's
   Performance for the Method of Free Response. \textit{The Journal of the
   Acoustical Society of America} (1969), \bblvol{}~46(6(2)):\bblpp{} 1473--1476
+
+\bibitem[Oli16]{DBLP:journals/corr/OliveiraFPR16}
+\textsc{Oliveira}, Gon{\c{c}}alo; \textsc{Fraz{\~{a}}o}, Xavier;
+  \textsc{Pimentel}, Andr{\'{e}} \bbland{} \textsc{Ribeiro}, Bernardete:
+  Automatic Graphic Logo Detection via Fast Region-based Convolutional
+  Networks. \textit{CoRR} (2016), \bblvol{} abs/1604.06083,
+  \urlprefix\url{http://arxiv.org/abs/1604.06083}
+
+\bibitem[Pan14]{DBLP:conf/icip/PandeyDJPB14}
+\textsc{Pandey}, Rohit; \textsc{Di}, Wei; \textsc{Jagadeesh}, Vignesh;
+  \textsc{Piramuthu}, Robinson \bbland{} \textsc{Bhardwaj}, Anurag: Cascaded
+  sparse color-localized matching for logo retrieval, \bblin{}: \textit{2014
+  {IEEE} International Conference on Image Processing, {ICIP} 2014, Paris,
+  France, October 27-30, 2014}, \bblpp{} 2207--2211,
+  \urlprefix\url{https://doi.org/10.1109/ICIP.2014.7025447}
+
+\bibitem[Qi17]{DBLP:journals/spl/QiSWX17}
+\textsc{Qi}, Cheng{-}Zuo; \textsc{Shi}, Cunzhao; \textsc{Wang}, Chunheng
+  \bbland{} \textsc{Xiao}, Baihua: Logo Retrieval Using Logo Proposals and
+  Adaptive Weighted Pooling. \textit{{IEEE} Signal Process. Lett.} (2017),
+  \bblvol{}~24(4):\bblpp{} 442--445,
+  \urlprefix\url{https://doi.org/10.1109/LSP.2017.2673119}
+
+\bibitem[Rad16]{DBLP:journals/corr/RadenovicTC16}
+\textsc{Radenovic}, Filip; \textsc{Tolias}, Giorgos \bbland{} \textsc{Chum},
+  Ondrej: {CNN} Image Retrieval Learns from BoW: Unsupervised Fine-Tuning with
+  Hard Examples. \textit{CoRR} (2016), \bblvol{} abs/1604.02426,
+  \urlprefix\url{http://arxiv.org/abs/1604.02426}
+
+\bibitem[Red15]{DBLP:journals/corr/RedmonDGF15}
+\textsc{Redmon}, Joseph; \textsc{Divvala}, Santosh~Kumar; \textsc{Girshick},
+  Ross~B. \bbland{} \textsc{Farhadi}, Ali: You Only Look Once: Unified,
+  Real-Time Object Detection. \textit{CoRR} (2015), \bblvol{} abs/1506.02640,
+  \urlprefix\url{http://arxiv.org/abs/1506.02640}
 
 \bibitem[Ren15]{NIPS2015_5638}
 \textsc{Ren}, Shaoqing; \textsc{He}, Kaiming; \textsc{Girshick}, Ross \bbland{}
@@ -193,13 +330,33 @@ Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
   \bblpp{} 91--99,
   \urlprefix\url{http://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks.pdf}
 
-\bibitem[Rom11]{RombergICMR2011}
+\bibitem[Rom11a]{Romberg:2011:SLR:1991996.1992021}
+\textsc{Romberg}, Stefan; \textsc{Pueyo}, Lluis~Garcia; \textsc{Lienhart},
+  Rainer \bbland{} \textsc{van Zwol}, Roelof: Scalable Logo Recognition in
+  Real-world Images, \bblin{}: \textit{Proceedings of the 1st ACM International
+  Conference on Multimedia Retrieval}, ICMR '11, ACM, New York, NY, USA,
+  \bblpp{} 25:1--25:8,
+  \urlprefix\url{http://doi.acm.org/10.1145/1991996.1992021}
+
+\bibitem[Rom11b]{RombergICMR2011}
 \textsc{Romberg}, Stefan; \textsc{Pueyo}, Lluis~Garcia; \textsc{Lienhart},
   Rainer \bbland{} \textsc{van Zwol}, Roelof: Scalable logo recognition in
   real-world images, \bblin{}: \textit{Proceedings of the 1st ACM International
   Conference on Multimedia Retrieval}, ICMR '11, ACM, New York, NY, USA,
   \bblpp{} 25:1--25:8,
   \urlprefix\url{http://www.multimedia-computing.de/flickrlogos/}
+
+\bibitem[Rom13]{conf/mir/RombergL13}
+\textsc{Romberg}, Stefan \bbland{} \textsc{Lienhart}, Rainer: Bundle
+  min-hashing for logo recognition., \bblin{}: Ramesh Jain; Balakrishnan
+  Prabhakaran; Marcel Worring; John~R. Smith \bbland{} Tat-Seng Chua
+  (\capitalize\bbleditors{}) \textit{ICMR}, ACM, \bblpp{} 113--120,
+  \urlprefix\url{http://dblp.uni-trier.de/db/conf/mir/icmr2013.html#RombergL13}
+
+\bibitem[Ros58]{Rosenblatt58theperceptron:}
+\textsc{Rosenblatt}, F.: The Perceptron: A Probabilistic Model for Information
+  Storage and Organization in The Brain. \textit{Psychological Review}
+  (1958):\bblpp{} 65--386
 
 \bibitem[Rus15]{ILSVRC15}
 \textsc{Russakovsky}, Olga; \textsc{Deng}, Jia; \textsc{Su}, Hao;
@@ -210,11 +367,19 @@ Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
   \textit{International Journal of Computer Vision (IJCV)} (2015), \bblvol{}
   115(3):\bblpp{} 211--252
 
+\bibitem[Sch99]{Schapire:1999:BIB:1624312.1624417}
+\textsc{Schapire}, Robert~E.: A Brief Introduction to Boosting, \bblin{}:
+  \textit{Proceedings of the 16th International Joint Conference on Artificial
+  Intelligence - Volume 2}, IJCAI'99, Morgan Kaufmann Publishers Inc., San
+  Francisco, CA, USA, \bblpp{} 1401--1406,
+  \urlprefix\url{http://dl.acm.org/citation.cfm?id=1624312.1624417}
+
 \bibitem[Ser13]{journals/corr/SermanetEZMFL13}
 \textsc{Sermanet}, Pierre; \textsc{Eigen}, David; \textsc{Zhang}, Xiang;
-  \textsc{Mathieu}, Michaël; \textsc{Fergus}, Rob \bbland{} \textsc{LeCun},
-  Yann: OverFeat: Integrated Recognition, Localization and Detection using
-  Convolutional Networks. \textit{CoRR} (2013), \bblvol{} abs/1312.6229,
+  \textsc{Mathieu}, Micha{\"{e}}l; \textsc{Fergus}, Rob \bbland{}
+  \textsc{LeCun}, Yann: OverFeat: Integrated Recognition, Localization and
+  Detection using Convolutional Networks. \textit{CoRR} (2013), \bblvol{}
+  abs/1312.6229,
   \urlprefix\url{http://dblp.uni-trier.de/db/journals/corr/corr1312.html#SermanetEZMFL13}
 
 \bibitem[Sim13]{Simonyan13}
@@ -249,6 +414,12 @@ Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
   (2014), \bblvol{} abs/1409.4842,
   \urlprefix\url{http://arxiv.org/abs/1409.4842}
 
+\bibitem[Tol15]{DBLP:journals/corr/ToliasSJ15}
+\textsc{Tolias}, Giorgos; \textsc{Sicre}, Ronan \bbland{} \textsc{J{\'{e}}gou},
+  Herv{\'{e}}: Particular object retrieval with integral max-pooling of {CNN}
+  activations. \textit{CoRR} (2015), \bblvol{} abs/1511.05879,
+  \urlprefix\url{http://arxiv.org/abs/1511.05879}
+
 \bibitem[Tur17]{DBLP:journals/corr/TursunAK17}
 \textsc{Tursun}, Osman; \textsc{Aker}, Cemal \bbland{} \textsc{Kalkan}, Sinan:
   A Large-scale Dataset and Benchmark for Similar Trademark Retrieval.
@@ -272,6 +443,13 @@ Clearbit - Free logo API, \url{https://clearbit.com/logo}, accessed: 2017-02-17
   Piotr; \textsc{Tu}, Zhuowen \bbland{} \textsc{He}, Kaiming: Aggregated
   Residual Transformations for Deep Neural Networks. \textit{CoRR} (2016),
   \bblvol{} abs/1611.05431, \urlprefix\url{http://arxiv.org/abs/1611.05431}
+
+\bibitem[Yan16]{Yan:2016:CVS:2964284.2967252}
+\textsc{Yan}, Ke; \textsc{Wang}, Yaowei; \textsc{Liang}, Dawei; \textsc{Huang},
+  Tiejun \bbland{} \textsc{Tian}, Yonghong: CNN vs. SIFT for Image Retrieval:
+  Alternative or Complementary?, \bblin{}: \textit{Proceedings of the 2016 ACM
+  on Multimedia Conference}, MM '16, ACM, New York, NY, USA, \bblpp{} 407--411,
+  \urlprefix\url{http://doi.acm.org/10.1145/2964284.2967252}
 
 \bibitem[Zei13]{DBLP:journals/corr/ZeilerF13}
 \textsc{Zeiler}, Matthew~D. \bbland{} \textsc{Fergus}, Rob: Visualizing and

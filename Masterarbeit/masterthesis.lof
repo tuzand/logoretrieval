@@ -1,27 +1,47 @@
 \select@language {english}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 1.1}{\ignorespaces The outline of the proposed system\relax }}{1}{figure.caption.4}
+\contentsline {figure}{\numberline {\relax 1.2}{\ignorespaces Examples for challenging logos, where the instances of each column belong to the same class\relax }}{2}{figure.caption.5}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {\relax 3.1}{\ignorespaces R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally.\relax }}{8}{figure.caption.3}
-\contentsline {figure}{\numberline {\relax 3.2}{\ignorespaces Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. The proposals is then used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network.\relax }}{10}{figure.caption.4}
-\contentsline {figure}{\numberline {\relax 3.3}{\ignorespaces Faster Region Based Convolutional Neural Network consists of a Fast R-CNN and a region proposal network (RPN). Fast R-CNN is responsible for the feature map extraction from the whole image, and classify regions from that. The RPN is an in-network implemented proposal system, for generating candidate object locations in a fast way.\relax }}{11}{figure.caption.6}
+\contentsline {figure}{\numberline {\relax 3.1}{\ignorespaces R-CNN takes external region proposals, warps the region to a uniform shape, and extracts the features separately. The extracted features are then used to classify the region, and calculate bounding box regression externally. Source: \cite {Girshick16}\relax }}{8}{figure.caption.6}
+\contentsline {figure}{\numberline {\relax 3.2}{\ignorespaces Fast R-CNN uses external proposals, then infers the complete image with a fully convolutional network. Afterwards, the proposals is used to crop regions from the feature map with RoI pooling. The cropped region is then classified and the region coordinates are adjusted with a fully connected network. Source: \cite {Girshick16}\relax }}{10}{figure.caption.7}
+\contentsline {figure}{\numberline {\relax 3.3}{\ignorespaces Faster Region-Based Convolutional Neural Network consists of a Fast R-CNN and a Region Proposal Network. Fast R-CNN is responsible for the feature map extraction from the whole image, and classify regions from that. The RPN is an in-network implemented proposal system, for generating candidate object locations in a fast way. Source: \cite {NIPS2015_5638}\relax }}{11}{figure.caption.9}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {\relax 4.1}{\ignorespaces Misplaced logo detection, with maximum RPN score\relax }}{15}{figure.caption.10}
-\contentsline {figure}{\numberline {\relax 4.2}{\ignorespaces Faster R-CNN and Classifier based logo retrieval system\relax }}{17}{figure.caption.11}
-\contentsline {figure}{\numberline {\relax 4.3}{\ignorespaces Network setups in train and test phases for learning detection and classification jointly\relax }}{18}{figure.caption.12}
+\contentsline {figure}{\numberline {\relax 4.1}{\ignorespaces Cardinality of different brands in the public and SportLogos datasets\relax }}{14}{figure.caption.13}
+\contentsline {figure}{\numberline {\relax 4.2}{\ignorespaces Left: Number of classes within the different datasets, and their size of intersections. Right: Brands contained by both the training and the test dataset and their cardinality\relax }}{14}{figure.caption.14}
+\contentsline {figure}{\numberline {\relax 4.3}{\ignorespaces Left: Object detection with Region Proposal Network. Right: Object detection with Faster R-CNN. It can be considered as cascade of a weak and a stronger classifier\relax }}{15}{figure.caption.15}
+\contentsline {figure}{\numberline {\relax 4.4}{\ignorespaces Baseline logo retrieval system applies Faster-R-CNN both on the images of the query and the search set, then compares the features\relax }}{17}{figure.caption.16}
+\contentsline {figure}{\numberline {\relax 4.5}{\ignorespaces Misplaced logo detection, with maximum RPN score\relax }}{17}{figure.caption.17}
+\contentsline {figure}{\numberline {\relax 4.6}{\ignorespaces Fast\&Faster-Logos solution. It computes the query feature from the complete query image (i.e. Fast-R-CNN mode), the features of the search image is collected by Faster-R-CNN\relax }}{18}{figure.caption.18}
+\contentsline {figure}{\numberline {\relax 4.7}{\ignorespaces Fast-Logos solution. It computes the features both from the query and the search set in Fast-R-CNN mode, whereas the query region is the complete query image and the locations for the search set come from an external Faster-R-CNN logo detector. The dashed lines indicate an indirect connection between the networks.\relax }}{19}{figure.caption.19}
+\contentsline {figure}{\numberline {\relax 4.8}{\ignorespaces R-CNN-Logos solution. Query region is the complete query image, the search region proposals are generated from and external Faster-R-CNN logo detector. The features are extracted with a general purpose convolutional network. The dashed lines indicate an indirect connection between the networks.\relax }}{19}{figure.caption.20}
+\contentsline {figure}{\numberline {\relax 4.9}{\ignorespaces Siam-Logos. Network setups in train and test phases for learning detection and classification jointly.\relax }}{20}{figure.caption.21}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces FlickrBelgaLogos examples\relax }}{20}{figure.caption.13}
-\contentsline {figure}{\numberline {\relax 5.2}{\ignorespaces Logo recognition performance after training with real (BelgaLogos) and synthetic data (FlickrBelgaLogos)\relax }}{21}{figure.caption.14}
-\contentsline {figure}{\numberline {\relax 5.3}{\ignorespaces Logo detection performance\relax }}{21}{figure.caption.15}
-\contentsline {figure}{\numberline {\relax 5.4}{\ignorespaces Logo detection example\relax }}{21}{figure.caption.16}
-\contentsline {figure}{\numberline {\relax 5.5}{\ignorespaces Generated synthetic logo images\relax }}{22}{figure.caption.18}
-\contentsline {figure}{\numberline {\relax 5.6}{\ignorespaces Generated synthetic logo images\relax }}{23}{figure.caption.19}
-\contentsline {figure}{\numberline {\relax 5.7}{\ignorespaces Logo detection evaluation\relax }}{23}{figure.caption.20}
-\contentsline {figure}{\numberline {\relax 5.8}{\ignorespaces Logo detection under extreme light conditions\relax }}{24}{figure.caption.21}
-\contentsline {figure}{\numberline {\relax 5.9}{\ignorespaces FL-32 test evaluation with \texttt {VGG\_CNN\_M\_1024} base network\relax }}{25}{figure.caption.22}
-\contentsline {figure}{\numberline {\relax 5.10}{\ignorespaces \relax }}{26}{figure.caption.23}
-\contentsline {figure}{\numberline {\relax 5.11}{\ignorespaces \relax }}{26}{figure.caption.24}
-\contentsline {figure}{\numberline {\relax 5.12}{\ignorespaces Samples for intraclass variation in one sport video. Images from same columns have the same class.\relax }}{26}{figure.caption.25}
+\contentsline {figure}{\numberline {\relax 5.1}{\ignorespaces FlickrBelgaLogos examples\relax }}{22}{figure.caption.22}
+\contentsline {figure}{\numberline {\relax 5.2}{\ignorespaces Logo recognition performance after training with real (BelgaLogos) and synthetic data (FlickrBelgaLogos)\relax }}{23}{figure.caption.23}
+\contentsline {figure}{\numberline {\relax 5.3}{\ignorespaces Logo detection performance while training purely with synthetic data\relax }}{23}{figure.caption.24}
+\contentsline {figure}{\numberline {\relax 5.4}{\ignorespaces Logo detection example by a detector, trained only with synthetic data\relax }}{24}{figure.caption.25}
+\contentsline {figure}{\numberline {\relax 5.5}{\ignorespaces Generated synthetic logo images based on the METU Trademark Dataset \cite {DBLP:journals/corr/TursunAK17}\relax }}{24}{figure.caption.27}
+\contentsline {figure}{\numberline {\relax 5.6}{\ignorespaces Generated synthetic logo images based on logo images collected from the Logo API of Clearbit \cite {LogoClearbit}\relax }}{25}{figure.caption.28}
+\contentsline {figure}{\numberline {\relax 5.7}{\ignorespaces FL-32 test evaluation with \texttt {VGG\_CNN\_M\_1024} base network\relax }}{26}{figure.caption.29}
+\contentsline {figure}{\numberline {\relax 5.8}{\ignorespaces FL-32 test evaluation with VGG-16 compared with the best \texttt {VGG\_CNN\_M\_1024}, as base network\relax }}{26}{figure.caption.30}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 6.1}{\ignorespaces Logo detection evaluation\relax }}{28}{figure.caption.31}
+\contentsline {figure}{\numberline {\relax 6.2}{\ignorespaces Logo detection under extreme light conditions\relax }}{29}{figure.caption.32}
+\contentsline {figure}{\numberline {\relax 6.3}{\ignorespaces Misclassification due to the small number of trained classes and data\relax }}{29}{figure.caption.33}
+\contentsline {figure}{\numberline {\relax 6.4}{\ignorespaces Feature vectors of the two query images and one cropped image from a video\relax }}{30}{figure.caption.34}
+\contentsline {figure}{\numberline {\relax 6.5}{\ignorespaces Samples for intraclass variation in sport videos. Images in the same columns have the same class.\relax }}{30}{figure.caption.35}
+\contentsline {figure}{\numberline {\relax 6.6}{\ignorespaces Performance of Fast\&Faster-Logos compared with the Baseline and a Random Classifier\relax }}{31}{figure.caption.36}
+\contentsline {figure}{\numberline {\relax 6.7}{\ignorespaces Performance of Siam-Logos solution compared with the Baseline and a Random Classifier\relax }}{31}{figure.caption.37}
+\contentsline {figure}{\numberline {\relax 6.8}{\ignorespaces Performance of Fast-Logos, i.e. replacing the RPN of a Faster R-CNN with a logo detector Faster R-CNN\relax }}{32}{figure.caption.38}
+\contentsline {figure}{\numberline {\relax 6.9}{\ignorespaces Performance of the R-CNN-Logos solution by applying Faster R-CNN as region proposal system\relax }}{32}{figure.caption.39}
+\contentsline {figure}{\numberline {\relax 6.10}{\ignorespaces Effect of pretrained classes. The performance of a network, trained with and without the two classes, occurring in the test set, and the average performance of the networks.\relax }}{33}{figure.caption.40}
+\contentsline {figure}{\numberline {\relax 6.11}{\ignorespaces Similarity scores between query images of two classes and a crop image from the search set (middle).\relax }}{34}{figure.caption.41}
+\contentsline {figure}{\numberline {\relax 6.12}{\ignorespaces Average processing time per image and the best achieved DIR value\relax }}{34}{figure.caption.42}
+\contentsline {figure}{\numberline {\relax 6.13}{\ignorespaces Incorporating retrieval time and performance of the different networks of the solution R-CNN-Logos\relax }}{35}{figure.caption.43}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {\relax 7.1}{\ignorespaces A tough example for the logo detector, because of the sign on the top left part of the image\relax }}{36}{figure.caption.44}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

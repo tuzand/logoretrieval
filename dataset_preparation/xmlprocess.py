@@ -7,13 +7,13 @@ import cv2
 path = '/Volumes/WD/datasets/logos/SportBilder/Schalke/raw'
 ext = '.png'
 dstext = '.jpg'
-postfix = ''
+postfix = '_det'
 
 skip_occluded = True
 
 fuse_occluded = True
 
-outpath = os.path.join(path, '..', 'data')
+outpath = os.path.join(path, '..', 'data' + postfix)
 
 annotationspath = os.path.join(outpath, 'Annotations')
 imagespath = os.path.join(outpath, 'Images')
@@ -92,7 +92,7 @@ for filename in os.listdir(path):
                 brand = "preisboerse24-teilsichtbar"
             # 1 gt
             elif brand == "adidas2" or brand == "fcbayernmuenchen" or brand == "bvb" \
-                or brand == "deutscher fussballbund" or brand == "nike" or brand == "money gram" \
+                or brand == "deutscher fussballbund" or brand == "nike"  or brand == "money gram" \
                 or brand == "zoom":
                 continue
 
@@ -129,7 +129,7 @@ for filename in os.listdir(path):
 
             if (x2 - x1 < 26 and y2 - y1 < 26):
                 continue
-
+            brand = 'logo'
             brandlist.append(brand)
             roi = im[y1:y2, x1:x2]
             folder = os.path.join(brandspath, brand)
@@ -142,7 +142,7 @@ for filename in os.listdir(path):
 
     copy2(os.path.join(path, imagename + ext), os.path.join(imagespath, imagename + postfix + dstext))
 
-with open(os.path.join(imagesetspath, 'schalke.txt'), 'w') as f:
+with open(os.path.join(imagesetspath, 'schalke' + postfix + '.txt'), 'w') as f:
     f.write(imglist)
 
 with open(os.path.join(outpath, '..', 'brands.txt'), 'w') as f:

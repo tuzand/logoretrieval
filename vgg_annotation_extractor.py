@@ -10,17 +10,17 @@ def createdirs(dir):
 #path = "/Users/andrastuzko/Pictures/datasets/SportTestbilder/"
 path = '/Volumes/WD/datasets/logos/SportBilder'
 
-#dataset = "srf_ice"
-#outpaths = ["good", "good_occlusion", "bad", "bad_occlusion"]
+dataset = "srf_ice"
+outpaths = ["good", "good_occlusion", "bad", "bad_occlusion"]
+vggfile = os.path.join(path, dataset + ".csv")
+
+#dataset = "srf_ski"
+#outpaths = ["good"]
 #vggfile = os.path.join(path, dataset + ".csv")
 
-dataset = "srf_ski"
-outpaths = ["good"]
-vggfile = os.path.join(path, dataset + ".csv")
-
-dataset = "srf_football"
-outpaths = ["good"]
-vggfile = os.path.join(path, dataset + ".csv")
+#dataset = "srf_football"
+#outpaths = ["good"]
+#vggfile = os.path.join(path, dataset + ".csv")
 postfix = '_det'
 
 annotationspaths = list()

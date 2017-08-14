@@ -4,52 +4,54 @@ The top-level auxiliary file: masterthesis1.aux
 The style file: bib/bst/AlphaDINFirstName.bst
 Database file #1: bib/BibtexDatabase.bib
 Warning--to sort, need author or key in LogoClearbit
+Warning--to sort, need author or key in ILSVRC16
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty pages in Chatfield14
 Warning--empty pages in imagenet_cvpr09
 Warning--empty pages in Hadsell06dimensionalityreduction
+Warning--empty pages in ies_2016_herrmann_video_face_recognition
 Warning--empty pages in 619
 Warning--empty pages in Simonyan13
 Warning--empty pages in edge-boxes-locating-object-proposals-from-edges
-You've used 45 entries,
+You've used 73 entries,
             3052 wiz_defined-function locations,
-            1401 strings with 23596 characters,
-and the built_in function-call counts, 27671 in all, are:
-= -- 1931
-> -- 983
-< -- 86
-+ -- 358
-- -- 355
-* -- 2681
-:= -- 3263
-add.period$ -- 24
-call.type$ -- 45
-change.case$ -- 309
-chr.to.int$ -- 45
-cite$ -- 53
-duplicate$ -- 2503
-empty$ -- 2371
-format.name$ -- 659
-if$ -- 5555
-int.to.chr$ -- 1
+            1582 strings with 30221 characters,
+and the built_in function-call counts, 44090 in all, are:
+= -- 3128
+> -- 1524
+< -- 138
++ -- 558
+- -- 548
+* -- 4235
+:= -- 5204
+add.period$ -- 41
+call.type$ -- 73
+change.case$ -- 488
+chr.to.int$ -- 70
+cite$ -- 84
+duplicate$ -- 3997
+empty$ -- 3785
+format.name$ -- 1025
+if$ -- 8885
+int.to.chr$ -- 4
 int.to.str$ -- 0
-missing$ -- 442
-newline$ -- 143
-num.names$ -- 92
-pop$ -- 848
+missing$ -- 706
+newline$ -- 227
+num.names$ -- 148
+pop$ -- 1331
 preamble$ -- 1
-purify$ -- 398
+purify$ -- 632
 quote$ -- 0
-skip$ -- 933
+skip$ -- 1497
 stack$ -- 0
-substring$ -- 916
-swap$ -- 1554
-text.length$ -- 86
-text.prefix$ -- 44
+substring$ -- 1494
+swap$ -- 2456
+text.length$ -- 138
+text.prefix$ -- 71
 top$ -- 0
-type$ -- 360
-warning$ -- 7
-while$ -- 144
-width$ -- 52
-write$ -- 429
-(There were 7 warnings)
+type$ -- 584
+warning$ -- 9
+while$ -- 231
+width$ -- 78
+write$ -- 700
+(There were 9 warnings)

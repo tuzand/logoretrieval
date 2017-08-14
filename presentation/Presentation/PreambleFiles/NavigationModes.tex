@@ -1,0 +1,113 @@
+%%
+%% This file enables switching of the visibility of the FBPDA steps
+%% in the navigation bar
+%% Copyright (C) 2008 by Michael Grinberg <mig@ira.uka.de>
+%% 
+%% Usage: \uncover<\PredUncoverMode>{\item{Prediction}}
+%%
+%%
+
+\usepackage{ifthen}
+
+\newcommand\FBPDAShortTitle{FBPDA}
+\newcommand\FBPDAFullTitle{FBPDA - Feature-Based Probabilistic Data Association}
+\newcommand{\NumSteps}{5}
+
+
+\newboolean{FiveSteps}
+
+\newboolean{SetSameTitleForAllSteps}
+\newboolean{OnlyStepTitles}
+\newboolean{UseAlgoTitle}
+
+
+
+\ifthenelse{\NumSteps = 5}{\setboolean{FiveSteps}{true}}{\setboolean{FiveSteps}{false}}
+
+\setboolean{SetSameTitleForAllSteps}{true}
+\setboolean{OnlyStepTitles}{true}
+\setboolean{UseAlgoTitle}{true}
+
+\newcommand{\SlideTitle}{}
+\newcommand{\StepTitle}{}
+
+\newcommand{\SetSlideTitle}[1]{\renewcommand{\SlideTitle}[1]{#1}}
+\newcommand{\SetStepTitle}[1]{\renewcommand{\StepTitle}[1]{#1}}
+
+
+\newcommand{\FullStepTitle}[1]{\ifthenelse	{\OR{\boolean{OnlyStepTitles}}{\equal{#1}{}}}
+															{\StepTitle}
+															{\StepTitle{} - #1}}
+
+\newcommand{\FullSlideTitle}[1]{\ifthenelse	{\boolean{UseAlgoTitle}}
+															{\FBPDAShortTitle{} - \FullStepTitle{#1}}
+															{\FullStepTitle{#1}}}
+
+\newcommand{\SetFrameTitle}[1]{\ifthenelse	{\boolean{SetSameTitleForAllSteps}}
+															{\FBPDAFullTitle}
+															{\FullSlideTitle{#1}}}
+
+% boolean for defining visibility of a FBPDA step in the navigation bar
+%      true:  step is visible
+%      false: step is faded
+\newboolean{ShowPrediction}
+\newboolean{ShowAssociation}
+\newboolean{ShowReconstruction}
+\newboolean{ShowInnovation}
+\newboolean{ShowTrackManagement}
+
+\setboolean{ShowPrediction}{true}
+\setboolean{ShowAssociation}{true}
+\setboolean{ShowReconstruction}{true}
+\setboolean{ShowInnovation}{true}
+\setboolean{ShowTrackManagement}{true}
+
+\newcommand\PredUncoverMode{\ifthenelse{\boolean{ShowPrediction}}{\uncover<all:1->}{\uncover<all:0>}}
+\newcommand\AssoUncoverMode{\ifthenelse{\boolean{ShowAssociation}}{\uncover<all:1->}{\uncover<all:0>}}
+\newcommand\RecoUncoverMode{\ifthenelse{\boolean{ShowReconstruction}}{\uncover<all:1->}{\uncover<all:0>}}
+\newcommand\InnoUncoverMode{\ifthenelse{\boolean{ShowInnovation}}{\uncover<all:1->}{\uncover<all:0>}}
+\newcommand\TmanUncoverMode{\ifthenelse{\boolean{ShowTrackManagement}}{\uncover<all:1->}{\uncover<all:0>}}
+
+\newcommand{\PredItem}{\PredUncoverMode{\item \textbf{\hyperlink{Prediction}{\transl{%
+								Prediction}{%
+								Prädiktion}}}}}
+\newcommand{\AssoItem}{\AssoUncoverMode{\item \textbf{\hyperlink{Association}{\transl{%
+								Association}{%
+								Assoziation}}}}}
+\newcommand{\RecoItem}{\RecoUncoverMode{\item \textbf{\hyperlink{Reconstruction}{\transl{%
+							Measurement reconstruction}{%
+							Messungsrekonstruktion}}}}}
+\newcommand{\InnoItem}{\InnoUncoverMode{\item \textbf{\hyperlink{Innovation}{\transl{%
+								Innovation}{%
+								Innovation}}}}}
+\newcommand{\TmanItem}{\TmanUncoverMode{\item \textbf{\hyperlink{TrackManagement}{\transl{%
+								Track management}{%
+								Track Management}}}}}
+
+% Creates a frame with a navigation bar using a content file and an (optional) title.
+% Usage:
+%  \CreateFBPDAFrame<beamer:.- | trans:1-3| handout:0>[Optionaler Folientitel]
+%   {\input{Frames/PredictionDynamicsContent}}
+
+\newcommand<>{\CreateFBPDAFrame}[1]{%\only#2{
+%
+%\begin{frame}#2[T]
+\begin{frame}[T]
+\frametitle{\SetFrameTitle{\SlideTitle}}
+%
+%--------------------------------
+% Upper part: navigation area with FBPDA steps
+%--------------------------------
+\vspace{-7mm}
+\begin{overlayarea}{\textwidth}{2.5cm} %Parameter: Breite, Höhe
+\input{Frames/FiveStepsNavigationArea}
+\end{overlayarea}
+%
+%--------------------------------
+% Lower part: content
+%--------------------------------
+\begin{overlayarea}{\textwidth}{5cm}
+#1
+\end{overlayarea}
+\end{frame}
+}%}
