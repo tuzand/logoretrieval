@@ -30,9 +30,9 @@ import cPickle
 import sys
 
 max_per_image = 0
-vis = False
+vis = True
 rpndet = False
-threshold = 0.1
+threshold = 0.75
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
@@ -49,6 +49,8 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn
 PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
 MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
+#PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/conv3/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_detection_vgg16_wo_conv34/vgg16_faster_rcnn_detection_wo_conv3_4_iter_60000.caffemodel')
 
 #PROTO = os.path.join(FRCNN, 'models/logo_detection/resnettest/test_agnostic.prototxt')
 #MODEL = os.path.join(FRCNN, 'resnet50_rfcn_iter_1000.caffemodel')#'output/final/allnet_detector_resnet50_gen/resnet50_faster_rcnn_detection_iter_22000.caffemodel')
@@ -69,13 +71,14 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_fast
 #PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
 
-PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/alllogo_vgg16_sharedconv/vgg16_faster_rcnn_alllogo_sharedconv_iter_30000.caffemodel')
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/test.prototxt')
+#MODEL = os.path.join(FRCNN, 'output/final/alllogo_vgg16_sharedconv/vgg16_faster_rcnn_alllogo_sharedconv_iter_30000.caffemodel')
 
 #SEARCHPATH = '/home/andras/data/datasets/fussi'
 #SEARCH = 'srf_ski_good_logo'
-SEARCH = 'schalke_det'
-customdataset = False
+#SEARCH = 'schalke_det'
+SEARCH = '/home/andras/footballtest'
+customdataset = True
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     im = im[:, :, (2, 1, 0)]
@@ -138,7 +141,7 @@ def draw_boxes(img, dets, imagename):
         y = bbox[1]
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
-        cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
+        cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),6)
     cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
 
 def parse_args():

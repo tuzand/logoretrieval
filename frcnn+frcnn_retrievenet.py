@@ -35,12 +35,12 @@ from skimage.transform import rescale, resize, downscale_local_mean
 
 
 max_per_image = 0
-logo_threshold = 0.8
-similarity_threshold = 0.6
+logo_threshold = 0.3
+similarity_threshold = 0.7
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
-recognition_score = False
+recognition_score = True
 cosinesimilarity = True
 
 detectionpathexists = False
@@ -49,7 +49,7 @@ detectionpathexists = False
 featurelayer = 'fc7'
 
 # ResNet
-#featurelayer = 'fc1000'
+featurelayer = 'fc1000'
 
 # SqeezeNet
 #featurelayer = 'pool10'
@@ -57,6 +57,7 @@ featurelayer = 'fc7'
 # Inception BN
 #featurelayer = 'fc1'
 
+# eigenT
 #featurelayer = 'feat'
 
 visualize_logo_detection = False
@@ -77,7 +78,7 @@ FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2en
 FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_simple/fast_test.prototxt')
 MODEL = os.path.join(FRCNN, 'output/final/allnet_allnet_det_sharedconv_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
 
-
+# Sol 5
 FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/test.prototxt')
 FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/fast_test.prototxt')
 MODEL = os.path.join(FRCNN, 'output/final/alllogo_vgg16_sharedconv/vgg16_faster_rcnn_alllogo_sharedconv_iter_40000.caffemodel')
@@ -128,10 +129,13 @@ CLASSIFIERMODEL = os.path.join(FRCNN, 'data/imagenet/VGG_CNN_M_1024.v2.caffemode
 #CLASSIFIERMODEL = ('/home/andras/data/models/alexbn/alexbn.caffemodel')
 
 # VGG-16
-#CLASSIFIERPROTO = ('/home/andras/data/models/vgg_16/VGG_ILSVRC_16_layers_deploy.prototxt')
-#CLASSIFIERMODEL = os.path.join(FRCNN, 'data/imagenet/VGG16.v2.caffemodel')
+CLASSIFIERPROTO = ('/home/andras/data/models/vgg_16/VGG_ILSVRC_16_layers_deploy.prototxt')
+CLASSIFIERMODEL = os.path.join(FRCNN, 'data/imagenet/VGG16.v2.caffemodel')
 
 # ResNet50
+CLASSIFIERPROTO = ('/home/andras/data/models/resnet/ResNet-50-deploy.prototxt')
+CLASSIFIERMODEL = ('/home/andras/data/models/resnet/ResNet-50-model.caffemodel')
+
 #CLASSIFIERPROTO = ('/home/andras/data/models/resnet/ResNet-101-deploy.prototxt')
 #CLASSIFIERMODEL = ('/home/andras/data/models/resnet/ResNet-101-model.caffemodel')
 
@@ -150,12 +154,11 @@ CLASSIFIERMODEL = os.path.join(FRCNN, 'data/imagenet/VGG_CNN_M_1024.v2.caffemode
 CLASSIFIERPROTO = ('/home/andras/data/models/resnet_112/deploy.prototxt')
 CLASSIFIERMODEL = ('/home/andras/data/models/resnet_112/10k/resnet_50_iter_10000.caffemodel')
 
-CLASSIFIERPROTO = ('/home/andras/data/models/vgg_cnn_m_1024/test_219.prototxt')
-CLASSIFIERMODEL = ('/home/andras/data/models/vgg_cnn_m_1024/vgg_cnn_m_train_iter_7000.caffemodel')
+#CLASSIFIERPROTO = ('/home/andras/data/models/vgg_cnn_m_1024/test_219.prototxt')
+#CLASSIFIERMODEL = ('/home/andras/data/models/vgg_cnn_m_1024/vgg_cnn_m_train_iter_7000.caffemodel')
 
 QUERYPATH = '/home/andras/data/misc/schalke_query_crop/'
 #QUERYPATH = '/home/andras/data/misc/schalke_query_highres/'
-#QUERYPATH = '/home/andras/shit/'
 
 SEARCHPATH = 'schalke'
 
@@ -176,10 +179,10 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
                           bbox[3] - bbox[1], fill=False,
                           edgecolor='red', linewidth=3.5)
             )
-        ax.text(bbox[0], bbox[1] - 2,
-                '{:s} {:.3f}'.format(str(class_name), score),
-                bbox=dict(facecolor='blue', alpha=0.5),
-                fontsize=14, color='white')
+        #ax.text(bbox[0], bbox[1] - 2,
+        #        '{:s} {:.3f}'.format(str(class_name), score),
+        #        bbox=dict(facecolor='blue', alpha=0.5),
+        #        fontsize=14, color='white')
 
     plt.axis('off')
     plt.tight_layout()
@@ -307,12 +310,12 @@ def cls_net(imdb, faster = False, onlymax = False, rpndetection = False, max_per
             logo_inds = list(range(0, len(scores)))
         else:
             scores, boxes, features, scores_det, boxes_det = im_detect(net, im, boxes=None, customfeatures=True, detection = True, rpndet=rpndetection)
-            if rpndetection:
-                boxes_det = boxes_det[:, 1:]
+            # using the bb of the class with the bigest score is better
+            b = np.zeros((len(boxes), 4))
             for indx, s in enumerate(scores):
                 max_indx = s[1:].argmax()
-                boxes_det[indx] = boxes[indx, max_indx*4: (max_indx+1)*4]
-            boxes = boxes_det
+                b[indx] = boxes[indx, max_indx*4: (max_indx+1)*4]
+            boxes = b
             if rpndetection:
                 k = 0
             else:
@@ -452,7 +455,7 @@ def getClassificatorFeatures(net, im, box):
     x2 = box[2]
     y2 = box[3]
     roi = im[y1:y2, x1:x2]
-    roi = cv2.resize(roi, (224, 224))
+    roi = cv2.resize(roi, (112, 112))
     #roi = roi - np.array([103.939, 116.779, 123.68])
     roi = roi.swapaxes(0,2).swapaxes(1,2)
     roi = np.array([roi]).astype(np.float32)
@@ -508,10 +511,10 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
                     s = similarity * bscores[j]
                     if scores[j, classindex] < s:
                         scores[j, classindex] = s
+                        boxes[j, classindex*4 : classindex*4+4] = search_bboxes[j]
                 elif scores[j, classindex] < similarity:
                     scores[j, classindex] = similarity
-                
-                boxes[j, classindex*4 : classindex*4+4] = search_bboxes[j]
+                    boxes[j, classindex*4 : classindex*4+4] = search_bboxes[j]                
 
         _t['misc'].toc()
         print 'Loop: {:.3f}s'.format(_t['misc'].average_time)
@@ -545,7 +548,6 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
                     .astype(np.float32, copy=False)
         if visualize_logo_recognition:
             im = cv2.imread(searchfilepath)
-            print img_dets
             classArray = [imdb.classes[int(img_dets[l, 5])] for l in range(len(img_dets))]
             write_bboxes(im, searchfilename, img_dets[:, :4], img_dets[:, 4], classArray)
         for j in xrange(1, imdb.num_classes):
@@ -625,7 +627,7 @@ def search(fps):
         all_search_features, dets, boxscores, net = cls_net(imdb, faster=True, onlymax=False, rpndetection=False)
         timer.toc()
 
-    resfilename = 'sol4_resnet_112_' + SEARCHPATH + '_results.txt'
+    resfilename = 'sol5_' + SEARCHPATH + '_results.txt'
     if os.path.isfile(resfilename):
         os.remove(resfilename)
 
