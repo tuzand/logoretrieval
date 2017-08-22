@@ -30,7 +30,7 @@ import cPickle
 import sys
 
 max_per_image = 0
-vis = True
+vis = False
 rpndet = False
 threshold = 0.75
 RESULTPATH = './results/'
@@ -49,6 +49,13 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn
 PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
 MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
+
+MODEL = os.path.join(FRCNN, \
+'output/final/publicNonFlickr_detection_vgg16/vgg16_faster_rcnn_detection_iter_20000.caffemodel')
+
+#MODEL = os.path.join(FRCNN, \
+#'output/final/publicNonFlickr_ownlogo_detection_vgg16/vgg16_faster_rcnn_detection_iter_40000.caffemodel')
+
 #PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/conv3/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detection_vgg16_wo_conv34/vgg16_faster_rcnn_detection_wo_conv3_4_iter_60000.caffemodel')
 
@@ -77,8 +84,9 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_fast
 #SEARCHPATH = '/home/andras/data/datasets/fussi'
 #SEARCH = 'srf_ski_good_logo'
 #SEARCH = 'schalke_det'
-SEARCH = '/home/andras/footballtest'
-customdataset = True
+#SEARCH = '/home/andras/footballtest'
+SEARCH = 'fl_detection_test_logo'
+customdataset = False
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     im = im[:, :, (2, 1, 0)]
@@ -305,9 +313,9 @@ if __name__ == '__main__':
     if customdataset:
         search(net, score_list, box_list)
     else:
-        with open('vgg_alllogo_' + dettext + '_' + SEARCH + '_results.txt', 'w') as f:
-            #for t in np.arange(0.99, 0.009, -0.01):
-                threshold = threshold #t
+        with open('vgg_pub_' + dettext + '_' + SEARCH + '_results.txt', 'w') as f:
+            for t in np.arange(0.99, 0.009, -0.01):
+                threshold = t #threshold
                 rec, prec, map, tp, fp, num_images = search(net, score_list, box_list)
                 f.write(str(threshold) + '\t' + str(fp/float(num_images)) + '\t' + str(rec[-1]) + '\t' + str(map) + '\n')
         

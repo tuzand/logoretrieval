@@ -4,6 +4,9 @@ import re
 import shutil
 from sets import Set
 
+blflIntersect = ["adidas", "adidas-text", "cocacola", "ferrari", "shell", "stellaartois"]
+fl27fl32Intersect = ["adidas", "apple", "bmw", "cocacola", "dhl", "fedex", "ferrari", "ford", "google", "heineken", "hp", "pepsi", "starbucks", "texaco"]
+
 bl_inputpath = '/home/andras/data/datasets/BL'
 bl_imagespath = 'images'
 bl_inputfile = 'qset3_internal_and_local.qry'
@@ -26,10 +29,7 @@ fl27_detectionoutputpath = '/home/andras/data/datasets/FL27/FL27_detection/data'
 detectionSuffix = '_det'
 
 def bl(detection, l):
-    if detection:
-        brand = 'logo\n'
-    else:
-        brand = l[1].lower() + '\n'
+    brand = l[1].lower() + '\n'
     image = l[2]
     x1 = int(l[-4])
     y1 = int(l[-3])
@@ -40,10 +40,7 @@ def bl(detection, l):
     return brand, image, x1, y1, x2, y2
 
 def fl27(detection, l):
-    if detection:
-        brand = 'logo\n'
-    else:
-        brand = l[1].lower() + '\n'
+    brand = l[1].lower() + '\n'
     image = l[0]
     x1 = int(l[-4])
     y1 = int(l[-3])
@@ -69,9 +66,18 @@ def prepare(inputpath, imagespath, inputfile, outputpath, detection, dataset):
     imageList = Set([])
     invalid = 0
     valid = 0
+    brands = list()
+    imageBlackList = list()
     for ix, line in enumerate(lines):
         l = line.split()
         brand, image, x1, y1, x2, y2 = dataset(detection, l)
+        b = brand.split()[0]
+        if any(b in i for i in blflIntersect) or any(b in j for j in fl27fl32Intersect) or any(image in k for k in imageBlackList):
+            imageBlackList.append(image)
+            continue
+        if detection:
+            brand = 'logo\n'
+        brands.append(brand)
         if x1 > x2 or y1 > y2:
             invalid += 1
             continue
@@ -91,6 +97,10 @@ def prepare(inputpath, imagespath, inputfile, outputpath, detection, dataset):
         filelistname = dataset.__name__ + '_detection_train.txt'
     else:
         filelistname = dataset.__name__ + '_train.txt'
+    with open(os.path.join(outputpath, 'brands.txt'), 'w') as bfile:
+        brands = Set(brands)
+        for br in brands:
+            bfile.write(br)
     with open(os.path.join(outputpath, 'ImageSets', filelistname), 'w') as imset:
         for im in imageList:
             imset.write(im + '\n')
