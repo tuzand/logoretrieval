@@ -2,6 +2,7 @@ from shutil import copy2
 import shutil
 import os
 import re
+from sets import Set
 
 inputpath = '/home/andras/data/datasets/toplogo'
 maskpath = 'masks'
@@ -24,6 +25,7 @@ def prepare(outputpath, detection):
     if os.path.exists(imageOutPath):
         shutil.rmtree(imageOutPath)
     os.makedirs(imageOutPath)
+    brandlist = list()
 
     for root, dirs, files in os.walk(os.path.join(inputpath, maskpath)):
         path = root.split(os.sep)
@@ -33,6 +35,8 @@ def prepare(outputpath, detection):
             
             brand = ('adidas' if (path[-1] == 'adidas0') else path[-1]) + '\n'
         for file in files:
+            brandlist.append(brand)
+
             filepath = os.path.join(root, file)
             with open(filepath, "r") as bbfile:
                 data = bbfile.read()
@@ -52,6 +56,10 @@ def prepare(outputpath, detection):
                     y2 = str(int(coor[1]) + int(h))
                     bb.write(str(x1) + ' ' + str(y1) + ' ' + str(x2) + ' ' + str(y2) + ' ' + brand)
 
+    brandlist = Set(brandlist)
+    with open(os.path.join(outputpath, "brands.txt"), "w") as f:
+        for b in brandlist:
+            f.write(b)
     for root, dirs, files in os.walk(os.path.join(inputpath, imagepath)):
         path = root.split(os.sep)
         if detection:

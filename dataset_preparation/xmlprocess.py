@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 from shutil import copy2
 import shutil
 import os
@@ -7,13 +8,13 @@ import cv2
 path = '/home/andras/data/datasets/LogoDataset_wo_fl32'
 ext = '.jpg'
 dstext = '.jpg'
-postfix = '_det'
+postfix = ''
 
 skip_occluded = True
 
 fuse_occluded = True
 
-outpath = os.path.join(path, '..', 'logodata_det')
+outpath = os.path.join(path, '..', 'logodata', 'data')
 
 annotationspath = os.path.join(outpath, 'Annotations')
 imagespath = os.path.join(outpath, 'Images')
@@ -42,17 +43,20 @@ for r, subdirs, files in os.walk(path):
 
         filewithpath = os.path.join(r, filename)
         parent = filewithpath.split('/')[-2]
-        root = xml.etree.ElementTree.parse(filewithpath).getroot()
+        parser = xml.etree.ElementTree.XMLParser(encoding="utf-8")
+        root = xml.etree.ElementTree.parse(filewithpath, parser = parser).getroot()
 
         imagename = filename.split('.')[0]
 
         imglist += parent + imagename + postfix + '\n'
 
         with open(os.path.join(annotationspath, parent + imagename + postfix + dstext + '.bboxes.txt'), 'w') as annotfile:
-            #im = cv2.imread(os.path.join(path, imagename + ext))
+            im = cv2.imread(os.path.join(r, imagename + ext))
             i = 0
             for obj in root.findall('object'):
-                brand = obj.find('name').text.lower()
+                brand = obj.find('name').text.encode('utf-8').lower()
+                if brand == u"ströker":
+                    brand = "stroeker"
 
                 bndbox = obj.find('bndbox')
                 x1 = int(bndbox[0].text)
@@ -60,13 +64,13 @@ for r, subdirs, files in os.walk(path):
                 x2 = int(bndbox[2].text)
                 y2 = int(bndbox[3].text)
 
-                brand = 'logo'
                 brandlist.append(brand)
-                #roi = im[y1:y2, x1:x2]
-                #folder = os.path.join(brandspath, brand)
-                #if not os.path.exists(folder):
-                #    os.makedirs(folder)
-                #cv2.imwrite(os.path.join(folder, imagename + '_' + str(i) + '.jpg'), roi)
+                roi = im[y1:y2, x1:x2]
+                folder = os.path.join(brandspath, brand)
+                if not os.path.exists(folder):
+                    os.makedirs(folder)
+                print os.path.join(folder, imagename + '_' + str(i) + '.jpg')
+                cv2.imwrite(os.path.join(folder, imagename + '_' + str(i) + '.jpg'), roi)
 
                 annotfile.write(str(x1) + ' ' + str(y1) + ' ' + str(x2) + ' ' + str(y2) + ' ' + brand + '\n')
                 i += 1
