@@ -5,7 +5,7 @@ import os
 import xml.etree.ElementTree
 import cv2
 
-path = '/home/andras/data/datasets/LogoDataset_wo_fl32'
+path = '/home/atuezkoe/data/datasets/LogoDataset_wo_fl32'
 ext = '.jpg'
 dstext = '.jpg'
 postfix = ''
