@@ -48,9 +48,9 @@ for r, subdirs, files in os.walk(path):
 
         imagename = filename.split('.')[0]
 
-        imglist += parent + imagename + postfix + '\n'
+        imglist += parent + '_' + imagename + postfix + '\n'
 
-        with open(os.path.join(annotationspath, parent + imagename + postfix + dstext + '.bboxes.txt'), 'w') as annotfile:
+        with open(os.path.join(annotationspath, parent + "_" + imagename + postfix + dstext + '.bboxes.txt'), 'w') as annotfile:
             im = cv2.imread(os.path.join(r, imagename + ext))
             i = 0
             for obj in root.findall('object'):
@@ -69,17 +69,16 @@ for r, subdirs, files in os.walk(path):
                 folder = os.path.join(brandspath, brand)
                 if not os.path.exists(folder):
                     os.makedirs(folder)
-                print os.path.join(folder, imagename + '_' + str(i) + '.jpg')
-                cv2.imwrite(os.path.join(folder, imagename + '_' + str(i) + '.jpg'), roi)
+                cv2.imwrite(os.path.join(folder, parent + "_" +imagename + '_' + str(i) + '.jpg'), roi)
 
                 annotfile.write(str(x1) + ' ' + str(y1) + ' ' + str(x2) + ' ' + str(y2) + ' ' + brand + '\n')
                 i += 1
 
-        copy2(os.path.join(r, imagename + ext), os.path.join(imagespath, parent + imagename + postfix + dstext))
+        copy2(os.path.join(r, imagename + ext), os.path.join(imagespath, parent + '_' + imagename + postfix + dstext))
 
 with open(os.path.join(imagesetspath, 'ownlogos' + postfix + '.txt'), 'w') as f:
     f.write(imglist)
 
-with open(os.path.join(outpath, '..', 'brands.txt'), 'w') as f:
+with open(os.path.join(outpath, 'brands.txt'), 'w') as f:
     for brand in set(brandlist):
         f.write(brand + '\n')
