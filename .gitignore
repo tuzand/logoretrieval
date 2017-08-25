@@ -1,4 +1,6 @@
 *.caffemodel
+*.solverstate
+*.zip
 results/
 resultimages/
 

@@ -160,7 +160,7 @@ CLASSIFIERMODEL = ('/home/andras/data/models/resnet_112/10k/resnet_50_iter_10000
 QUERYPATH = '/home/andras/data/misc/schalke_query_crop/'
 #QUERYPATH = '/home/andras/data/misc/schalke_query_highres/'
 
-SEARCHPATH = 'schalke'
+SEARCHPATH = 'fl_test_logo'
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     if len(bboxArray) == 0:

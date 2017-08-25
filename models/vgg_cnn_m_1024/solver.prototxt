@@ -1,0 +1,14 @@
+net: "/home/andras/data/models/vgg_cnn_m_1024/train.prototxt"
+test_iter: 120
+test_interval: 100
+base_lr: 0.001
+lr_policy: "step"
+gamma: 0.96
+stepsize: 100
+display: 10
+max_iter: 450000
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 1000
+snapshot_prefix: "/home/andras/data/models/vgg_cnn_m_1024/vgg_cnn_m_train"
+solver_mode: GPU

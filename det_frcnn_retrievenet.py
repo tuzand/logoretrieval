@@ -48,13 +48,22 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn
 
 PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
-MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
+# Master thesis detection model
+#MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
 
-MODEL = os.path.join(FRCNN, \
-'output/final/publicNonFlickr_detection_vgg16/vgg16_faster_rcnn_detection_iter_20000.caffemodel')
 
+# Public detection model
 #MODEL = os.path.join(FRCNN, \
-#'output/final/publicNonFlickr_ownlogo_detection_vgg16/vgg16_faster_rcnn_detection_iter_40000.caffemodel')
+#'output/final/publicNonFlickr_detection_vgg16/vgg16_faster_rcnn_detection_iter_20000.caffemodel')
+
+# Public + own
+MODEL = os.path.join(FRCNN, \
+'output/final/publicNonFlickr_ownlogo_detection_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
+
+# Multiclass
+#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_48/test.prototxt')
+#MODEL = os.path.join(FRCNN, \
+#"output/final/publicNonFlickr_vgg16/vgg16_faster_rcnn_publiclogo_iter_50000.caffemodel")
 
 #PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/conv3/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detection_vgg16_wo_conv34/vgg16_faster_rcnn_detection_wo_conv3_4_iter_60000.caffemodel')
@@ -85,7 +94,7 @@ MODEL = os.path.join(FRCNN, \
 #SEARCH = 'srf_ski_good_logo'
 #SEARCH = 'schalke_det'
 #SEARCH = '/home/andras/footballtest'
-SEARCH = 'fl_detection_test_logo'
+SEARCH = 'fl_detection_test'
 customdataset = False
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
@@ -313,7 +322,7 @@ if __name__ == '__main__':
     if customdataset:
         search(net, score_list, box_list)
     else:
-        with open('vgg_pub_' + dettext + '_' + SEARCH + '_results.txt', 'w') as f:
+        with open('vgg_pub_own_' + dettext + '_' + SEARCH + '_results.txt', 'w') as f:
             for t in np.arange(0.99, 0.009, -0.01):
                 threshold = t #threshold
                 rec, prec, map, tp, fp, num_images = search(net, score_list, box_list)
