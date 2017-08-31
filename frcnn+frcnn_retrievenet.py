@@ -38,13 +38,10 @@ from skimage.transform import rescale, resize, downscale_local_mean
 max_per_image = 0
 logo_threshold = 0.1
 similarity_threshold = 0.7
-RESULTPATH = './results/'
-RESULTPOSTFIX = '.result2.txt'
 
 recognition_score = True
 cosinesimilarity = True
 
-detectionpathexists = False
 
 #VGG_CNN_M & VGG16
 #featurelayer = 'fc7'
@@ -61,7 +58,7 @@ featurelayer = 'fc1000'
 # eigenT
 #featurelayer = 'feat'
 
-visualize_logo_detection = False
+visualize_logo_detection = True
 visualize_logo_recognition = False
 np.set_printoptions(threshold=np.nan)
 
@@ -75,51 +72,6 @@ PROPOSALMODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vg
 # PROPOSAL NETWORK PAPER
 PROPOSALPROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
 PROPOSALMODEL = os.path.join(FRCNN, '..', 'train/publicNonFlickr_ownlogo_detection_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
-PROPOSALMODEL = os.path.join(FRCNN,'output/final/publicNonFlickr_ownlogo_detection_vgg16/vgg16_faster_rcnn_detection_iter_10000.caffemodel')
-#PROPOSALMODEL = os.path.join(FRCNN, '..', 'train/publicNonFlickr_detection_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/sharedexceptlast/test.prototxt')
-
-FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
-FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_simple/fast_test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/allnet_allnet_det_sharedconv_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_80000.caffemodel')
-
-# Sol 5
-FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/test.prototxt')
-FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/fast_test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/alllogo_vgg16_sharedconv/vgg16_faster_rcnn_alllogo_sharedconv_iter_40000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/fl/VGG_CNN_M_1024/faster_rcnn_end2end/simple/test.prototxt')
-#PROTO = os.path.join(FRCNN, 'models/fl/faster_rcnn_alt_opt_simple/faster_rcnn_test.pt')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/fl_train+fl_val_logo/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/faster_rcnn_end2end/sharedexceptlast_v2/vgg_cnn_m_1024_faster_rcnn_fl_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/default/train/fl_faster_rcnn_final.caffemodel')
-
-#FL32 simple
-#FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/fast_test.prototxt')
-#FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/fl_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_simple_fl_iter_80000.caffemodel')
-
-#ALLNET simple
-#FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_simple/fast_test.prototxt')
-#FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_simple/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_vgg_cnn_m_single_all_for_fl_test/vgg_cnn_m_1024_faster_rcnn_allnet_simple_iter_120000.caffemodel')
-
-#FL32 simple VGG16
-#FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_simple_fl/fast_test.prototxt')
-#FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_simple_fl/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/fl_train_val_baseline_vgg16_0k_120k/vgg16_faster_rcnn_fl_iter_120000.caffemodel')
-
-#ALLNET simple VGG16
-#FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_81/fast_test.prototxt')
-#FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_81/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_simple_vgg16_for_fl_test/vgg16_faster_rcnn_allnet_iter_120000.caffemodel')
-
-#ALLLOGO simple
-#FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/fast_test.prototxt')
-#FASTERPROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
 
 #PUBLIC Multiclass VGG16
 FASTPROTO = os.path.join(FRCNN, 'models/logo/VGG16_48/fast_test.prototxt')
@@ -198,12 +150,11 @@ CLASSIFIERMODEL = ('train/vgg16_public/VGG16_public_iter_300.caffemodel')
 #CLASSIFIERMODEL = os.path.join(FRCNN, '..', 'train/densenet_161_public_litw/densenet_161_224_public_iter_8130.caffemodel')
 
 
-QUERYPATH = '/home/atuezkoe/data/datasets/schalke_query_crop/'
-#QUERYPATH = '/home/atuezkoe/data/datasets/fl_32_train_queries'
-#QUERYPATH = '/home/andras/data/misc/schalke_query_highres/'
+#QUERYPATH = '/home/atuezkoe/data/datasets/schalke_query_crop/'
+QUERYPATH = '/home/atuezkoe/data/datasets/fl_32_train_queries'
 
-#SEARCHPATH = 'fl_test'
-SEARCHPATH = 'schalke'
+SEARCHPATH = 'fl_test'
+#SEARCHPATH = 'schalke'
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     if len(bboxArray) == 0:
@@ -233,18 +184,6 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     plt.savefig('/home/atuezkoe/github/LogoRetrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
     plt.close()
 
-def draw_boxes(im, dets, imagename):
-    if dets.shape[0] == 0:
-        return
-    for i in xrange(dets.shape[0]):
-        bbox = dets[i, :4]
-        x = int(bbox[0])
-        y = int(bbox[1])
-        w = int(bbox[2]) - x
-        h = int(bbox[3]) - y
-        cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
-    cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
-
 def detect_net(net, imdb, onlymax, max_per_image=100):
     if not net:
         net = caffe.Net(PROPOSALPROTO, PROPOSALMODEL, caffe.TEST)
@@ -264,8 +203,7 @@ def detect_net(net, imdb, onlymax, max_per_image=100):
         imagename = imagepath.split('/')[-1]
         im = cv2.imread(imagepath)
         _t['im_detect'].tic()
-        #scores, boxes, features, scores_det, boxes_det = im_detect(net, im, None, detectionpathexists)
-        scores, boxes = im_detect_det(net, im, False, None) #detectionpathexists)
+        scores, boxes = im_detect_det(net, im, False, None)
 
         _t['misc'].tic()
         logo_inds = list()
@@ -353,7 +291,6 @@ def cls_net(imdb, faster = False, onlymax = False, rpndetection = False, max_per
                 logo_inds = np.where(scores_det[:, k] > logo_threshold)[0]
             boxes = boxes[logo_inds, :]
             allscores[imagename] = scores_det[logo_inds, k]
-            #draw_boxes(im, boxes, imagepath.split('/')[-1].split('.')[0])
             detections[imagename] = boxes
 
 
@@ -376,14 +313,6 @@ def cls_net(imdb, faster = False, onlymax = False, rpndetection = False, max_per
                       _t['misc'].average_time)
 
     return normed_features, detections, allscores, net
-
-def get_features(net, args, dataset, custom, onlymax):
-    if custom:
-        imdb = get_custom_imdb(dataset)
-    else:
-        imdb = get_imdb(dataset)
-        imdb.competition_mode(args.comp_mode)
-    return test_net(net, imdb, onlymax, max_per_image=args.max_per_image), imdb
 
 def parse_args():
     """
@@ -421,33 +350,6 @@ def parse_args():
 
     args = parser.parse_args()
     return args
-
-def updateFeatures(net, boxes):
-    i = 0
-    for filename, value in boxes.items():
-        roi_bboxes = list()
-        roi_scores = list()
-        roi_classes = list()
-        filepath = value[0]
-        value[1] = list()
-        features = value[1]
-        bboxes = value[2]
-        img = cv2.imread(filepath)
-        bs = np.array(bboxes)
-        
-        scores, bs, fs = im_detect(net, img, False, bs)
-        value[2] = list()
-        bboxes = value[2]
-        for idx, feature in enumerate(fs):
-            feature = feature.flatten()
-            norm = np.linalg.norm(feature)
-            feature = feature / norm
-            features.append(feature)
-            s = scores[idx, 1:]
-            max_score_idx = s.argmax()
-            bboxes.append(bs[idx, 4*max_score_idx : 4*(max_score_idx + 1)])
-        i += 1
-        print str(i) + "/" + str(len(boxes))
 
 def classify(net, imdb, boxes):
     num_images = len(imdb.image_index)
@@ -523,7 +425,6 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
     for i in xrange(num_images):
         searchfilepath = imdb.image_path_at(i)
         searchfilename = searchfilepath.split('/')[-1]
-        _t['cd'].tic()
         search_features = all_search_features[searchfilename]
         search_bboxes = dets[searchfilename]
         bscores = boxscores[searchfilename]
@@ -560,11 +461,7 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
             boxesarray.append(np.copy(boxes))
 
         img_dets = None
-        _t['cd'].toc()
 
-        print 'calc distances: {:d}/{:d} {:.3f}s' \
-              .format(i + 1, num_images, _t['cd'].average_time)
-        _t['th'].tic()
         all_classes = np.array(())
         for j in xrange(1, imdb.num_classes):
             inds = np.where(scores[:, j] > thres)[0]
@@ -590,9 +487,6 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
         all_classes = all_classes[keep]
         img_dets = np.hstack((img_dets, all_classes[:, np.newaxis])) \
                     .astype(np.float32, copy=False)
-        _t['th'].toc()
-        print 'misc: {:d}/{:d} {:.3f}s' \
-              .format(i + 1, num_images, _t['th'].average_time)
         if visualize_logo_recognition:
             im = cv2.imread(searchfilepath)
             classArray = [imdb.classes[int(img_dets[l, 5])] for l in range(len(img_dets))]
@@ -601,6 +495,7 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
             cls_dets = img_dets[img_dets[:, 5] == j][:, :5]
             all_boxes[j][i] = cls_dets
 
+        # Calculating cumulated area
         '''im=Image.open(searchfilepath)
         width, height = im.size
         imagearea = width * height
@@ -736,13 +631,17 @@ if __name__ == '__main__':
     pprint.pprint(cfg)
 
 
-    caffe.set_mode_gpu()
     caffe.set_device(args.gpu_id)
+    caffe.set_mode_gpu()
+
     global scoresarray
     global boxesarray
     
     if SEARCHPATH == 'schalke':
-        search(args.fps, 0)
+        for i in range(0,10):
+            scoresarray = []
+            boxesarray = []
+            search(args.fps, 0)
     else:
         for i in range(0,10):
             scoresarray = []

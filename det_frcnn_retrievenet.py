@@ -29,124 +29,28 @@ from fast_rcnn.nms_wrapper import nms
 import cPickle
 import sys
 
-max_per_image = 0
-vis = False
+##### Parameters #####
+
+vis = True
 rpndet = False
 threshold = 0.75
-RESULTPATH = './results/'
-RESULTPOSTFIX = '.result2.txt'
 
 FRCNN = 'py_faster_rcnn'
 
-PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG_CNN_M_1024/test.prototxt')
-MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn_m_1024_faster_rcnn_detection_iter_80000.caffemodel')
-#MODEL = os.path.join(FRCNN, \
-#'output/final/allnet_det_srf_det_vgg_cnn_m_lowerlr/vgg_cnn_m_1024_faster_rcnn_detection_iter_39000.caffemodel')
-
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_siamtest/vgg_cnn_m_1024_faster_rcnn_allnet_sharedconv_iter_120000.caffemodel')
-
-
 PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
-# Master thesis detection model
+# Master Thesis Best Detector
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
 
-
-# Public detection model
-#MODEL = os.path.join(FRCNN, \
-#'output/final/publicNonFlickr_detection_vgg16/vgg16_faster_rcnn_detection_iter_20000.caffemodel')
-
-# Public + own
+# Paper Best Detector
 MODEL = os.path.join(FRCNN, \
-'output/final/publicNonFlickr_ownlogo_detection_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
+'output/final/publicNonFlickr_detection_vgg16_2/vgg16_faster_rcnn_detection_iter_10000.caffemodel')
 
-# Multiclass
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_48/test.prototxt')
-#MODEL = os.path.join(FRCNN, \
-#"output/final/publicNonFlickr_vgg16/vgg16_faster_rcnn_publiclogo_iter_50000.caffemodel")
+SEARCH = 'fl_detection_test_logo'
 
-#PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/conv3/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_detection_vgg16_wo_conv34/vgg16_faster_rcnn_detection_wo_conv3_4_iter_60000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo_detection/resnettest/test_agnostic.prototxt')
-#MODEL = os.path.join(FRCNN, 'resnet50_rfcn_iter_1000.caffemodel')#'output/final/allnet_detector_resnet50_gen/resnet50_faster_rcnn_detection_iter_22000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_simple_fl/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/fl_train_val_baseline_vgg16/vgg16_faster_rcnn_fl_iter_60000.caffemodel')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_80000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_simple/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_vgg_cnn_m_single_all_for_fl_test/vgg_cnn_m_1024_faster_rcnn_allnet_simple_iter_120000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/simple_fl/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/fl_vgg_cnn_m/vgg_cnn_m_1024_faster_rcnn_simple_fl_iter_80000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG_CNN_M_1024/faster_rcnn_end2end/allnet_sharedconv/test.prototxt')
-
-
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/alllogo_simple_vgg16/vgg16_faster_rcnn_alllogo_iter_120000.caffemodel')
-
-#PROTO = os.path.join(FRCNN, 'models/logo/VGG16_219_sharedconv/test.prototxt')
-#MODEL = os.path.join(FRCNN, 'output/final/alllogo_vgg16_sharedconv/vgg16_faster_rcnn_alllogo_sharedconv_iter_30000.caffemodel')
-
-#SEARCHPATH = '/home/andras/data/datasets/fussi'
-#SEARCH = 'srf_ski_good_logo'
-#SEARCH = 'schalke_det'
-#SEARCH = '/home/andras/footballtest'
-SEARCH = 'fl_detection_test'
+# Custom dataset: only for bounding box printing
 customdataset = False
 
-def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
-    im = im[:, :, (2, 1, 0)]
-    fig, ax = plt.subplots(figsize=(12, 12))
-    ax.imshow(im, aspect='equal')
-    for i in range(len(bboxArray)):
-        bbox = bboxArray[i][4:8]
-        score = scoreArray[i]
-        class_name = classArray[i]
-        ax.add_patch(
-            plt.Rectangle((bbox[0], bbox[1]),
-                          bbox[2] - bbox[0],
-                          bbox[3] - bbox[1], fill=False,
-                          edgecolor='red', linewidth=3.5)
-            )
-        ax.text(bbox[0], bbox[1] - 2,
-                '{:s} {:.3f}'.format(str(class_name), score),
-                bbox=dict(facecolor='blue', alpha=0.5),
-                fontsize=14, color='white')
-
-    #ax.set_title(('Detections with '
-    #              'p(obj | box) >= {:.1f}').format(logo_threshold),
-    #              fontsize=14)
-    plt.axis('off')
-    plt.tight_layout()
-    plt.draw()
-    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
-    plt.close()
-
-def vis_detections(im, class_name, dets, thresh=0.3, imagename='im'):
-    """Visual debugging of detections."""
-    import matplotlib.pyplot as plt
-    im = im[:, :, (2, 1, 0)]
-    for i in xrange(np.minimum(10, dets.shape[0])):
-        bbox = dets[i, :4]
-        score = dets[i, -1]
-        if score > thresh:
-            print i
-            plt.cla()
-            plt.imshow(im)
-            plt.gca().add_patch(
-                plt.Rectangle((bbox[0], bbox[1]),
-                              bbox[2] - bbox[0],
-                              bbox[3] - bbox[1], fill=False,
-                              edgecolor='g', linewidth=3)
-                )
-    plt.axis('off')   
-    plt.tight_layout()
-    plt.draw()
-    plt.savefig('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
-    plt.close()
+#####################
 
 def draw_boxes(img, dets, imagename):
     if dets.shape[0] == 0:
@@ -159,7 +63,7 @@ def draw_boxes(img, dets, imagename):
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
         cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),6)
-    cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
+    cv2.imwrite('/home/atuezkoe/github/LogoRetrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
 
 def parse_args():
     """
@@ -206,8 +110,6 @@ def search(net, score_list, box_list):
     else:
         imdb = get_imdb(SEARCH)
 
-    #imdb.competition_mode(args.comp_mode)
-
     num_images = len(imdb.image_index)
     # all detections are collected into:
     #    all_boxes[cls][image] = N x 5 array of detections in
@@ -251,18 +153,8 @@ def search(net, score_list, box_list):
             cls_dets = cls_dets[keep, :]
             if vis:
                 draw_boxes(im, cls_dets, imagepath.split('/')[-1].split('.')[0])
-                #vis_detections(im, imdb.classes[j], cls_dets, 0.3, imagepath.split('/')[-1].split('.')[0])
             all_boxes[j][i] = cls_dets
 
-        # Limit to max_per_image detections *over all classes*
-        if max_per_image > 0:
-            image_scores = np.hstack([all_boxes[j][i][:, -1]
-                                      for j in xrange(1, imdb.num_classes)])
-            if len(image_scores) > max_per_image:
-                image_thresh = np.sort(image_scores)[-max_per_image]
-                for j in xrange(1, imdb.num_classes):
-                    keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
-                    all_boxes[j][i] = all_boxes[j][i][keep, :]
         _t['misc'].toc()
 
 
@@ -322,9 +214,9 @@ if __name__ == '__main__':
     if customdataset:
         search(net, score_list, box_list)
     else:
-        with open('vgg_pub_own_' + dettext + '_' + SEARCH + '_results.txt', 'w') as f:
+        with open('vgg_pub_' + dettext + '_' + SEARCH + '_results.txt', 'w') as f:
             for t in np.arange(0.99, 0.009, -0.01):
-                threshold = t #threshold
+                threshold = t
                 rec, prec, map, tp, fp, num_images = search(net, score_list, box_list)
                 f.write(str(threshold) + '\t' + str(fp/float(num_images)) + '\t' + str(rec[-1]) + '\t' + str(map) + '\n')
         
