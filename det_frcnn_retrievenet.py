@@ -30,9 +30,9 @@ import cPickle
 import sys
 
 max_per_image = 0
-vis = False
+vis = True
 rpndet = False
-threshold = 0.75
+threshold = 0.1
 RESULTPATH = './results/'
 RESULTPOSTFIX = '.result2.txt'
 
@@ -49,7 +49,7 @@ MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg_cnn_m_1024/vgg_cnn
 PROTO = os.path.join(FRCNN, 'models/logo_detection/VGG16/test.prototxt')
 #MODEL = os.path.join(FRCNN, 'output/final/allnet_detector_vgg16/vgg16_faster_rcnn_detection_iter_30000.caffemodel')
 # Master thesis detection model
-#MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
+MODEL = os.path.join(FRCNN, 'output/final/allnet_srf_det_cl_reducedlr/vgg16_faster_rcnn_detection_iter_4000.caffemodel')
 
 
 # Public detection model
@@ -95,7 +95,8 @@ MODEL = os.path.join(FRCNN, \
 #SEARCH = 'schalke_det'
 #SEARCH = '/home/andras/footballtest'
 SEARCH = 'fl_detection_test'
-customdataset = False
+SEARCH='/home/andras/example'
+customdataset = True
 
 def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     im = im[:, :, (2, 1, 0)]
