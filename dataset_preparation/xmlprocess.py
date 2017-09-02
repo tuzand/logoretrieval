@@ -8,13 +8,13 @@ import cv2
 path = '/home/atuezkoe/data/datasets/LogoDataset_wo_fl32'
 ext = '.jpg'
 dstext = '.jpg'
-postfix = ''
+postfix = '_det'
 
 skip_occluded = True
 
 fuse_occluded = True
 
-outpath = os.path.join(path, '..', 'logodata', 'data')
+outpath = os.path.join(path, '..', 'logodata_det', 'data')
 
 annotationspath = os.path.join(outpath, 'Annotations')
 imagespath = os.path.join(outpath, 'Images')
@@ -55,6 +55,7 @@ for r, subdirs, files in os.walk(path):
             i = 0
             for obj in root.findall('object'):
                 brand = obj.find('name').text.encode('utf-8').lower()
+                brand = 'logo'
                 if brand == u"ströker":
                     brand = "stroeker"
 

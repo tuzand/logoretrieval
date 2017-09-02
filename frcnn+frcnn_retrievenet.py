@@ -38,13 +38,10 @@ from skimage.transform import rescale, resize, downscale_local_mean
 max_per_image = 0
 logo_threshold = 0.1
 similarity_threshold = 0.7
-RESULTPATH = './results/'
-RESULTPOSTFIX = '.result2.txt'
 
 recognition_score = True
 cosinesimilarity = True
 
-detectionpathexists = False
 
 #VGG_CNN_M & VGG16
 #featurelayer = 'fc7'
@@ -61,7 +58,7 @@ featurelayer = 'fc1000'
 # eigenT
 #featurelayer = 'feat'
 
-visualize_logo_detection = False
+visualize_logo_detection = True
 visualize_logo_recognition = False
 np.set_printoptions(threshold=np.nan)
 
@@ -232,18 +229,6 @@ def write_bboxes(im, imagename, bboxArray, scoreArray, classArray):
     plt.savefig('/home/atuezkoe/github/LogoRetrieval/resultimages/' + imagename.split('.')[0] + '.jpg')
     plt.close()
 
-def draw_boxes(im, dets, imagename):
-    if dets.shape[0] == 0:
-        return
-    for i in xrange(dets.shape[0]):
-        bbox = dets[i, :4]
-        x = int(bbox[0])
-        y = int(bbox[1])
-        w = int(bbox[2]) - x
-        h = int(bbox[3]) - y
-        cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),2)
-    cv2.imwrite('/home/andras/github/logoretrieval/resultimages/' + imagename.split('.')[0] + '.jpg', im)
-
 def detect_net(net, imdb, onlymax, max_per_image=100):
     if not net:
         net = caffe.Net(PROPOSALPROTO, PROPOSALMODEL, caffe.TEST)
@@ -263,8 +248,7 @@ def detect_net(net, imdb, onlymax, max_per_image=100):
         imagename = imagepath.split('/')[-1]
         im = cv2.imread(imagepath)
         _t['im_detect'].tic()
-        #scores, boxes, features, scores_det, boxes_det = im_detect(net, im, None, detectionpathexists)
-        scores, boxes = im_detect_det(net, im, False, None) #detectionpathexists)
+        scores, boxes = im_detect_det(net, im, False, None)
 
         _t['misc'].tic()
         logo_inds = list()
@@ -352,7 +336,6 @@ def cls_net(imdb, faster = False, onlymax = False, rpndetection = False, max_per
                 logo_inds = np.where(scores_det[:, k] > logo_threshold)[0]
             boxes = boxes[logo_inds, :]
             allscores[imagename] = scores_det[logo_inds, k]
-            #draw_boxes(im, boxes, imagepath.split('/')[-1].split('.')[0])
             detections[imagename] = boxes
 
 
@@ -375,14 +358,6 @@ def cls_net(imdb, faster = False, onlymax = False, rpndetection = False, max_per
                       _t['misc'].average_time)
 
     return normed_features, detections, allscores, net
-
-def get_features(net, args, dataset, custom, onlymax):
-    if custom:
-        imdb = get_custom_imdb(dataset)
-    else:
-        imdb = get_imdb(dataset)
-        imdb.competition_mode(args.comp_mode)
-    return test_net(net, imdb, onlymax, max_per_image=args.max_per_image), imdb
 
 def parse_args():
     """
@@ -420,33 +395,6 @@ def parse_args():
 
     args = parser.parse_args()
     return args
-
-def updateFeatures(net, boxes):
-    i = 0
-    for filename, value in boxes.items():
-        roi_bboxes = list()
-        roi_scores = list()
-        roi_classes = list()
-        filepath = value[0]
-        value[1] = list()
-        features = value[1]
-        bboxes = value[2]
-        img = cv2.imread(filepath)
-        bs = np.array(bboxes)
-        
-        scores, bs, fs = im_detect(net, img, False, bs)
-        value[2] = list()
-        bboxes = value[2]
-        for idx, feature in enumerate(fs):
-            feature = feature.flatten()
-            norm = np.linalg.norm(feature)
-            feature = feature / norm
-            features.append(feature)
-            s = scores[idx, 1:]
-            max_score_idx = s.argmax()
-            bboxes.append(bs[idx, 4*max_score_idx : 4*(max_score_idx + 1)])
-        i += 1
-        print str(i) + "/" + str(len(boxes))
 
 def classify(net, imdb, boxes):
     num_images = len(imdb.image_index)
@@ -591,6 +539,7 @@ def process(net, imdb, query_features, all_search_features, dets, boxscores, fps
             cls_dets = img_dets[img_dets[:, 5] == j][:, :5]
             all_boxes[j][i] = cls_dets
 
+        # Calculating cumulated area
         '''im=Image.open(searchfilepath)
         width, height = im.size
         imagearea = width * height
@@ -734,7 +683,10 @@ if __name__ == '__main__':
     global boxesarray
     
     if SEARCHPATH == 'schalke':
-        search(args.fps, 0)
+        for i in range(0,10):
+            scoresarray = []
+            boxesarray = []
+            search(args.fps, 0)
     else:
         for i in range(0,10):
             scoresarray = []

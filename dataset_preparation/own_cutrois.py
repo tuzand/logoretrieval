@@ -18,8 +18,13 @@ workingpath = '/home/atuezkoe/data/datasets'
 outdataset = 'public_litw_wo_fl32'
 datasets = ['BL/BL/data', 'FL27/FL27/data', 'toplogo/toplogo/data', 'logodata/data']
 
+fl32_intersection = ["adidas", "adidas-symbol", "apple", "becks", "becks-symbol", "bmw", "carlsberg", "coca-cola", 
+                     "corona", "dhl", "fedex", "ford", "google", "google+", "google-symbol", "heineken", "hp", 
+                     "milka", "nvidia", "pepsi", "pepsi-symbol", "shell", "starbucks", "starbucks-symbol", 
+                     "stellaartois"]
 
 
+print fl32_intersection
 outpath = os.path.join(workingpath, outdataset + '_logorois')
 if os.path.exists(outpath):
     shutil.rmtree(outpath)
@@ -31,7 +36,7 @@ for dataset in datasets:
     with open(os.path.join(workingpath, dataset, 'brands.txt'), 'r') as f:
         brandlist = f.read().splitlines()
     for b in brandlist:
-        if b == "":
+        if b == "" or b in fl32_intersection:
             continue
         brands.append(b)
 
@@ -67,6 +72,8 @@ def extract(path):
 
                 brand = brand.replace(".", "")
                 brand = brand.replace(" ", "")
+                if brand in fl32_intersection:
+                    continue
 
                 x1 = int(line[0])
                 y1 = int(line[1])
